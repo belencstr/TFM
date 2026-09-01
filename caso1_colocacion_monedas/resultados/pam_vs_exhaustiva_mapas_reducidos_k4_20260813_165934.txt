@@ -1,0 +1,184 @@
+============================================================================
+REGISTRO — PAM VS BÚSQUEDA EXHAUSTIVA
+============================================================================
+Fecha y hora: 2026-08-13 16:59:34
+Problema: k-medoids / p-median
+Algoritmo clásico: PAM (BUILD + SWAP)
+Referencia exacta: enumeración exhaustiva
+k: 4
+
+============================================================================
+CASO 1 — MAPA REDUCIDO A
+============================================================================
+Dimensiones: 8 x 8
+Candidatas: 34
+Nodos navegables: 36
+Aristas: 60
+Grafo conexo: True
+k: 4
+Distancia: navegable (camino mínimo en el grafo)
+
+PAM (BUILD + SWAP)
+  C007 -> (fila=2, columna=2)
+  C022 -> (fila=4, columna=5)
+  C025 -> (fila=5, columna=2)
+  C004 -> (fila=1, columna=5)
+Coste total: 46
+Distancia media a la moneda más cercana: 1.3529
+Radio de cobertura: 3
+Separación mínima: 3
+Tiempo: 0.005643 s
+Mapa resultante (o = moneda):
+########
+#S...o.#
+#.o....#
+#......#
+#....o.#
+#.o....#
+#.....E#
+########
+
+BÚSQUEDA EXHAUSTIVA — ÓPTIMO GLOBAL
+  C007 -> (fila=2, columna=2)
+  C010 -> (fila=2, columna=5)
+  C025 -> (fila=5, columna=2)
+  C028 -> (fila=5, columna=5)
+Coste óptimo: 44
+Combinaciones evaluadas: 46376
+Tiempo: 0.679260 s
+Mapa óptimo (o = moneda):
+########
+#S.....#
+#.o..o.#
+#......#
+#......#
+#.o..o.#
+#.....E#
+########
+
+COMPARACIÓN
+Gap absoluto PAM: 2
+Gap porcentual PAM: 4.55%
+PAM alcanza el óptimo: False
+
+============================================================================
+CASO 1 — MAPA REDUCIDO B
+============================================================================
+Dimensiones: 8 x 8
+Candidatas: 28
+Nodos navegables: 30
+Aristas: 39
+Grafo conexo: True
+k: 4
+Distancia: navegable (camino mínimo en el grafo)
+
+PAM (BUILD + SWAP)
+  C011 -> (fila=3, columna=2)
+  C019 -> (fila=4, columna=6)
+  C025 -> (fila=6, columna=2)
+  C004 -> (fila=1, columna=5)
+Coste total: 37
+Distancia media a la moneda más cercana: 1.3214
+Radio de cobertura: 3
+Separación mínima: 4
+Tiempo: 0.001758 s
+Mapa resultante (o = moneda):
+########
+#S...o.#
+#..##..#
+#.o....#
+#.##..o#
+#...##.#
+#.o...E#
+########
+
+BÚSQUEDA EXHAUSTIVA — ÓPTIMO GLOBAL
+  C003 -> (fila=1, columna=4)
+  C010 -> (fila=3, columna=1)
+  C014 -> (fila=3, columna=5)
+  C026 -> (fila=6, columna=3)
+Coste óptimo: 37
+Combinaciones evaluadas: 20475
+Tiempo: 0.253516 s
+Mapa óptimo (o = moneda):
+########
+#S..o..#
+#..##..#
+#o...o.#
+#.##...#
+#...##.#
+#..o..E#
+########
+
+COMPARACIÓN
+Gap absoluto PAM: 0
+Gap porcentual PAM: 0.00%
+PAM alcanza el óptimo: True
+
+============================================================================
+CASO 1 — MAPA REDUCIDO C
+============================================================================
+Dimensiones: 9 x 9
+Candidatas: 31
+Nodos navegables: 33
+Aristas: 34
+Grafo conexo: True
+k: 4
+Distancia: navegable (camino mínimo en el grafo)
+
+PAM (BUILD + SWAP)
+  C018 -> (fila=5, columna=1)
+  C014 -> (fila=3, columna=7)
+  C002 -> (fila=1, columna=3)
+  C029 -> (fila=7, columna=4)
+Coste total: 50
+Distancia media a la moneda más cercana: 1.6129
+Radio de cobertura: 4
+Separación mínima: 5
+Tiempo: 0.001903 s
+Mapa resultante (o = moneda):
+#########
+#S.o....#
+###.###.#
+#...#..o#
+#.###.#.#
+#o....#.#
+#.#####.#
+#...o..E#
+#########
+
+BÚSQUEDA EXHAUSTIVA — ÓPTIMO GLOBAL
+  C002 -> (fila=1, columna=3)
+  C014 -> (fila=3, columna=7)
+  C018 -> (fila=5, columna=1)
+  C029 -> (fila=7, columna=4)
+Coste óptimo: 50
+Combinaciones evaluadas: 31465
+Tiempo: 0.416656 s
+Mapa óptimo (o = moneda):
+#########
+#S.o....#
+###.###.#
+#...#..o#
+#.###.#.#
+#o....#.#
+#.#####.#
+#...o..E#
+#########
+
+COMPARACIÓN
+Gap absoluto PAM: 0
+Gap porcentual PAM: 0.00%
+PAM alcanza el óptimo: True
+
+============================================================================================
+RESUMEN COMPARATIVO
+============================================================================================
+Mapa      Candidatas       PAM    Óptimo     Gap (%)     t PAM (s)    t exacto (s)
+A                 34        46        44        4.55      0.005643        0.679260
+B                 28        37        37        0.00      0.001758        0.253516
+C                 31        50        50        0.00      0.001903        0.416656
+
+============================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\pam_vs_exhaustiva_mapas_reducidos_k4_20260813_165934.txt
+============================================================================

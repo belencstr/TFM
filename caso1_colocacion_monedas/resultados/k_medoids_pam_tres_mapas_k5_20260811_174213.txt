@@ -1,0 +1,187 @@
+========================================================================
+REGISTRO DEL EXPERIMENTO
+========================================================================
+Fecha y hora: 2026-08-11 17:42:13
+Algoritmo: k-medoids PAM (BUILD + SWAP)
+k: 5
+Mapas evaluados: A, B y C
+
+========================================================================
+CASO 1 — K-MEDOIDS PAM — MAPA A
+========================================================================
+Dimensiones: 17 x 17
+Candidatas: 223
+Nodos navegables: 225
+Aristas: 420
+Grafo conexo: True
+k: 5
+Distancia: navegable (camino mínimo en el grafo)
+Objetivo: minimizar la suma de distancias a la moneda más cercana
+
+Medoides tras BUILD:
+  C112 -> (fila=8, columna=8)
+  C037 -> (fila=3, columna=8)
+  C187 -> (fila=13, columna=8)
+  C088 -> (fila=6, columna=14)
+  C106 -> (fila=8, columna=2)
+
+Monedas seleccionadas tras SWAP:
+  C161 -> (fila=11, columna=12)
+  C037 -> (fila=3, columna=8)
+  C184 -> (fila=13, columna=5)
+  C072 -> (fila=5, columna=13)
+  C077 -> (fila=6, columna=3)
+
+Coste tras BUILD: 806
+Coste total final: 740
+Distancia media a la moneda más cercana: 3.3184
+Radio de cobertura: 6
+Separación mínima: 7
+Separación media: 10.60
+Separación total: 106
+Intercambios SWAP realizados: 7
+Tiempo matriz de distancias: 0.0433 s
+Tiempo k-medoids PAM: 2.0520 s
+
+Mapa resultante (o = moneda):
+#################
+#S..............#
+#...............#
+#.......o.......#
+#...............#
+#............o..#
+#..o............#
+#...............#
+#...............#
+#...............#
+#...............#
+#...........o...#
+#...............#
+#....o..........#
+#...............#
+#..............E#
+#################
+
+========================================================================
+CASO 1 — K-MEDOIDS PAM — MAPA B
+========================================================================
+Dimensiones: 17 x 17
+Candidatas: 201
+Nodos navegables: 203
+Aristas: 357
+Grafo conexo: True
+k: 5
+Distancia: navegable (camino mínimo en el grafo)
+Objetivo: minimizar la suma de distancias a la moneda más cercana
+
+Medoides tras BUILD:
+  C122 -> (fila=10, columna=6)
+  C066 -> (fila=5, columna=13)
+  C044 -> (fila=4, columna=3)
+  C169 -> (fila=13, columna=12)
+  C161 -> (fila=13, columna=2)
+
+Monedas seleccionadas tras SWAP:
+  C085 -> (fila=7, columna=5)
+  C038 -> (fila=3, columna=12)
+  C017 -> (fila=2, columna=3)
+  C143 -> (fila=11, columna=12)
+  C163 -> (fila=13, columna=4)
+
+Coste tras BUILD: 687
+Coste total final: 656
+Distancia media a la moneda más cercana: 3.2637
+Radio de cobertura: 7
+Separación mínima: 7
+Separación media: 11.40
+Separación total: 114
+Intercambios SWAP realizados: 9
+Tiempo matriz de distancias: 0.0292 s
+Tiempo k-medoids PAM: 2.0007 s
+
+Mapa resultante (o = moneda):
+#################
+#S..............#
+#..o............#
+#....###....o...#
+#....###........#
+#...............#
+#.........###...#
+#....o....###...#
+#......###......#
+#......###......#
+#...............#
+#...........o...#
+#.......##......#
+#...o...##......#
+#...............#
+#..............E#
+#################
+
+========================================================================
+CASO 1 — K-MEDOIDS PAM — MAPA C
+========================================================================
+Dimensiones: 17 x 17
+Candidatas: 140
+Nodos navegables: 142
+Aristas: 162
+Grafo conexo: True
+k: 5
+Distancia: navegable (camino mínimo en el grafo)
+Objetivo: minimizar la suma de distancias a la moneda más cercana
+
+Medoides tras BUILD:
+  C084 -> (fila=9, columna=11)
+  C044 -> (fila=5, columna=5)
+  C093 -> (fila=11, columna=1)
+  C032 -> (fila=3, columna=11)
+  C125 -> (fila=14, columna=9)
+
+Monedas seleccionadas tras SWAP:
+  C088 -> (fila=9, columna=15)
+  C026 -> (fila=3, columna=4)
+  C075 -> (fila=9, columna=1)
+  C032 -> (fila=3, columna=11)
+  C118 -> (fila=13, columna=9)
+
+Coste tras BUILD: 584
+Coste total final: 546
+Distancia media a la moneda más cercana: 3.9000
+Radio de cobertura: 8
+Separación mínima: 10
+Separación media: 15.00
+Separación total: 150
+Intercambios SWAP realizados: 4
+Tiempo matriz de distancias: 0.0147 s
+Tiempo k-medoids PAM: 0.4832 s
+
+Mapa resultante (o = moneda):
+#################
+#S....#.........#
+#.....#..#####..#
+#...o.#....o....#
+#.###.#####.###.#
+#...#.......#...#
+###.#.#####.#.#.#
+#...#.....#...#.#
+#.#####.#.#####.#
+#o......#......o#
+#.###.#####.###.#
+#...#.......#...#
+#.#.#####.#.###.#
+#.#......o#.....#
+#.#######.#####.#
+#..............E#
+#################
+
+========================================================================================
+RESUMEN COMPARATIVO
+========================================================================================
+Mapa     Candidatas     Coste   Dist. media     Radio   Sep. mín.    Tiempo (s)
+A               223       740        3.3184         6           7        2.0520
+B               201       656        3.2637         7           7        2.0007
+C               140       546        3.9000         8          10        0.4832
+
+========================================================================
+Registro guardado en: c:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\k_medoids_pam_tres_mapas_k5_20260811_174213.txt
+========================================================================

@@ -1,0 +1,61 @@
+============================================================================
+VALIDACIÓN EXACTA DEL QUBO P-MEDIAN
+============================================================================
+Fecha y hora: 2026-08-14 18:44:15
+Número de candidatas: 3
+k: 2
+Instancia: tres posiciones en línea
+
+ÓPTIMO CLÁSICO
+Coste óptimo: 1
+Selecciones óptimas: [(0, 1), (0, 2), (1, 2)]
+
+QUBO
+A = 2.0
+B = 2.0
+C = 2.0
+Variables x: 3
+Variables y: 9
+Variables totales: 12
+Estados binarios a evaluar: 4096
+Términos lineales: 12
+Términos cuadráticos: 21
+
+MÍNIMO GLOBAL DEL QUBO
+Energía mínima: 1.0
+Estados evaluados: 4096
+Número de estados con energía mínima: 4
+Tiempo: 0.036878 s
+
+Solución QUBO mínima 1:
+  Medoides seleccionados: [1, 2]
+  Factible: True
+  Coste p-median: 1
+
+Solución QUBO mínima 2:
+  Medoides seleccionados: [0, 2]
+  Factible: True
+  Coste p-median: 1
+
+Solución QUBO mínima 3:
+  Medoides seleccionados: [0, 2]
+  Factible: True
+  Coste p-median: 1
+
+Solución QUBO mínima 4:
+  Medoides seleccionados: [0, 1]
+  Factible: True
+  Coste p-median: 1
+
+============================================================================
+RESULTADO DE LA VALIDACIÓN
+============================================================================
+Todos los mínimos QUBO son factibles: True
+Coste mínimo QUBO coincide con p-median: True
+
+VALIDACIÓN SUPERADA:
+El mínimo global del QUBO representa una solución factible y reproduce exactamente el óptimo del p-median.
+
+============================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\validacion_qubo_pmedian_k2_20260814_184415.txt
+============================================================================

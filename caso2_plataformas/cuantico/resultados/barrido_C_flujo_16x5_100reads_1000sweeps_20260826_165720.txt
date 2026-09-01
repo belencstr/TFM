@@ -1,0 +1,76 @@
+====================================================================================================
+CASO 2 — BARRIDO DEL PESO C DE CONSERVACIÓN DE FLUJO
+====================================================================================================
+Mapa: 16 x 5
+Variables QUBO = |E| = 882
+L*: 5
+Subidas objetivo: 2
+Bajadas objetivo: 2
+A=B=D=E=F=1
+C probados: [1.0, 2.0, 5.0, 10.0]
+num_reads=100, num_sweeps=1000, seed=20260826
+
+----------------------------------------------------------------------------------------------------
+Ejecutando C = 1.0 ...
+Energía mínima: 0.000000
+Factibilidad total: 3/100 (3.00%)
+  START: 97/100 (97.00%)
+  GOAL: 100/100 (100.00%)
+  Flujo: 14/100 (14.00%)
+  Longitud: 91/100 (91.00%)
+  Subidas: 99/100 (99.00%)
+  Bajadas: 99/100 (99.00%)
+  Factibles sin atajo: 0
+  Factibles con atajo: 3
+  Factibles no evaluables BFS: 0
+----------------------------------------------------------------------------------------------------
+Ejecutando C = 2.0 ...
+Energía mínima: 0.000000
+Factibilidad total: 7/100 (7.00%)
+  START: 93/100 (93.00%)
+  GOAL: 90/100 (90.00%)
+  Flujo: 72/100 (72.00%)
+  Longitud: 38/100 (38.00%)
+  Subidas: 87/100 (87.00%)
+  Bajadas: 76/100 (76.00%)
+  Factibles sin atajo: 0
+  Factibles con atajo: 7
+  Factibles no evaluables BFS: 0
+----------------------------------------------------------------------------------------------------
+Ejecutando C = 5.0 ...
+Energía mínima: 0.000000
+Factibilidad total: 8/100 (8.00%)
+  START: 88/100 (88.00%)
+  GOAL: 89/100 (89.00%)
+  Flujo: 99/100 (99.00%)
+  Longitud: 21/100 (21.00%)
+  Subidas: 65/100 (65.00%)
+  Bajadas: 62/100 (62.00%)
+  Factibles sin atajo: 0
+  Factibles con atajo: 8
+  Factibles no evaluables BFS: 0
+----------------------------------------------------------------------------------------------------
+Ejecutando C = 10.0 ...
+Energía mínima: 0.000000
+Factibilidad total: 1/100 (1.00%)
+  START: 34/100 (34.00%)
+  GOAL: 34/100 (34.00%)
+  Flujo: 100/100 (100.00%)
+  Longitud: 5/100 (5.00%)
+  Subidas: 56/100 (56.00%)
+  Bajadas: 66/100 (66.00%)
+  Factibles sin atajo: 0
+  Factibles con atajo: 1
+  Factibles no evaluables BFS: 0
+
+====================================================================================================
+RESUMEN COMPARATIVO
+====================================================================================================
+     C |   Fact.% |   START |    GOAL |   Flujo |   Long. |    Sub. |    Baj. |  sin atajo |  con atajo
+-------------------------------------------------------------------------------------------------------
+   1.0 |     3.00 |   97.00 |  100.00 |   14.00 |   91.00 |   99.00 |   99.00 |          0 |          3
+   2.0 |     7.00 |   93.00 |   90.00 |   72.00 |   38.00 |   87.00 |   76.00 |          0 |          7
+   5.0 |     8.00 |   88.00 |   89.00 |   99.00 |   21.00 |   65.00 |   62.00 |          0 |          8
+  10.0 |     1.00 |   34.00 |   34.00 |  100.00 |    5.00 |   56.00 |   66.00 |          0 |          1
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\barrido_C_flujo_16x5_100reads_1000sweeps_20260826_165720.txt

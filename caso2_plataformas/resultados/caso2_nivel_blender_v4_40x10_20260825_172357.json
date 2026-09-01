@@ -1,0 +1,266 @@
+{
+  "caso": "Caso 2 - Plataformas",
+  "version": "CP-SAT v4",
+  "escenario": {
+    "ancho": 40,
+    "alto": 10
+  },
+  "start": {
+    "x": 0,
+    "y": 4
+  },
+  "goal": {
+    "x": 39,
+    "y": 4
+  },
+  "ancho_plataforma": 2,
+  "fisica": {
+    "hueco_min": 1,
+    "hueco_max": 4,
+    "subida_max": 2,
+    "caida_max": 3
+  },
+  "plataformas": [
+    {
+      "x": 2,
+      "y": 5
+    },
+    {
+      "x": 6,
+      "y": 5
+    },
+    {
+      "x": 9,
+      "y": 5
+    },
+    {
+      "x": 13,
+      "y": 4
+    },
+    {
+      "x": 16,
+      "y": 4
+    },
+    {
+      "x": 21,
+      "y": 5
+    },
+    {
+      "x": 25,
+      "y": 5
+    },
+    {
+      "x": 29,
+      "y": 5
+    },
+    {
+      "x": 32,
+      "y": 4
+    },
+    {
+      "x": 36,
+      "y": 4
+    }
+  ],
+  "ruta": [
+    {
+      "x": 0,
+      "y": 4
+    },
+    {
+      "x": 2,
+      "y": 5
+    },
+    {
+      "x": 6,
+      "y": 5
+    },
+    {
+      "x": 9,
+      "y": 5
+    },
+    {
+      "x": 13,
+      "y": 4
+    },
+    {
+      "x": 16,
+      "y": 4
+    },
+    {
+      "x": 21,
+      "y": 5
+    },
+    {
+      "x": 25,
+      "y": 5
+    },
+    {
+      "x": 29,
+      "y": 5
+    },
+    {
+      "x": 32,
+      "y": 4
+    },
+    {
+      "x": 36,
+      "y": 4
+    },
+    {
+      "x": 39,
+      "y": 4
+    }
+  ],
+  "saltos": [
+    {
+      "origen": {
+        "x": 0,
+        "y": 4
+      },
+      "destino": {
+        "x": 2,
+        "y": 5
+      },
+      "hueco_tiles": 1,
+      "delta_y": 1
+    },
+    {
+      "origen": {
+        "x": 2,
+        "y": 5
+      },
+      "destino": {
+        "x": 6,
+        "y": 5
+      },
+      "hueco_tiles": 2,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 6,
+        "y": 5
+      },
+      "destino": {
+        "x": 9,
+        "y": 5
+      },
+      "hueco_tiles": 1,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 9,
+        "y": 5
+      },
+      "destino": {
+        "x": 13,
+        "y": 4
+      },
+      "hueco_tiles": 2,
+      "delta_y": -1
+    },
+    {
+      "origen": {
+        "x": 13,
+        "y": 4
+      },
+      "destino": {
+        "x": 16,
+        "y": 4
+      },
+      "hueco_tiles": 1,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 16,
+        "y": 4
+      },
+      "destino": {
+        "x": 21,
+        "y": 5
+      },
+      "hueco_tiles": 3,
+      "delta_y": 1
+    },
+    {
+      "origen": {
+        "x": 21,
+        "y": 5
+      },
+      "destino": {
+        "x": 25,
+        "y": 5
+      },
+      "hueco_tiles": 2,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 25,
+        "y": 5
+      },
+      "destino": {
+        "x": 29,
+        "y": 5
+      },
+      "hueco_tiles": 2,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 29,
+        "y": 5
+      },
+      "destino": {
+        "x": 32,
+        "y": 4
+      },
+      "hueco_tiles": 1,
+      "delta_y": -1
+    },
+    {
+      "origen": {
+        "x": 32,
+        "y": 4
+      },
+      "destino": {
+        "x": 36,
+        "y": 4
+      },
+      "hueco_tiles": 2,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 36,
+        "y": 4
+      },
+      "destino": {
+        "x": 39,
+        "y": 4
+      },
+      "hueco_tiles": 1,
+      "delta_y": 0
+    }
+  ],
+  "metricas": {
+    "estado": "OPTIMAL",
+    "tiempo_s": 6.444888000000001,
+    "saltos": 11,
+    "plataformas_intermedias": 10,
+    "subidas": 2,
+    "bajadas": 2,
+    "planos": 7,
+    "variacion_vertical": 4
+  },
+  "parametros": {
+    "min_saltos": 11,
+    "max_saltos": 14,
+    "min_subidas": 2,
+    "min_bajadas": 2,
+    "seed": 20260825
+  }
+}

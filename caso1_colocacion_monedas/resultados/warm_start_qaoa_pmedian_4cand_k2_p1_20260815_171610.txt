@@ -1,0 +1,49 @@
+========================================================================================
+CASO 1 — WARM-START QAOA SOBRE INSTANCIA MÍNIMA
+========================================================================================
+Fecha y hora: 2026-08-15 17:16:47
+Dimensiones: 4 x 5
+Candidatas: 4 | k: 2
+Nodos: 6 | Aristas: 7 | Conexo: True
+
+REFERENCIA CLÁSICA
+PAM: 2
+Óptimo exhaustivo: 2
+
+QUBO / ISING
+A = B = C = 3.0
+Variables QUBO / qubits: 20
+Términos cuadráticos: 46
+Términos de Pauli: 66
+Offset Ising: 49.000000
+
+PRE-SOLVER — RELAJACIÓN CONTINUA
+Método: SLSQP
+Tiempo: 0.0164 s
+Objetivo relajado: 6.000000
+Valores relajados:
+  x_0      = 1.000000
+  x_1      = 0.000000
+  x_2      = 0.000000
+  x_3      = 1.000000
+  y_0_0    = 1.000000
+  y_0_1    = 0.000000
+  y_0_2    = 0.000000
+  y_0_3    = 0.000000
+  y_1_0    = 0.000000
+  y_1_1    = 1.000000
+  y_1_2    = 0.000000
+  y_1_3    = 0.000000
+  y_2_0    = 0.000000
+  y_2_1    = 0.000000
+  y_2_2    = 1.000000
+  y_2_3    = 0.000000
+  y_3_0    = 0.000000
+  y_3_1    = 0.000000
+  y_3_2    = 0.000000
+  y_3_3    = 1.000000
+
+WARM-START QAOA
+p: 1 | COBYLA maxiter: 30 | shots: 2048 | seed: 20260814
+epsilon: 0.25
+

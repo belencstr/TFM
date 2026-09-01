@@ -1,0 +1,126 @@
+{
+  "caso": "Caso 2 - Plataformas",
+  "version": "CP-SAT v3",
+  "escenario": {
+    "ancho": 40,
+    "alto": 10
+  },
+  "start": {
+    "x": 0,
+    "y": 4
+  },
+  "goal": {
+    "x": 39,
+    "y": 4
+  },
+  "ancho_plataforma": 2,
+  "plataformas": [
+    {
+      "x": 2,
+      "y": 5
+    },
+    {
+      "x": 5,
+      "y": 5
+    },
+    {
+      "x": 10,
+      "y": 5
+    },
+    {
+      "x": 14,
+      "y": 6
+    },
+    {
+      "x": 16,
+      "y": 6
+    },
+    {
+      "x": 20,
+      "y": 6
+    },
+    {
+      "x": 23,
+      "y": 5
+    },
+    {
+      "x": 28,
+      "y": 5
+    },
+    {
+      "x": 33,
+      "y": 5
+    },
+    {
+      "x": 37,
+      "y": 4
+    }
+  ],
+  "ruta": [
+    {
+      "x": 0,
+      "y": 4
+    },
+    {
+      "x": 2,
+      "y": 5
+    },
+    {
+      "x": 5,
+      "y": 5
+    },
+    {
+      "x": 10,
+      "y": 5
+    },
+    {
+      "x": 14,
+      "y": 6
+    },
+    {
+      "x": 16,
+      "y": 6
+    },
+    {
+      "x": 20,
+      "y": 6
+    },
+    {
+      "x": 23,
+      "y": 5
+    },
+    {
+      "x": 28,
+      "y": 5
+    },
+    {
+      "x": 33,
+      "y": 5
+    },
+    {
+      "x": 37,
+      "y": 4
+    },
+    {
+      "x": 39,
+      "y": 4
+    }
+  ],
+  "metricas": {
+    "estado": "OPTIMAL",
+    "tiempo_s": 12.6877001,
+    "saltos": 11,
+    "plataformas_intermedias": 10,
+    "subidas": 2,
+    "bajadas": 2,
+    "planos": 7,
+    "variacion_vertical": 4
+  },
+  "parametros": {
+    "min_saltos": 11,
+    "max_saltos": 14,
+    "min_subidas": 2,
+    "min_bajadas": 2,
+    "seed": 20260824
+  }
+}

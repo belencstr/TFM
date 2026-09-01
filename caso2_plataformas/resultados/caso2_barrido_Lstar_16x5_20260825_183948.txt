@@ -1,0 +1,37 @@
+==================================================================================
+CASO 2 — BARRIDO CLÁSICO DE FACTIBILIDAD PARA QUBO
+==================================================================================
+Mapa reducido: 16 x 5
+START: (0, 2)
+GOAL: (15, 2)
+Ancho plataforma: 2
+Hueco permitido: 1 .. 4
+Subida máxima: 2
+Caída máxima: 3
+Candidatas: 73
+Variables QUBO previstas = |E| = 882
+
+----------------------------------------------------------------------------------
+L* = 4
+Estado: OPTIMAL
+Tiempo: 0.1062 s
+Factible: SÍ
+Planos: 0
+Ruta:
+(0, 2) -> (3, 1) -> (9, 2) -> (12, 4) -> (15, 2)
+----------------------------------------------------------------------------------
+L* = 5
+Estado: OPTIMAL
+Tiempo: 0.1516 s
+Factible: SÍ
+Planos: 1
+Ruta:
+(0, 2) -> (2, 0) -> (6, 2) -> (9, 4) -> (12, 4) -> (15, 2)
+----------------------------------------------------------------------------------
+L* = 6
+Estado: INFEASIBLE
+Tiempo: 0.2210 s
+Factible: NO
+----------------------------------------------------------------------------------
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\resultados\caso2_barrido_Lstar_16x5_20260825_183948.txt

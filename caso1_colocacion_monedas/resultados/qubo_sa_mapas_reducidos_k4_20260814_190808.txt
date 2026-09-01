@@ -1,0 +1,184 @@
+====================================================================================
+REGISTRO — QUBO P-MEDIAN + SIMULATED ANNEALING
+====================================================================================
+Fecha y hora: 2026-08-14 19:08:08
+Problema: k-medoids / p-median
+Solver QUBO: D-Wave SimulatedAnnealingSampler
+k: 4
+num_reads: 100
+num_sweeps: 1000
+
+====================================================================================
+CASO 1 — QUBO + SIMULATED ANNEALING — MAPA A
+====================================================================================
+Dimensiones: 8 x 8
+Candidatas: 34
+k: 4
+Distancia: navegable
+
+REFERENCIA CLÁSICA
+PAM: 46  | tiempo: 0.011493 s
+Óptimo exacto: 44  | tiempo: 1.469668 s
+
+QUBO
+A = 47.0
+B = 47.0
+C = 47.0
+Variables x: 34
+Variables y: 1156
+Variables totales: 1190
+Términos cuadráticos: 20791
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 12345
+Tiempo SA: 14.450040 s
+Lecturas factibles: 6/100
+Tasa de factibilidad: 6.00%
+
+MEJOR ENERGÍA ENCONTRADA
+Energía QUBO: 93.000000
+Factible: True
+Número de monedas x=1: 4
+Coste p-median: 93
+
+MEJOR SOLUCIÓN FACTIBLE
+Coste p-median: 93
+Gap respecto al óptimo: 111.36%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C009 -> (fila=2, columna=4)
+  C013 -> (fila=3, columna=2)
+  C019 -> (fila=4, columna=2)
+  C026 -> (fila=5, columna=3)
+Mapa resultante (o = moneda):
+########
+#S.....#
+#...o..#
+#.o....#
+#.o....#
+#..o...#
+#.....E#
+########
+
+====================================================================================
+CASO 1 — QUBO + SIMULATED ANNEALING — MAPA B
+====================================================================================
+Dimensiones: 8 x 8
+Candidatas: 28
+k: 4
+Distancia: navegable
+
+REFERENCIA CLÁSICA
+PAM: 37  | tiempo: 0.004350 s
+Óptimo exacto: 37  | tiempo: 0.477234 s
+
+QUBO
+A = 38.0
+B = 38.0
+C = 38.0
+Variables x: 28
+Variables y: 784
+Variables totales: 812
+Términos cuadráticos: 11746
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 12346
+Tiempo SA: 2.683208 s
+Lecturas factibles: 14/100
+Tasa de factibilidad: 14.00%
+
+MEJOR ENERGÍA ENCONTRADA
+Energía QUBO: 98.000000
+Factible: True
+Número de monedas x=1: 4
+Coste p-median: 98
+
+MEJOR SOLUCIÓN FACTIBLE
+Coste p-median: 98
+Gap respecto al óptimo: 164.86%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C010 -> (fila=3, columna=1)
+  C012 -> (fila=3, columna=3)
+  C015 -> (fila=3, columna=6)
+  C021 -> (fila=5, columna=2)
+Mapa resultante (o = moneda):
+########
+#S.....#
+#..##..#
+#o.o..o#
+#.##...#
+#.o.##.#
+#.....E#
+########
+
+====================================================================================
+CASO 1 — QUBO + SIMULATED ANNEALING — MAPA C
+====================================================================================
+Dimensiones: 9 x 9
+Candidatas: 31
+k: 4
+Distancia: navegable
+
+REFERENCIA CLÁSICA
+PAM: 50  | tiempo: 0.004744 s
+Óptimo exacto: 50  | tiempo: 0.845914 s
+
+QUBO
+A = 51.0
+B = 51.0
+C = 51.0
+Variables x: 31
+Variables y: 961
+Variables totales: 992
+Términos cuadráticos: 15841
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 12347
+Tiempo SA: 3.648551 s
+Lecturas factibles: 6/100
+Tasa de factibilidad: 6.00%
+
+MEJOR ENERGÍA ENCONTRADA
+Energía QUBO: 150.000000
+Factible: True
+Número de monedas x=1: 4
+Coste p-median: -106
+
+MEJOR SOLUCIÓN FACTIBLE
+Coste p-median: -106
+Gap respecto al óptimo: 200.00%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C009 -> (fila=3, columna=1)
+  C017 -> (fila=4, columna=7)
+  C018 -> (fila=5, columna=1)
+  C027 -> (fila=7, columna=2)
+Mapa resultante (o = moneda):
+#########
+#S......#
+###.###.#
+#o..#...#
+#.###.#o#
+#o....#.#
+#.#####.#
+#.o....E#
+#########
+
+========================================================================================================
+RESUMEN COMPARATIVO
+========================================================================================================
+Mapa      Cand.   Vars QUBO     PAM    Óptimo        SA     Gap (%)   Fact. (%)    t SA (s)
+A            34        1190      46        44        93      111.36        6.00     14.4500
+B            28         812      37        37        98      164.86       14.00      2.6832
+C            31         992      50        50      -106      200.00        6.00      3.6486
+
+====================================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\qubo_sa_mapas_reducidos_k4_20260814_190808.txt
+====================================================================================

@@ -1,0 +1,45 @@
+====================================================================================================
+CASO 2 — COMPARACIÓN CP-SAT vs QUBO EQUIVALENTE
+====================================================================================================
+
+INSTANCIA DE PRUEBA
+Mapa: 18 x 5
+L clásico: [4, 5]
+Mínimo subidas: 2
+Mínimo bajadas: 2
+
+MODELO CLÁSICO CP-SAT
+Estado: OPTIMAL
+Tiempo: 0.5511 s
+Saltos: 5
+Subidas: 2
+Bajadas: 2
+Planos: 1
+Objetivo vertical: 4
+Ruta:
+(0, 2) -> (2, 2) -> (7, 3) -> (10, 2) -> (14, 1) -> (17, 2)
+
+QUBO EQUIVALENTE
+P = 16.0
+Cota objetivo = 15
+Variables z: 1050
+Variables u: 85
+Slack longitud: 1
+Slack subidas: 2
+Slack bajadas: 2
+Triples planos: 1132
+Auxiliares triples: 2264
+Auxiliares antiatajo: 2100
+Variables QUBO totales: 5504
+Términos QUBO no nulos: 576333
+
+COMPROBACIÓN DE EQUIVALENCIA
+Objetivo clásico: 4
+Energía QUBO total: 4.0
+Penalización total: 0.0
+Penalizaciones satisfechas: True
+Energía QUBO = objetivo clásico: True
+
+VALIDACIÓN SUPERADA
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\comparacion_clasico_qubo_equivalente_18x5_20260901_174435.txt

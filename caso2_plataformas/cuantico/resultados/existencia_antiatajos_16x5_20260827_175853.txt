@@ -1,0 +1,14 @@
+========================================================================================
+CASO 2 — EXISTENCIA DE SOLUCION 16x5 CON ANTIATAJOS
+========================================================================================
+Mapa: 16 x 5
+Variables/aristas potenciales: 882
+L objetivo: 5
+Subidas exactas: 2
+Bajadas exactas: 2
+
+Estado CP-SAT: INFEASIBLE
+Tiempo: 0.2916 s
+Existe solucion sin atajos: NO
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\existencia_antiatajos_16x5_20260827_175853.txt

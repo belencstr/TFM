@@ -1,0 +1,246 @@
+========================================================================================
+REGISTRO — QUBO P-MEDIAN + SIMULATED ANNEALING — V2
+========================================================================================
+Fecha y hora: 2026-08-14 19:17:53
+Problema: k-medoids / p-median
+Solver QUBO: D-Wave SimulatedAnnealingSampler
+Versión: 2
+Corrección principal: cálculo seguro del coste para evitar overflow
+k: 4
+num_reads: 100
+num_sweeps: 1000
+
+========================================================================================
+CASO 1 — QUBO + SIMULATED ANNEALING V2 — MAPA A
+========================================================================================
+Dimensiones: 8 x 8
+Candidatas: 34
+k: 4
+Distancia: navegable
+
+DIAGNÓSTICO DE LA MATRIZ
+Tipo de un elemento: int
+Distancia mínima: 0.0
+Distancia máxima: 10.0
+Todas las distancias son no negativas: True
+
+REFERENCIA CLÁSICA
+PAM: 46  | tiempo: 0.012876 s
+Óptimo exacto: 44  | tiempo: 1.449941 s
+
+QUBO
+A = 47.0
+B = 47.0
+C = 47.0
+Variables x: 34
+Variables y: 1156
+Variables totales: 1190
+Términos cuadráticos: 20791
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 12345
+Tiempo SA: 5.220796 s
+Lecturas factibles: 6/100
+Tasa de factibilidad: 6.00%
+
+COMPROBACIONES INTERNAS
+Lecturas no binarias: 0
+Lecturas con discrepancia energía sampler/recalculada: 0
+Lecturas factibles con energía != coste p-median: 0
+
+MEJOR ENERGÍA ENCONTRADA
+Energía informada por sampler: 93.000000
+Energía recalculada: 93.000000
+Diferencia absoluta: 0.000000000000
+Energía coherente: True
+Factible: True
+Número de monedas x=1: 4
+Coste p-median seguro: 93
+Energía = coste para muestra factible: True
+
+MEJOR SOLUCIÓN FACTIBLE
+Energía QUBO: 93.000000
+Coste p-median seguro: 93
+Energía = coste p-median: True
+Gap respecto al óptimo: 111.36%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C009 -> (fila=2, columna=4)
+  C013 -> (fila=3, columna=2)
+  C019 -> (fila=4, columna=2)
+  C026 -> (fila=5, columna=3)
+Mapa resultante (o = moneda):
+########
+#S.....#
+#...o..#
+#.o....#
+#.o....#
+#..o...#
+#.....E#
+########
+
+ESTADO DE COHERENCIA DEL EXPERIMENTO
+Experimento internamente coherente: True
+
+========================================================================================
+CASO 1 — QUBO + SIMULATED ANNEALING V2 — MAPA B
+========================================================================================
+Dimensiones: 8 x 8
+Candidatas: 28
+k: 4
+Distancia: navegable
+
+DIAGNÓSTICO DE LA MATRIZ
+Tipo de un elemento: int
+Distancia mínima: 0.0
+Distancia máxima: 10.0
+Todas las distancias son no negativas: True
+
+REFERENCIA CLÁSICA
+PAM: 37  | tiempo: 0.006039 s
+Óptimo exacto: 37  | tiempo: 0.515215 s
+
+QUBO
+A = 38.0
+B = 38.0
+C = 38.0
+Variables x: 28
+Variables y: 784
+Variables totales: 812
+Términos cuadráticos: 11746
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 12346
+Tiempo SA: 2.604912 s
+Lecturas factibles: 14/100
+Tasa de factibilidad: 14.00%
+
+COMPROBACIONES INTERNAS
+Lecturas no binarias: 0
+Lecturas con discrepancia energía sampler/recalculada: 0
+Lecturas factibles con energía != coste p-median: 0
+
+MEJOR ENERGÍA ENCONTRADA
+Energía informada por sampler: 98.000000
+Energía recalculada: 98.000000
+Diferencia absoluta: 0.000000000000
+Energía coherente: True
+Factible: True
+Número de monedas x=1: 4
+Coste p-median seguro: 98
+Energía = coste para muestra factible: True
+
+MEJOR SOLUCIÓN FACTIBLE
+Energía QUBO: 98.000000
+Coste p-median seguro: 98
+Energía = coste p-median: True
+Gap respecto al óptimo: 164.86%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C010 -> (fila=3, columna=1)
+  C012 -> (fila=3, columna=3)
+  C015 -> (fila=3, columna=6)
+  C021 -> (fila=5, columna=2)
+Mapa resultante (o = moneda):
+########
+#S.....#
+#..##..#
+#o.o..o#
+#.##...#
+#.o.##.#
+#.....E#
+########
+
+ESTADO DE COHERENCIA DEL EXPERIMENTO
+Experimento internamente coherente: True
+
+========================================================================================
+CASO 1 — QUBO + SIMULATED ANNEALING V2 — MAPA C
+========================================================================================
+Dimensiones: 9 x 9
+Candidatas: 31
+k: 4
+Distancia: navegable
+
+DIAGNÓSTICO DE LA MATRIZ
+Tipo de un elemento: int
+Distancia mínima: 0.0
+Distancia máxima: 13.0
+Todas las distancias son no negativas: True
+
+REFERENCIA CLÁSICA
+PAM: 50  | tiempo: 0.005040 s
+Óptimo exacto: 50  | tiempo: 0.806305 s
+
+QUBO
+A = 51.0
+B = 51.0
+C = 51.0
+Variables x: 31
+Variables y: 961
+Variables totales: 992
+Términos cuadráticos: 15841
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 12347
+Tiempo SA: 3.493768 s
+Lecturas factibles: 6/100
+Tasa de factibilidad: 6.00%
+
+COMPROBACIONES INTERNAS
+Lecturas no binarias: 0
+Lecturas con discrepancia energía sampler/recalculada: 0
+Lecturas factibles con energía != coste p-median: 0
+
+MEJOR ENERGÍA ENCONTRADA
+Energía informada por sampler: 150.000000
+Energía recalculada: 150.000000
+Diferencia absoluta: 0.000000000000
+Energía coherente: True
+Factible: True
+Número de monedas x=1: 4
+Coste p-median seguro: 150
+Energía = coste para muestra factible: True
+
+MEJOR SOLUCIÓN FACTIBLE
+Energía QUBO: 150.000000
+Coste p-median seguro: 150
+Energía = coste p-median: True
+Gap respecto al óptimo: 200.00%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C009 -> (fila=3, columna=1)
+  C017 -> (fila=4, columna=7)
+  C018 -> (fila=5, columna=1)
+  C027 -> (fila=7, columna=2)
+Mapa resultante (o = moneda):
+#########
+#S......#
+###.###.#
+#o..#...#
+#.###.#o#
+#o....#.#
+#.#####.#
+#.o....E#
+#########
+
+ESTADO DE COHERENCIA DEL EXPERIMENTO
+Experimento internamente coherente: True
+
+====================================================================================================================
+RESUMEN COMPARATIVO
+====================================================================================================================
+Mapa      Cand.   Vars QUBO     PAM    Óptimo        SA     Gap (%)   Fact. (%)    t SA (s)   Coherente
+A            34        1190      46        44        93      111.36        6.00      5.2208        True
+B            28         812      37        37        98      164.86       14.00      2.6049        True
+C            31         992      50        50       150      200.00        6.00      3.4938        True
+
+========================================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\qubo_sa_mapas_reducidos_k4_v2_20260814_191753.txt
+========================================================================================

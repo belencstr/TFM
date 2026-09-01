@@ -1,0 +1,50 @@
+====================================================================================================
+CASO 2 — ROBUSTEZ SIMULATED ANNEALING
+====================================================================================================
+Mapa: 18 x 5
+C = 3.0
+reads por semilla = 100
+sweeps = 1000
+numero de semillas = 20
+
+seed=20260801 | Emin=0.0 | fact=36/100 (36.0%) | sin atajo=9 | con atajo=27
+seed=20260802 | Emin=0.0 | fact=28/100 (28.0%) | sin atajo=5 | con atajo=23
+seed=20260803 | Emin=0.0 | fact=24/100 (24.0%) | sin atajo=4 | con atajo=20
+seed=20260804 | Emin=0.0 | fact=26/100 (26.0%) | sin atajo=7 | con atajo=19
+seed=20260805 | Emin=0.0 | fact=25/100 (25.0%) | sin atajo=7 | con atajo=18
+seed=20260806 | Emin=0.0 | fact=27/100 (27.0%) | sin atajo=7 | con atajo=20
+seed=20260807 | Emin=0.0 | fact=31/100 (31.0%) | sin atajo=8 | con atajo=23
+seed=20260808 | Emin=0.0 | fact=37/100 (37.0%) | sin atajo=6 | con atajo=31
+seed=20260809 | Emin=0.0 | fact=30/100 (30.0%) | sin atajo=7 | con atajo=23
+seed=20260810 | Emin=0.0 | fact=28/100 (28.0%) | sin atajo=8 | con atajo=20
+seed=20260811 | Emin=0.0 | fact=29/100 (29.0%) | sin atajo=4 | con atajo=25
+seed=20260812 | Emin=0.0 | fact=19/100 (19.0%) | sin atajo=3 | con atajo=16
+seed=20260813 | Emin=0.0 | fact=29/100 (29.0%) | sin atajo=3 | con atajo=26
+seed=20260814 | Emin=0.0 | fact=23/100 (23.0%) | sin atajo=4 | con atajo=19
+seed=20260815 | Emin=0.0 | fact=24/100 (24.0%) | sin atajo=5 | con atajo=19
+seed=20260816 | Emin=0.0 | fact=40/100 (40.0%) | sin atajo=7 | con atajo=33
+seed=20260817 | Emin=0.0 | fact=19/100 (19.0%) | sin atajo=5 | con atajo=14
+seed=20260818 | Emin=0.0 | fact=28/100 (28.0%) | sin atajo=6 | con atajo=22
+seed=20260819 | Emin=0.0 | fact=36/100 (36.0%) | sin atajo=9 | con atajo=27
+seed=20260820 | Emin=0.0 | fact=23/100 (23.0%) | sin atajo=5 | con atajo=18
+
+====================================================================================================
+RESUMEN
+====================================================================================================
+Lecturas totales: 2000
+Factibles totales: 562
+Factibilidad global: 28.10%
+Factibilidad media por semilla: 28.10%
+Desviacion tipica factibilidad: 5.59
+Min factibilidad por semilla: 19.00%
+Max factibilidad por semilla: 40.00%
+
+Factibles sin atajo totales: 119
+Factibles con atajo totales: 443
+Sin atajo sobre factibles: 21.17%
+Con atajo sobre factibles: 78.83%
+
+Media sin atajo por semilla: 5.95
+Media % sin atajo sobre factibles por semilla: 21.22%
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\robustez_sa_18x5_C3_20seeds_20260827_184608.txt

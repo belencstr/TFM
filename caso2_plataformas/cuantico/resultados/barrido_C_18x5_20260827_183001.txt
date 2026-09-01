@@ -1,0 +1,47 @@
+================================================================================================
+CASO 2 — BARRIDO C EN INSTANCIA 18x5
+================================================================================================
+C probados: [1.0, 2.0, 3.0]
+reads=100, sweeps=1000, seed=20260826
+
+C=1.0
+  Factibilidad total: 18/100 (18.00%)
+  START: 100.00%
+  GOAL: 100.00%
+  Flujo: 33.00%
+  Longitud: 89.00%
+  Subidas: 98.00%
+  Bajadas: 98.00%
+  Factibles sin atajo: 1
+  Factibles con atajo: 17
+
+C=2.0
+  Factibilidad total: 22/100 (22.00%)
+  START: 99.00%
+  GOAL: 100.00%
+  Flujo: 96.00%
+  Longitud: 46.00%
+  Subidas: 77.00%
+  Bajadas: 65.00%
+  Factibles sin atajo: 4
+  Factibles con atajo: 18
+
+C=3.0
+  Factibilidad total: 26/100 (26.00%)
+  START: 99.00%
+  GOAL: 97.00%
+  Flujo: 98.00%
+  Longitud: 41.00%
+  Subidas: 85.00%
+  Bajadas: 75.00%
+  Factibles sin atajo: 7
+  Factibles con atajo: 19
+
+RESUMEN
+C | Fact.% | Flujo | Long. | Sub. | Baj. | sin atajo | con atajo
+------------------------------------------------------------------------
+1.0 | 18.00 | 33.00 | 89.00 | 98.00 | 98.00 | 1 | 17
+2.0 | 22.00 | 96.00 | 46.00 | 77.00 | 65.00 | 4 | 18
+3.0 | 26.00 | 98.00 | 41.00 | 85.00 | 75.00 | 7 | 19
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\barrido_C_18x5_20260827_183001.txt

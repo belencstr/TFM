@@ -1,0 +1,41 @@
+========================================================================================
+CASO 2 — VALIDACION INICIAL DE LA FORMULACION QUBO
+========================================================================================
+Mapa: 16 x 5
+START: (0, 2) | GOAL: (15, 2)
+L*: 5
+Subidas objetivo: 2
+Bajadas objetivo: 2
+Pesos: A=1.0, B=1.0, C=1.0, D=1.0, E=1.0, F=1.0
+Variables binarias = |E| = 882
+Terminos QUBO no nulos: 382587
+Offset: 35.0
+
+Ruta clasica:
+(0, 2) -> (2, 0) -> (6, 2) -> (9, 4) -> (12, 4) -> (15, 2)
+
+Comprobacion:
+  Salidas START: 1
+  Entradas GOAL: 1
+  Saltos: 5
+  Subidas: 2
+  Bajadas: 2
+  Planos: 1
+  Violaciones flujo: 0
+
+Penalizaciones:
+  Inicio: 0.0
+  Meta: 0.0
+  Flujo: 0.0
+  Longitud: 0.0
+  Subidas: 0.0
+  Bajadas: 0.0
+
+Energia por componentes: 0.0
+Energia QUBO expandido: 0.0
+Energias coinciden: True
+Ruta factible segun QUBO: True
+
+VALIDACION SUPERADA: Q(ruta clasica) = 0
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\validacion_qubo_ruta_clasica_16x5_20260826_164627.txt

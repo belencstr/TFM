@@ -1,0 +1,166 @@
+============================================================================================
+CASO 1 — ROBUSTEZ DE SIMULATED ANNEALING
+============================================================================================
+Fecha y hora: 2026-08-14 20:01:20
+Problema: p-median / k-medoids
+Solver QUBO: D-Wave SimulatedAnnealingSampler
+k: 4
+Semillas por instancia: 20
+num_reads: 100
+num_sweeps: 1000
+
+============================================================================================
+ROBUSTEZ SA — A — 8 candidatas
+============================================================================================
+Candidatas: 8
+k: 4
+Variables QUBO: 72
+Términos cuadráticos: 316
+PAM: 4
+Óptimo exacto: 4
+A = B = C = 5.0
+
+ Nº       Seed    Coste     Gap %    Fact. %    Óptimo   Tiempo (s)
+  1   20260814        4      0.00     100.00      True       1.0745
+  2   20260815        4      0.00     100.00      True       0.2065
+  3   20260816        4      0.00     100.00      True       0.1916
+  4   20260817        4      0.00     100.00      True       0.1976
+  5   20260818        4      0.00     100.00      True       0.1911
+  6   20260819        4      0.00     100.00      True       0.1947
+  7   20260820        4      0.00     100.00      True       0.1900
+  8   20260821        4      0.00     100.00      True       0.1913
+  9   20260822        4      0.00     100.00      True       0.1872
+ 10   20260823        4      0.00     100.00      True       0.1879
+ 11   20260824        4      0.00     100.00      True       0.1900
+ 12   20260825        4      0.00     100.00      True       0.1876
+ 13   20260826        4      0.00     100.00      True       0.2002
+ 14   20260827        4      0.00     100.00      True       0.1864
+ 15   20260828        4      0.00     100.00      True       0.1933
+ 16   20260829        4      0.00     100.00      True       0.1899
+ 17   20260830        4      0.00     100.00      True       0.1901
+ 18   20260831        4      0.00     100.00      True       0.1896
+ 19   20260832        4      0.00     100.00      True       0.1858
+ 20   20260833        4      0.00     100.00      True       0.1933
+
+RESUMEN DE ROBUSTEZ
+Ejecuciones: 20
+Ejecuciones con solución factible: 20
+Ejecuciones que alcanzan el óptimo: 20
+Tasa de éxito: 100.00%
+Mejor coste encontrado: 4
+Peor coste encontrado: 4
+Coste medio: 4.0000
+Desviación típica del coste: 0.0000
+Gap medio: 0.00%
+Factibilidad media: 100.00%
+Tiempo medio por ejecución: 0.2359 s
+Errores de energía detectados: 0
+Errores energía/coste en muestras factibles: 0
+
+============================================================================================
+ROBUSTEZ SA — B — 9 candidatas
+============================================================================================
+Candidatas: 9
+k: 4
+Variables QUBO: 90
+Términos cuadráticos: 441
+PAM: 5
+Óptimo exacto: 5
+A = B = C = 6.0
+
+ Nº       Seed    Coste     Gap %    Fact. %    Óptimo   Tiempo (s)
+  1   20260814        5      0.00     100.00      True       0.2429
+  2   20260815        5      0.00     100.00      True       0.2321
+  3   20260816        5      0.00     100.00      True       0.2435
+  4   20260817        5      0.00     100.00      True       0.2349
+  5   20260818        5      0.00     100.00      True       0.2370
+  6   20260819        5      0.00     100.00      True       0.2482
+  7   20260820        5      0.00     100.00      True       0.2417
+  8   20260821        5      0.00     100.00      True       0.2449
+  9   20260822        5      0.00      99.00      True       0.2825
+ 10   20260823        5      0.00     100.00      True       0.2381
+ 11   20260824        5      0.00     100.00      True       0.2380
+ 12   20260825        5      0.00     100.00      True       0.2506
+ 13   20260826        5      0.00     100.00      True       0.2329
+ 14   20260827        5      0.00     100.00      True       0.2480
+ 15   20260828        5      0.00     100.00      True       0.2308
+ 16   20260829        5      0.00     100.00      True       0.2431
+ 17   20260830        5      0.00     100.00      True       0.2382
+ 18   20260831        5      0.00     100.00      True       0.2337
+ 19   20260832        5      0.00     100.00      True       0.2409
+ 20   20260833        6     20.00     100.00     False       0.2340
+
+RESUMEN DE ROBUSTEZ
+Ejecuciones: 20
+Ejecuciones con solución factible: 20
+Ejecuciones que alcanzan el óptimo: 19
+Tasa de éxito: 95.00%
+Mejor coste encontrado: 5
+Peor coste encontrado: 6
+Coste medio: 5.0500
+Desviación típica del coste: 0.2179
+Gap medio: 1.00%
+Factibilidad media: 99.95%
+Tiempo medio por ejecución: 0.2418 s
+Errores de energía detectados: 0
+Errores energía/coste en muestras factibles: 0
+
+============================================================================================
+ROBUSTEZ SA — C — 10 candidatas
+============================================================================================
+Candidatas: 10
+k: 4
+Variables QUBO: 110
+Términos cuadráticos: 595
+PAM: 6
+Óptimo exacto: 6
+A = B = C = 7.0
+
+ Nº       Seed    Coste     Gap %    Fact. %    Óptimo   Tiempo (s)
+  1   20260814        6      0.00     100.00      True       0.2934
+  2   20260815        7     16.67     100.00     False       0.2888
+  3   20260816        7     16.67     100.00     False       0.2910
+  4   20260817        6      0.00     100.00      True       0.2892
+  5   20260818        6      0.00     100.00      True       0.3000
+  6   20260819        6      0.00     100.00      True       0.2877
+  7   20260820        7     16.67     100.00     False       0.2935
+  8   20260821        6      0.00     100.00      True       0.2868
+  9   20260822        7     16.67     100.00     False       0.2884
+ 10   20260823        6      0.00     100.00      True       0.2907
+ 11   20260824        6      0.00     100.00      True       0.2920
+ 12   20260825        6      0.00     100.00      True       0.3776
+ 13   20260826        7     16.67     100.00     False       0.2929
+ 14   20260827        6      0.00     100.00      True       0.3003
+ 15   20260828        6      0.00     100.00      True       0.2900
+ 16   20260829        6      0.00     100.00      True       0.2917
+ 17   20260830        7     16.67     100.00     False       0.2929
+ 18   20260831        7     16.67     100.00     False       0.2952
+ 19   20260832        6      0.00     100.00      True       0.2972
+ 20   20260833        6      0.00     100.00      True       0.3023
+
+RESUMEN DE ROBUSTEZ
+Ejecuciones: 20
+Ejecuciones con solución factible: 20
+Ejecuciones que alcanzan el óptimo: 13
+Tasa de éxito: 65.00%
+Mejor coste encontrado: 6
+Peor coste encontrado: 7
+Coste medio: 6.3500
+Desviación típica del coste: 0.4770
+Gap medio: 5.83%
+Factibilidad media: 100.00%
+Tiempo medio por ejecución: 0.2971 s
+Errores de energía detectados: 0
+Errores energía/coste en muestras factibles: 0
+
+========================================================================================================================
+RESUMEN GLOBAL
+========================================================================================================================
+Instancia                 Vars   Óptimo    Éxitos   Éxito %    Mejor     Media     Peor  Gap med. % Fact. med. %    t med.
+A — 8 candidatas            72        4        20    100.00        4      4.00        4        0.00       100.00    0.2359
+B — 9 candidatas            90        5        19     95.00        5      5.05        6        1.00        99.95    0.2418
+C — 10 candidatas          110        6        13     65.00        6      6.35        7        5.83       100.00    0.2971
+
+============================================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\robustez_sa_8_9_10_k4_20semillas_20260814_200120.txt
+============================================================================================

@@ -1,0 +1,21 @@
+========================================================================================
+CASO 2 — BUSQUEDA DEL TAMANO MINIMO SIN ATAJOS
+========================================================================================
+
+Mapa 18x5
+Variables QUBO previstas: 1050
+Estado: OPTIMAL
+Tiempo: 0.4596 s
+Existe solucion sin atajos: SI
+Ruta:
+(0, 2) -> (3, 3) -> (6, 1) -> (10, 3) -> (13, 3) -> (17, 2)
+
+Mapa 20x5
+Variables QUBO previstas: 1218
+Estado: OPTIMAL
+Tiempo: 0.7860 s
+Existe solucion sin atajos: SI
+Ruta:
+(0, 2) -> (2, 3) -> (6, 1) -> (9, 1) -> (13, 0) -> (19, 2)
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\busqueda_tamano_minimo_antiatajos_20260827_180708.txt

@@ -1,0 +1,69 @@
+====================================================================================
+CASO 1 — QAOA SOBRE INSTANCIA MÍNIMA
+====================================================================================
+Fecha y hora: 2026-08-14 20:19:44
+Dimensiones: 4 x 5
+Candidatas: 4
+Nodos navegables: 6
+Aristas: 7
+Grafo conexo: True
+k: 2
+
+CANDIDATAS
+  C001 -> (fila=1, columna=2)
+  C002 -> (fila=1, columna=3)
+  C003 -> (fila=2, columna=1)
+  C004 -> (fila=2, columna=2)
+
+REFERENCIA CLÁSICA
+PAM: 2
+Óptimo exhaustivo: 2
+PAM alcanza el óptimo: True
+Selección óptima de referencia:
+  C001 -> (fila=1, columna=2)
+  C003 -> (fila=2, columna=1)
+Mapa óptimo de referencia:
+#####
+#So.#
+#o.E#
+#####
+
+QUBO
+A = 3.0
+B = 3.0
+C = 3.0
+Variables x: 4
+Variables y: 16
+Variables QUBO totales: 20
+Términos cuadráticos: 46
+
+HAMILTONIANO DE ISING
+Qubits: 20
+Términos de Pauli: 66
+Offset Ising: 49.000000
+
+QAOA
+reps (p): 1
+COBYLA maxiter: 30
+shots: 2048
+seed: 20260814
+
+RESULTADO DEVUELTO POR QAOA
+Tiempo total: 513.6934 s
+Energía/objetivo QUBO: 6.000000
+Factible para p-median: False
+Número de monedas seleccionadas: 2
+Coste p-median: no se calcula porque el estado es inviable.
+
+DISTRIBUCIÓN DE MUESTRAS QAOA
+Probabilidad total de soluciones factibles: 0.00%
+Probabilidad total de soluciones óptimas: 0.00%
+Muestras factibles distintas observadas: 0
+No se observó ninguna muestra factible.
+
+INTERPRETACIÓN
+Con esta configuración, QAOA no muestreó ninguna solución óptima. Esto no invalida el QUBO; indica que deben estudiarse la profundidad p, el optimizador o la inicialización.
+
+====================================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\qaoa_pmedian_4cand_k2_p1_20260814_201909.txt
+====================================================================================

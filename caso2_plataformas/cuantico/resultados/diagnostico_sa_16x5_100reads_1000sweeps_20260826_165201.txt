@@ -1,0 +1,56 @@
+============================================================================================
+CASO 2 — DIAGNÓSTICO SIMULATED ANNEALING
+============================================================================================
+Mapa: 16 x 5
+Variables QUBO = |E| = 882
+Términos QUBO no nulos: 382587
+L*: 5
+Subidas objetivo: 2
+Bajadas objetivo: 2
+num_reads: 100
+num_sweeps: 1000
+seed: 20260826
+
+Resumen:
+  Lecturas totales: 100
+  Energía mínima real: 0.000000
+  Energía máxima real: 2.000000
+  Muestras factibles QUBO: 3/100 (3.00%)
+
+Mejor muestra:
+  Energía: 0.000000
+  Factible QUBO: True
+  Salidas START: 1
+  Entradas GOAL: 1
+  Saltos activos: 5
+  Subidas: 2
+  Bajadas: 2
+  Planos: 1
+  Violaciones flujo: 0
+
+Penalizaciones de la mejor muestra:
+  Inicio: 0.0
+  Meta: 0.0
+  Flujo: 0.0
+  Longitud: 0.0
+  Subidas: 0.0
+  Bajadas: 0.0
+
+Ruta reconstruida:
+(0, 2) -> (2, 3) -> (6, 1) -> (9, 1) -> (12, 0) -> (15, 2)
+
+Longitud ruta QUBO: 5
+Longitud mínima BFS: 4
+Delta L (QUBO - BFS): 1
+Máximo de planos consecutivos: 1
+Huecos de la ruta: [1, 2, 1, 1, 1]
+
+Factibilidad por restricción (sobre todas las lecturas):
+  START: 97/100 (97.00%)
+  GOAL: 100/100 (100.00%)
+  Flujo: 14/100 (14.00%)
+  Longitud: 91/100 (91.00%)
+  Subidas: 99/100 (99.00%)
+  Bajadas: 99/100 (99.00%)
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\diagnostico_sa_16x5_100reads_1000sweeps_20260826_165201.txt

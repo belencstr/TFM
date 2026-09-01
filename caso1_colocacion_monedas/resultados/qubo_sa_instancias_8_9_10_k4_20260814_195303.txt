@@ -1,0 +1,187 @@
+========================================================================================
+CASO 1 — ESCALADO DEL QUBO EN INSTANCIAS PEQUEÑAS
+========================================================================================
+Fecha y hora: 2026-08-14 19:53:03
+Problema: p-median / k-medoids
+Algoritmo clásico: PAM
+Referencia exacta: búsqueda exhaustiva
+Solver QUBO: D-Wave SimulatedAnnealingSampler
+k: 4
+num_reads: 100
+num_sweeps: 1000
+
+========================================================================================
+INSTANCIA QUBO A — 8 candidatas
+========================================================================================
+Dimensiones: 5 x 6
+Candidatas: 8
+Nodos navegables: 10
+Aristas: 12
+Grafo conexo: True
+k: 4
+
+REFERENCIAS CLÁSICAS
+PAM: 4 | tiempo: 0.000356 s
+Óptimo exhaustivo: 4 | tiempo: 0.000555 s
+PAM alcanza el óptimo: True
+
+QUBO
+A = 5.0
+B = 5.0
+C = 5.0
+Variables x: 8
+Variables y: 64
+Variables totales: 72
+Términos cuadráticos: 316
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 20260814
+Tiempo: 1.144211 s
+Lecturas factibles: 100/100
+Tasa de factibilidad: 100.00%
+
+COMPROBACIONES
+Lecturas no binarias: 0
+Discrepancias energía sampler/recalculada: 0
+Factibles con energía != coste p-median: 0
+
+MEJOR SOLUCIÓN FACTIBLE DE SA
+Coste p-median: 4
+Energía QUBO: 4.000000
+Gap respecto al óptimo: 0.00%
+Alcanza el óptimo exacto: True
+Monedas seleccionadas:
+  C002 -> (fila=1, columna=3)
+  C004 -> (fila=2, columna=1)
+  C005 -> (fila=2, columna=2)
+  C008 -> (fila=3, columna=4)
+Mapa resultante (o = moneda):
+######
+#S.o.#
+#oo..#
+#E##o#
+######
+
+========================================================================================
+INSTANCIA QUBO B — 9 candidatas
+========================================================================================
+Dimensiones: 6 x 6
+Candidatas: 9
+Nodos navegables: 11
+Aristas: 11
+Grafo conexo: True
+k: 4
+
+REFERENCIAS CLÁSICAS
+PAM: 5 | tiempo: 0.000410 s
+Óptimo exhaustivo: 5 | tiempo: 0.001516 s
+PAM alcanza el óptimo: True
+
+QUBO
+A = 6.0
+B = 6.0
+C = 6.0
+Variables x: 9
+Variables y: 81
+Variables totales: 90
+Términos cuadráticos: 441
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 20260815
+Tiempo: 0.269767 s
+Lecturas factibles: 100/100
+Tasa de factibilidad: 100.00%
+
+COMPROBACIONES
+Lecturas no binarias: 0
+Discrepancias energía sampler/recalculada: 0
+Factibles con energía != coste p-median: 0
+
+MEJOR SOLUCIÓN FACTIBLE DE SA
+Coste p-median: 5
+Energía QUBO: 5.000000
+Gap respecto al óptimo: 0.00%
+Alcanza el óptimo exacto: True
+Monedas seleccionadas:
+  C001 -> (fila=1, columna=2)
+  C005 -> (fila=2, columna=4)
+  C006 -> (fila=3, columna=1)
+  C008 -> (fila=3, columna=3)
+Mapa resultante (o = moneda):
+######
+#So..#
+#.##o#
+#o.o.#
+###E##
+######
+
+========================================================================================
+INSTANCIA QUBO C — 10 candidatas
+========================================================================================
+Dimensiones: 6 x 7
+Candidatas: 10
+Nodos navegables: 12
+Aristas: 11
+Grafo conexo: True
+k: 4
+
+REFERENCIAS CLÁSICAS
+PAM: 6 | tiempo: 0.001014 s
+Óptimo exhaustivo: 6 | tiempo: 0.003548 s
+PAM alcanza el óptimo: True
+
+QUBO
+A = 7.0
+B = 7.0
+C = 7.0
+Variables x: 10
+Variables y: 100
+Variables totales: 110
+Términos cuadráticos: 595
+
+SIMULATED ANNEALING
+num_reads: 100
+num_sweeps: 1000
+seed: 20260816
+Tiempo: 0.284983 s
+Lecturas factibles: 100/100
+Tasa de factibilidad: 100.00%
+
+COMPROBACIONES
+Lecturas no binarias: 0
+Discrepancias energía sampler/recalculada: 0
+Factibles con energía != coste p-median: 0
+
+MEJOR SOLUCIÓN FACTIBLE DE SA
+Coste p-median: 7
+Energía QUBO: 7.000000
+Gap respecto al óptimo: 16.67%
+Alcanza el óptimo exacto: False
+Monedas seleccionadas:
+  C003 -> (fila=1, columna=4)
+  C006 -> (fila=3, columna=1)
+  C007 -> (fila=3, columna=2)
+  C010 -> (fila=3, columna=5)
+Mapa resultante (o = moneda):
+#######
+#S..o.#
+#####.#
+#oo..o#
+#E#####
+#######
+
+==========================================================================================================================
+RESUMEN COMPARATIVO
+==========================================================================================================================
+Instancia               Cand.    Vars   Térm. Q    PAM   Óptimo      SA    Gap %   Fact. %      t SA   Óptimo SA
+A — 8 candidatas            8      72       316      4        4       4     0.00    100.00    1.1442        True
+B — 9 candidatas            9      90       441      5        5       5     0.00    100.00    0.2698        True
+C — 10 candidatas          10     110       595      6        6       7    16.67    100.00    0.2850       False
+
+========================================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\qubo_sa_instancias_8_9_10_k4_20260814_195303.txt
+========================================================================================
