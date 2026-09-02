@@ -1,0 +1,39 @@
+========================================================================================
+CASO 1 — PENALIZACIONES SIN CONOCER F
+========================================================================================
+Criterio: P = 1 + sum_i max_j d_ij
+Esta cota depende solo de la matriz de distancias y no exige resolver p-median.
+
+MAPA A
+  candidatas n: 223
+  d_max: 28
+  cota simple n*d_max: 6244
+  cota U=sum_i max_j d_ij: 4678
+  P teorico sin resolver p-median: 4679
+  PAM solo para comparar: 819
+  P anterior=PAM+1: 820
+
+MAPA B
+  candidatas n: 201
+  d_max: 28
+  cota simple n*d_max: 5628
+  cota U=sum_i max_j d_ij: 4312
+  P teorico sin resolver p-median: 4313
+  PAM solo para comparar: 722
+  P anterior=PAM+1: 723
+
+MAPA C
+  candidatas n: 140
+  d_max: 34
+  cota simple n*d_max: 4760
+  cota U=sum_i max_j d_ij: 3790
+  P teorico sin resolver p-median: 3791
+  PAM solo para comparar: 643
+  P anterior=PAM+1: 644
+
+Mapa | n | dmax | U teorica | P teorico | P PAM+1
+A | 223 | 28 | 4678 | 4679 | 820
+B | 201 | 28 | 4312 | 4313 | 723
+C | 140 | 34 | 3790 | 3791 | 644
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\penalizaciones_sin_F_20260902_185635.txt
