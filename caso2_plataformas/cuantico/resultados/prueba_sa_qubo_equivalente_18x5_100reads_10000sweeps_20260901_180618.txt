@@ -1,0 +1,17 @@
+==========================================================================================
+CASO 2 — PRUEBA SA SOBRE QUBO EQUIVALENTE
+==========================================================================================
+Variables QUBO: 5504
+Terminos QUBO: 576333
+P: 16.0
+Tiempo construccion: 0.844 s
+Ejecutando SA: 100 reads, 10000 sweeps
+
+Tiempo SA: 405.197 s
+Tiempo total: 406.041 s
+Energia minima real: 85.0
+Energia maxima real: 214.0
+Referencia optima conocida: 4
+SA no alcanza energia 4 en esta prueba minima.
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\prueba_sa_qubo_equivalente_18x5_100reads_10000sweeps_20260901_180618.txt
