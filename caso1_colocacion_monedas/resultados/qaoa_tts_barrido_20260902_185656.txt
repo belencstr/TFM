@@ -38,3 +38,7 @@ iter=25 | shots= 80 | t= 472.848s | p_fact/shot=  0.000% | p_opt/shot=  0.000% |
 iter=25 | shots=160 | t= 476.143s | p_fact/shot=  0.000% | p_opt/shot=  0.000% | Pbatch_fact=  0.000% | Pbatch_opt=  0.000% | TTS99_fact=infs | TTS99_opt=infs
 iter=30 | shots= 20 | t= 512.750s | p_fact/shot=  0.000% | p_opt/shot=  0.000% | Pbatch_fact=  0.000% | Pbatch_opt=  0.000% | TTS99_fact=infs | TTS99_opt=infs
 iter=30 | shots= 40 | t= 582.679s | p_fact/shot=  0.000% | p_opt/shot=  0.000% | Pbatch_fact=  0.000% | Pbatch_opt=  0.000% | TTS99_fact=infs | TTS99_opt=infs
+iter=30 | shots= 80 | t= 579.970s | p_fact/shot=  0.000% | p_opt/shot=  0.000% | Pbatch_fact=  0.000% | Pbatch_opt=  0.000% | TTS99_fact=infs | TTS99_opt=infs
+iter=30 | shots=160 | t= 579.219s | p_fact/shot=  0.000% | p_opt/shot=  0.000% | Pbatch_fact=  0.000% | Pbatch_opt=  0.000% | TTS99_fact=infs | TTS99_opt=infs
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\qaoa_tts_barrido_20260902_185656.txt
