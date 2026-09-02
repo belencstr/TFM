@@ -1,0 +1,29 @@
+========================================================================================================================
+CASO 1 — BARRIDO SA Y TTS99 — V2 CON WARM-UP
+========================================================================================================================
+Seeds: [20260902, 20260903, 20260904, 20260905, 20260906]
+Reads/seed: 100
+Sweeps: [10, 50, 100, 500, 1000]
+
+A-8 | vars=72 | sweeps=  10 | p_fact= 95.40% | p_opt=  0.20% | t/read=0.000113s | TTS99_fact=0.000169s | TTS99_opt=0.259256s
+A-8 | vars=72 | sweeps=  50 | p_fact=100.00% | p_opt=  1.00% | t/read=0.000163s | TTS99_fact=0.000163s | TTS99_opt=0.074497s
+A-8 | vars=72 | sweeps= 100 | p_fact=100.00% | p_opt=  0.60% | t/read=0.000241s | TTS99_fact=0.000241s | TTS99_opt=0.184433s
+A-8 | vars=72 | sweeps= 500 | p_fact=100.00% | p_opt=  5.40% | t/read=0.000733s | TTS99_fact=0.000733s | TTS99_opt=0.060810s
+A-8 | vars=72 | sweeps=1000 | p_fact=100.00% | p_opt=  6.60% | t/read=0.001407s | TTS99_fact=0.001407s | TTS99_opt=0.094911s
+B-9 | vars=90 | sweeps=  10 | p_fact= 91.80% | p_opt=  0.00% | t/read=0.000120s | TTS99_fact=0.000221s | TTS99_opt=infs
+B-9 | vars=90 | sweeps=  50 | p_fact= 99.40% | p_opt=  0.00% | t/read=0.000193s | TTS99_fact=0.000174s | TTS99_opt=infs
+B-9 | vars=90 | sweeps= 100 | p_fact=100.00% | p_opt=  0.60% | t/read=0.000275s | TTS99_fact=0.000275s | TTS99_opt=0.210258s
+B-9 | vars=90 | sweeps= 500 | p_fact=100.00% | p_opt=  2.00% | t/read=0.000928s | TTS99_fact=0.000928s | TTS99_opt=0.211443s
+B-9 | vars=90 | sweeps=1000 | p_fact=100.00% | p_opt=  3.60% | t/read=0.001717s | TTS99_fact=0.001717s | TTS99_opt=0.215673s
+C-10 | vars=110 | sweeps=  10 | p_fact= 81.60% | p_opt=  0.00% | t/read=0.000145s | TTS99_fact=0.000396s | TTS99_opt=infs
+C-10 | vars=110 | sweeps=  50 | p_fact= 98.60% | p_opt=  0.00% | t/read=0.000219s | TTS99_fact=0.000236s | TTS99_opt=infs
+C-10 | vars=110 | sweeps= 100 | p_fact= 99.80% | p_opt=  0.40% | t/read=0.000312s | TTS99_fact=0.000231s | TTS99_opt=0.358492s
+C-10 | vars=110 | sweeps= 500 | p_fact= 99.80% | p_opt=  1.40% | t/read=0.001135s | TTS99_fact=0.000841s | TTS99_opt=0.370618s
+C-10 | vars=110 | sweeps=1000 | p_fact=100.00% | p_opt=  1.20% | t/read=0.002083s | TTS99_fact=0.002083s | TTS99_opt=0.794510s
+
+MEJOR TTS99 AL OPTIMO
+A-8: sweeps=500, p_opt=5.40%, TTS99=0.060810s
+B-9: sweeps=100, p_opt=0.60%, TTS99=0.210258s
+C-10: sweeps=100, p_opt=0.40%, TTS99=0.358492s
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\sa_tts_barrido_v2_20260902_213902.txt

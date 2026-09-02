@@ -1,0 +1,39 @@
+============================================================================================
+CASO 1 — PENALIZACIONES SIN CONOCER F — MAPAS FINALES
+============================================================================================
+P = 1 + sum_i max_j d_ij
+La cota usa solo la matriz de distancias; PAM se calcula únicamente para comparar.
+
+MAPA REDUCIDO A
+  candidatas n: 34
+  d_max: 10
+  cota simple n*d_max: 340
+  cota U=sum_i max_j d_ij: 252
+  P teorico=U+1: 253
+  PAM solo para comparar: 46
+  P anterior=PAM+1: 47
+
+MAPA REDUCIDO B
+  candidatas n: 28
+  d_max: 10
+  cota simple n*d_max: 280
+  cota U=sum_i max_j d_ij: 251
+  P teorico=U+1: 252
+  PAM solo para comparar: 37
+  P anterior=PAM+1: 38
+
+MAPA REDUCIDO C
+  candidatas n: 31
+  d_max: 13
+  cota simple n*d_max: 403
+  cota U=sum_i max_j d_ij: 352
+  P teorico=U+1: 353
+  PAM solo para comparar: 50
+  P anterior=PAM+1: 51
+
+Mapa | n | dmax | U teorica | P teorico | P PAM+1
+A | 34 | 10 | 252 | 253 | 47
+B | 28 | 10 | 251 | 252 | 38
+C | 31 | 13 | 352 | 353 | 51
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\penalizaciones_sin_F_mapas_finales_20260902_213902.txt
