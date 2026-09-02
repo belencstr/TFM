@@ -1,0 +1,17 @@
+========================================================================================================================
+CASO 2 — TTS SA SOBRE QUBO REDUCIDO 18x5
+========================================================================================================================
+C=3.0; reads/seed=100; seeds=[20260902, 20260903, 20260904, 20260905, 20260906]; sweeps=[10, 50, 100, 500, 1000]
+Éxito 1: factibilidad QUBO. Éxito 2: factible + sin atajo + <=2 planos consecutivos.
+
+sweeps=  10 | Emin=0.0 | p_fact=  2.40% | p_completa=  0.40% | t/read=0.025391s | TTS99_fact=4.813370 s | TTS99_completa=29.173927 s
+sweeps=  50 | Emin=0.0 | p_fact=  8.40% | p_completa=  1.80% | t/read=0.035730s | TTS99_fact=1.875383 s | TTS99_completa=9.058818 s
+sweeps= 100 | Emin=0.0 | p_fact= 10.60% | p_completa=  1.80% | t/read=0.049059s | TTS99_fact=2.016283 s | TTS99_completa=12.438004 s
+sweeps= 500 | Emin=0.0 | p_fact= 20.40% | p_completa=  4.40% | t/read=0.155438s | TTS99_fact=3.137406 s | TTS99_completa=15.908003 s
+sweeps=1000 | Emin=0.0 | p_fact= 31.00% | p_completa=  6.60% | t/read=0.462669s | TTS99_fact=5.742056 s | TTS99_completa=31.205399 s
+
+MEJORES CONFIGURACIONES
+Factibilidad QUBO: sweeps=50, TTS99=1.875383s
+Ruta completa: sweeps=50, TTS99=9.058818s
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\tts_sa_qubo_reducido_18x5_20260902_234103.txt

@@ -1,0 +1,16 @@
+========================================================================================================================
+CASO 2 — TTS SA SOBRE QUBO EQUIVALENTE 18x5
+========================================================================================================================
+Variables=5504 | términos=576333 | P=16.0 | cota=15
+Óptimo conocido=4.0 | build=0.763s | reads/seed=20 | seeds=[20260902, 20260903, 20260904]
+sweeps=[10, 50, 100, 500, 1000]
+
+sweeps=  10 | Emin=232.0 | Emean=396.23 | p_opt=0.0000% | t/read=0.091808s | TTS99_opt=no estimable
+sweeps=  50 | Emin=103.0 | Emean=192.13 | p_opt=0.0000% | t/read=0.104526s | TTS99_opt=no estimable
+sweeps= 100 | Emin=118.0 | Emean=178.32 | p_opt=0.0000% | t/read=0.122935s | TTS99_opt=no estimable
+sweeps= 500 | Emin=103.0 | Emean=165.25 | p_opt=0.0000% | t/read=0.268710s | TTS99_opt=no estimable
+sweeps=1000 | Emin=103.0 | Emean=157.63 | p_opt=0.0000% | t/read=0.444545s | TTS99_opt=no estimable
+
+No se observa ninguna muestra óptima: con p_empírico=0 no se puede estimar un TTS99 finito.
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados\tts_sa_qubo_equivalente_18x5_20260902_235103.txt
