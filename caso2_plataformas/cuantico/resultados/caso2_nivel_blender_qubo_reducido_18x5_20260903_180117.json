@@ -1,0 +1,161 @@
+{
+  "caso": "Caso 2 - Plataformas",
+  "version": "QUBO reducido 18x5 + Simulated Annealing",
+  "nota_metodologica": "La formulación es QUBO, pero la muestra se obtiene con Simulated Annealing clásico.",
+  "escenario": {
+    "ancho": 18,
+    "alto": 5
+  },
+  "start": {
+    "x": 0,
+    "y": 2
+  },
+  "goal": {
+    "x": 17,
+    "y": 2
+  },
+  "ancho_plataforma": 2,
+  "fisica": {
+    "hueco_min": 1,
+    "hueco_max": 4,
+    "subida_max": 2,
+    "caida_max": 3
+  },
+  "plataformas": [
+    {
+      "x": 2,
+      "y": 1
+    },
+    {
+      "x": 6,
+      "y": 3
+    },
+    {
+      "x": 10,
+      "y": 3
+    },
+    {
+      "x": 13,
+      "y": 4
+    }
+  ],
+  "ruta": [
+    {
+      "x": 0,
+      "y": 2
+    },
+    {
+      "x": 2,
+      "y": 1
+    },
+    {
+      "x": 6,
+      "y": 3
+    },
+    {
+      "x": 10,
+      "y": 3
+    },
+    {
+      "x": 13,
+      "y": 4
+    },
+    {
+      "x": 17,
+      "y": 2
+    }
+  ],
+  "saltos": [
+    {
+      "origen": {
+        "x": 0,
+        "y": 2
+      },
+      "destino": {
+        "x": 2,
+        "y": 1
+      },
+      "hueco_tiles": 1,
+      "delta_y": -1
+    },
+    {
+      "origen": {
+        "x": 2,
+        "y": 1
+      },
+      "destino": {
+        "x": 6,
+        "y": 3
+      },
+      "hueco_tiles": 2,
+      "delta_y": 2
+    },
+    {
+      "origen": {
+        "x": 6,
+        "y": 3
+      },
+      "destino": {
+        "x": 10,
+        "y": 3
+      },
+      "hueco_tiles": 2,
+      "delta_y": 0
+    },
+    {
+      "origen": {
+        "x": 10,
+        "y": 3
+      },
+      "destino": {
+        "x": 13,
+        "y": 4
+      },
+      "hueco_tiles": 1,
+      "delta_y": 1
+    },
+    {
+      "origen": {
+        "x": 13,
+        "y": 4
+      },
+      "destino": {
+        "x": 17,
+        "y": 2
+      },
+      "hueco_tiles": 2,
+      "delta_y": -2
+    }
+  ],
+  "metricas": {
+    "factible_qubo": true,
+    "validacion_completa": true,
+    "energia_qubo": 0.0,
+    "delta_l_atajo": 0,
+    "max_planos_consecutivos": 1,
+    "saltos": 5,
+    "plataformas_intermedias": 4,
+    "subidas": 2,
+    "bajadas": 2,
+    "planos": 1,
+    "variacion_vertical": 6
+  },
+  "parametros": {
+    "C": 3.0,
+    "L_objetivo": 5,
+    "subidas_objetivo": 2,
+    "bajadas_objetivo": 2,
+    "num_reads": 100,
+    "num_sweeps": 50,
+    "seed_seleccionada": 20260902,
+    "ocurrencias_muestra": 1,
+    "semillas_probadas": [
+      20260902,
+      20260903,
+      20260904,
+      20260905,
+      20260906
+    ],
+    "muestras_validas_distintas_encontradas": 9
+  }
+}
