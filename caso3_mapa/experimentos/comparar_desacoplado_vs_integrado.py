@@ -81,9 +81,9 @@ def ejecutar_comparativa():
     print(header)
     print("-" * 88)
     print(f"{'Problema resuelto':<30} | {'Geo+Ruta+Gameplay':<14} | {'Geo+Ruta':<12} | {'Geometría pura':<13} | {'Geo+Ruta q':<12}")
-    print(f"{'Variables de decisión':<30} | {'368 vars':<14} | {'96 vars':<12} | {'48 vars':<13} | {'96 vars':<12}")
+    print(f"{'Variables de decisión':<30} | {'238 (+130 aux)':<14} | {'96 (+82 aux)':<12} | {'48 vars':<13} | {'96 vars':<12}")
     print(f"{'Variables totales solver':<30} | {'368 vars':<14} | {'178 vars':<12} | {'48 vars':<13} | {'96 vars':<12}")
-    print(f"{'Términos cuadráticos':<30} | {'0 (Lineal)':<14} | {'0 (Lineal)':<12} | {res_des['num_terminos_cuadraticos']:<13} | {res_int['num_terminos_cuadraticos']:<12}")
+    print(f"{'Términos cuadráticos':<30} | {'N/A':<14} | {'N/A':<12} | {res_des['num_terminos_cuadraticos']:<13} | {res_int['num_terminos_cuadraticos']:<12}")
     print(f"{'Tiempo resolución (s)':<30} | {res_cpsat_comp['time']:<14.3f} | {res_cpsat_core['time']:<12.3f} | {res_des['tiempo_segundos']:<13.3f} | {res_int['tiempo_segundos']:<12.3f}")
     print(f"{'Fronteras (mejor válida)':<30} | {int(res_cpsat_comp['objective']):<14} | {int(res_cpsat_core['objective']):<12} | {m_des_val['fronteras'] if m_des_val else 'N/A':<13} | {m_int_val['fronteras'] if m_int_val else 'N/A':<12}")
     print(f"{'Fronteras (mínimo energía)':<30} | {int(res_cpsat_comp['objective']):<14} | {int(res_cpsat_core['objective']):<12} | {m_des_ene['fronteras']:<13} | {m_int_ene['fronteras']:<12}")
@@ -111,9 +111,9 @@ def ejecutar_comparativa():
         header,
         "-" * 88,
         f"{'Problema resuelto':<30} | {'Geo+Ruta+Gameplay':<14} | {'Geo+Ruta':<12} | {'Geometría pura':<13} | {'Geo+Ruta q':<12}",
-        f"{'Variables de decisión':<30} | {'368 vars':<14} | {'96 vars':<12} | {'48 vars':<13} | {'96 vars':<12}",
+        f"{'Variables de decisión':<30} | {'238 (+130 aux)':<14} | {'96 (+82 aux)':<12} | {'48 vars':<13} | {'96 vars':<12}",
         f"{'Variables totales solver':<30} | {'368 vars':<14} | {'178 vars':<12} | {'48 vars':<13} | {'96 vars':<12}",
-        f"{'Términos cuadráticos':<30} | {'0 (Lineal)':<14} | {'0 (Lineal)':<12} | {res_des['num_terminos_cuadraticos']:<13} | {res_int['num_terminos_cuadraticos']:<12}",
+        f"{'Términos cuadráticos':<30} | {'N/A':<14} | {'N/A':<12} | {res_des['num_terminos_cuadraticos']:<13} | {res_int['num_terminos_cuadraticos']:<12}",
         f"{'Tiempo resolución (s)':<30} | {res_cpsat_comp['time']:<14.3f} | {res_cpsat_core['time']:<12.3f} | {res_des['tiempo_segundos']:<13.3f} | {res_int['tiempo_segundos']:<12.3f}",
         f"{'Fronteras (mejor válida)':<30} | {int(res_cpsat_comp['objective']):<14} | {int(res_cpsat_core['objective']):<12} | {m_des_val['fronteras'] if m_des_val else 'N/A':<13} | {m_int_val['fronteras'] if m_int_val else 'N/A':<12}",
         f"{'Fronteras (mínimo energía)':<30} | {int(res_cpsat_comp['objective']):<14} | {int(res_cpsat_core['objective']):<12} | {m_des_ene['fronteras']:<13} | {m_int_ene['fronteras']:<12}",

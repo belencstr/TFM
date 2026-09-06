@@ -5,7 +5,7 @@ Derivación Teórica a Priori de Penalizaciones:
     El objetivo de fronteras tipo Ising cumple estrictamente 0 <= F <= 82.
     Para que cualquier estado que viole una sola restricción (zonas, START/GOAL,
     unicidad de paso, continuidad de ruta o pisar un obstáculo) sea energéticamente
-    inferior a cualquier solución factible, fijamos:
+    superior (penalizado) a cualquier solución factible, fijamos:
         P > 82  -->  P = 100.0
 
 Variables (Exactamente 96):

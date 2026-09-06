@@ -230,8 +230,8 @@ def construir_memoria():
     filas_cp = [
         ("Métrica / Parámetro", "CP-SAT Core (Modelo Base)", "CP-SAT v3 (Demostrador Final)"),
         ("Alcance del modelo", "Geometría + Ruta principal", "Geometría + Ruta + Rama + Gameplay"),
-        ("Variables de decisión", "96 variables (48 x + 48 q)", "368 variables booleanas"),
-        ("Variables internas del solver", "178 variables", "368 variables"),
+        ("Variables de decisión", "96 principales (+ 82 aux.)", "238 principales (+ 130 aux.)"),
+        ("Variables totales solver", "178 variables", "368 variables"),
         ("Tiempo de resolución (s)", "2.189 s (CPU monohilo)", "18.257 s (CPU monohilo)"),
         ("Fronteras suelo/pared (F)", "20 transiciones (Óptimo absoluto)", "22 transiciones (Óptimo con gameplay)"),
         ("Componentes conexas de suelo", "1 única componente (100% conexo)", "1 única componente (100% conexo)"),
@@ -291,7 +291,7 @@ def construir_memoria():
         run_img_b.add_picture(str(FIGURA_BLENDER_DEMO), width=Inches(6.0))
         p_cap_b = doc.add_paragraph()
         p_cap_b.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_cap_b = p_cap_b.add_run("Figura 2: Render 3D del Demostrador Final (CP-SAT v3) en Blender 5.2. Obsérvense las texturas de cantería y losas con relieve procedural, monstruos demoníacos con ojo carmesí emisivo, cofres del tesoro y la ruta de neón.")
+        r_cap_b = p_cap_b.add_run("Figura 2. Ejemplo del nivel completo generado mediante CP-SAT, incluyendo obstáculos, ruta principal, dos enemigos, una recompensa sobre la ruta y una recompensa adicional situada al final de una rama secundaria.")
         r_cap_b.font.size = Pt(9)
         r_cap_b.font.italic = True
         p_cap_b.paragraph_format.space_after = Pt(14)
@@ -327,10 +327,9 @@ def construir_memoria():
         doc,
         "Teorema de dominancia de penalizaciones a priori: "
         "Si fijamos un multiplicador de penalización P > 82 (por ejemplo, P = 100), se garantiza analíticamente que la violación "
-        "de cualquier restricción dura (que incrementa la energía en al menos P >= 100) superará estrictamente el valor máximo absoluto "
-        "que el objetivo de fronteras podría alcanzar jamás en toda la cuadrícula (F <= 82). "
-        "Por tanto, el ground state del sistema nunca sacrificará una restricción para reducir fronteras, garantizando la viabilidad "
-        "sin necesidad de calibración ad-hoc ni de resolver previamente el modelo clásico.",
+        "de cualquier restricción dura incrementará la energía en al menos P >= 100, siendo energéticamente superior (penalizada) "
+        "a cualquier configuración factible. Como el objetivo de fronteras nunca puede superar F = 82, el ground state del sistema "
+        "nunca sacrificará una restricción para reducir fronteras, garantizando la viabilidad a priori sin necesidad de calibración ad-hoc.",
         titulo="GARANTÍA MATEMÁTICA A PRIORI"
     )
 
@@ -376,7 +375,7 @@ def construir_memoria():
         "basada en conos de accesibilidad de Manhattan:\n"
         "Una celda c = (r, c) solo puede ser visitada en el paso t si:\n"
         "dist(START, c) <= t   y   dist(c, GOAL) <= (12 - t)\n"
-        "Para una cuadrícula 6×8 con camino mínimo de 12 movimientos, los conos reducen los candidatos temporales a exactamente "
+        "Para una cuadrícula 6×8 con camino mínimo de 12 movimientos (13 celdas), los conos reducen los candidatos temporales a exactamente "
         "48 variables podadas q_{t,c} (excluyendo START y GOAL fijados). Así, el modelo integrado consta de exactamente:\n"
         "48 variables de celda x_c + 48 variables de ruta q_{t,c} = 96 variables binarias totales."
     )
@@ -409,18 +408,28 @@ def construir_memoria():
         run_img_bq.add_picture(str(FIGURA_BLENDER_QUBO), width=Inches(6.0))
         p_cap_bq = doc.add_paragraph()
         p_cap_bq.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r_cap_bq = p_cap_bq.add_run("Figura 3: Render 3D del Modelo QUBO Integrado resuelto con Simulated Annealing (96 variables, P=100) en Blender 5.2. Muestra la solución óptima válida con ruta q de neón navegando a través de los muros y losas de cantería.")
+        r_cap_bq = p_cap_bq.add_run("Figura 3. Ejemplo de una solución válida del modelo QUBO integrado obtenida mediante Simulated Annealing. La visualización representa la geometría generada y la ruta q de 12 movimientos entre START y GOAL; los elementos adicionales de gameplay no forman parte del modelo QUBO core.")
         r_cap_bq.font.size = Pt(9)
         r_cap_bq.font.italic = True
-        p_cap_bq.paragraph_format.space_after = Pt(14)
+        p_cap_bq.paragraph_format.space_after = Pt(10)
+
+        agregar_callout(
+            doc,
+            "Aviso metodológico sobre la comparación visual: Las Figuras 2 y 3 NO representan una comparativa visual directa del mismo alcance de problema. "
+            "La Figura 2 demuestra la capacidad expresiva del generador final clásico (CP-SAT v3) integrando bifurcaciones ciegas y actores lúdicos completos (monstruos y cofres). "
+            "Por su parte, la Figura 3 ilustra la solución al problema fundamental cuántico de síntesis geométrica con ruta navegable (modelo Core), "
+            "evitando inflar innecesariamente el Hamiltoniano con variables de gameplay que no forman parte del núcleo de conectividad.",
+            titulo="DISTINCIÓN VISUAL: DEMOSTRADOR GAMEPLAY VS. MODELO CUÁNTICO CORE"
+        )
 
     # =========================================================================
     # SECCIÓN 8: EVALUACIÓN EXPERIMENTAL, ROBUSTEZ Y TIME TO SOLUTION (TTS)
     # =========================================================================
     doc.add_heading("8. Evaluación experimental: robustez en 20 semillas y Time To Solution (TTS)", level=1)
     doc.add_paragraph(
-        "Para evaluar empíricamente ambas formulaciones se utilizó Simulated Annealing (dwave-samplers) con 100 lecturas (reads) "
-        "y 1.500 sweeps de enfriamiento por ejecución, repitiendo el experimento en 20 semillas aleatorias independientes."
+        "Para evaluar empíricamente ambas formulaciones bajo condiciones estrictamente comparables, se utilizó Simulated Annealing "
+        "(dwave-samplers) con 100 lecturas (reads), 1.500 sweeps de enfriamiento y la penalización teórica P = 100.0, "
+        "repitiendo el experimento en las mismas 20 semillas aleatorias independientes para ambos modelos QUBO."
     )
 
     doc.add_heading("8.1. Definición formal de Time To Solution (TTS_99)", level=2)
@@ -428,29 +437,31 @@ def construir_memoria():
         "El Time To Solution es la métrica estándar en computación cuántica y optimización heurística para cuantificar el tiempo "
         "esperado de cómputo necesario para obtener al menos una solución óptima válida con una probabilidad de certeza del 99%:\n"
         "TTS_99 = t_read * [ ln(1 - 0.99) / ln(1 - p_éxito) ]\n"
-        "donde t_read es el tiempo medio de muestreo por lectura (tiempo total / número de reads) y p_éxito es la probabilidad "
-        "de que una lectura aleatoria satisfaga simultáneamente todas las restricciones duras del problema (zonas, START/GOAL y ruta válida)."
+        "donde t_read es el tiempo medio de muestreo por lectura en CPU clásica (tiempo total / número de reads) y p_éxito es la probabilidad "
+        "de que una lectura aleatoria satisfaga simultáneamente todas las restricciones duras del problema.\n\n"
+        "Es fundamental precisar que el valor obtenido corresponde a una estimación empírica de TTS en CPU clásica mediante Simulated Annealing, "
+        "calculada a partir del tiempo de muestreo por lectura y la tasa observada. No representa el tiempo de ciclo físico de un procesador cuántico (QPU)."
     )
 
     doc.add_heading("8.2. Mínimo de energía vs. Mejor muestra válida", level=2)
     doc.add_paragraph(
         "Un fenómeno de gran interés científico es la divergencia entre la muestra de menor energía bruta y la mejor muestra válida. "
-        "En el QUBO desacoplado, la muestra de mínima energía obtiene 32 fronteras pero a menudo bloquea el camino (0% navegable), "
-        "mientras que la mejor muestra válida alcanza 34 fronteras preservando el camino de 12 pasos. "
+        "En el QUBO desacoplado, la muestra de mínima energía obtiene 31.80 fronteras pero a menudo bloquea el camino (inviable), "
+        "mientras que la mejor muestra válida requiere 34.55 fronteras para permitir la ruta de 12 movimientos. "
         "En cambio, en el QUBO integrado, gracias a las 48 variables de ruta q y al acoplamiento de compatibilidad con el suelo, "
-        "la muestra de mínima energía coincide con la mejor muestra válida en la totalidad de las 20 semillas ensayadas."
+        "la muestra de mínima energía coincide con la mejor muestra válida (29.25 fronteras) en la totalidad de las 20 semillas ensayadas."
     )
 
-    # Tabla de Robustez Integrado
+    # Tabla de Robustez Integrado (Homogeneizada a 20 semillas idénticas)
     t_rob = doc.add_table(rows=6, cols=3)
     t_rob.alignment = WD_TABLE_ALIGNMENT.CENTER
     filas_rob = [
         ("Métrica Estadística (20 semillas)", "QUBO Desacoplado (48 vars)", "QUBO Integrado (96 vars)"),
         ("Tasa media de cumplimiento de zonas", "100.0% (Estricto P=100)", "100.0% (Estricto P=100)"),
-        ("Tasa media de éxito / ruta válida", "9.00% ± 3.12% (Filtro BFS)", "93.60% ± 2.35% (Ruta q válida)"),
-        ("Fronteras de la mejor solución válida", "25.55 ± 2.11 transiciones", "29.25 ± 2.14 transiciones"),
-        ("Time To Solution (TTS_99)", "58.57 ms", "4.39 ± 0.60 ms (Ultra-rápido)"),
-        ("Tiempo medio de muestreo por semilla", "0.090 s (100 reads)", "0.209 s (100 reads)"),
+        ("Tasa media de éxito / ruta válida", "8.30% ± 2.51% (Filtro BFS)", "93.60% ± 2.35% (Ruta q válida)"),
+        ("Fronteras de la mejor solución válida", "34.55 ± 2.13 transiciones", "29.25 ± 2.14 transiciones"),
+        ("Estimación empírica TTS_99 en CPU", "63.47 ± 28.29 ms", "4.39 ± 0.60 ms"),
+        ("Tiempo medio de muestreo (100 reads)", "0.104 s (en CPU)", "0.209 s (en CPU)"),
     ]
     for i, fila in enumerate(filas_rob):
         for j, texto in enumerate(fila):
@@ -469,7 +480,8 @@ def construir_memoria():
     # =========================================================================
     doc.add_heading("9. Comparativa metodológica integral: 4 Enfoques en el Caso 3", level=1)
     doc.add_paragraph(
-        "La siguiente tabla condensa la comparativa exhaustiva entre los cuatro modelos implementados en el Caso 3:"
+        "La siguiente tabla condensa la comparativa exhaustiva entre los cuatro modelos implementados en el Caso 3, "
+        "reportando datos consolidados y estadísticamente homogéneos (media ± desviación típica en 20 semillas para ambos modelos QUBO):"
     )
 
     # Tabla Maestra 4 Vías
@@ -478,16 +490,16 @@ def construir_memoria():
     filas_comp = [
         ("Métrica Comparativa", "CP-SAT Demostrador", "CP-SAT Core", "QUBO Desacoplado", "QUBO Integrado"),
         ("Problema resuelto", "Geo + Ruta + Gameplay", "Geometría + Ruta", "Geometría pura", "Geometría + Ruta q"),
-        ("Variables de decisión", "368 booleanas", "96 variables", "48 variables", "96 variables"),
+        ("Variables de decisión", "238 (+ 130 aux.)", "96 (+ 82 aux.)", "48 variables", "96 variables"),
         ("Variables totales solver", "368 variables", "178 variables", "48 variables", "96 variables"),
-        ("Términos cuadráticos", "0 (Lineal MIP)", "0 (Lineal MIP)", "278 términos", "541 términos"),
-        ("Tiempo de resolución", "18.257 s", "2.189 s", "0.120 s", "0.205 s"),
-        ("Fronteras (mejor válida)", "22 transiciones", "20 transiciones", "34 transiciones", "29 transiciones"),
-        ("Fronteras (mínimo energía)", "22 transiciones", "20 transiciones", "32 transiciones", "29 transiciones"),
+        ("Términos cuadráticos", "N/A (modelo CP-SAT)", "N/A (modelo CP-SAT)", "278 términos", "541 términos"),
+        ("Tiempo de resolución (s)", "18.257 s", "2.189 s", "0.104 s (media SA)", "0.209 s (media SA)"),
+        ("Fronteras (mejor válida)", "22 (Óptimo)", "20 (Óptimo)", "34.55 ± 2.13", "29.25 ± 2.14"),
+        ("Fronteras (mínimo energía)", "22 (Óptimo)", "20 (Óptimo)", "31.80 ± 1.86", "29.25 ± 2.14"),
         ("Cumplimiento de zonas", "100.0% (Exacto)", "100.0% (Exacto)", "100.0% (P=100)", "100.0% (P=100)"),
-        ("Tasa de éxito / navegable", "100.0% (Garantizado)", "100.0% (Garantizado)", "9.0% (Filtro BFS)", "93.6% (Ruta q probada)"),
-        ("Longitud de ruta START->GOAL", "12 pasos", "12 pasos", "12 pasos", "12 pasos"),
-        ("Time To Solution (TTS_99)", "N/A (Determinista)", "N/A (Determinista)", "58.57 ms", "4.39 ms"),
+        ("Tasa de éxito / navegable", "100.0% (Garantizado)", "100.0% (Garantizado)", "8.30% ± 2.51% (BFS)", "93.60% ± 2.35% (Ruta q)"),
+        ("Longitud de ruta START->GOAL", "12 mov. (13 celdas)", "12 mov. (13 celdas)", "12 mov. (13 celdas)", "12 mov. (13 celdas)"),
+        ("Estimación empírica TTS_99 en CPU", "N/A (Determinista)", "N/A (Determinista)", "63.47 ± 28.29 ms", "4.39 ± 0.60 ms"),
     ]
 
     for i, fila in enumerate(filas_comp):
@@ -504,20 +516,27 @@ def construir_memoria():
 
     doc.add_heading("9.1. Discusión científica y trade-offs metodológicos", level=2)
     doc.add_paragraph(
-        "Del análisis comparativo de 4 vías se extraen tres conclusiones científicas de primer orden:\n"
+        "Del análisis comparativo riguroso de 4 vías se extraen conclusiones científicas de gran relevancia metodológica:\n"
         "1. La comparación rigurosa 1-a-1: Contrastar el QUBO Integrado (96 variables) contra el CP-SAT Demostrador (368 variables) "
-        "era matemáticamente asimétrico debido a las 116 ramas candidatas y los elementos de gameplay. Al crear el CP-SAT Core "
-        "(exactamente las mismas 96 variables de decisión), se evidencia que CP-SAT resuelve la geometría con ruta en 2.19 s alcanzando "
-        "el óptimo global de 20 fronteras, mientras que el QUBO integrado resuelve en 0.20 s alcanzando 29 fronteras (a tan solo 9 aristas "
-        "del óptimo teórico) con un TTS_99 de tan solo 4.39 ms.\n"
-        "2. Eficacia de la codificación integrada de ruta: Incluir las variables podadas q_{t,c} multiplica la probabilidad de éxito "
-        "del 9.0% al 93.6%, reduciendo el TTS_99 de 58.57 ms a 4.39 ms. La sobrecarga de duplicar las variables de 48 a 96 queda "
-        "ampliamente compensada por la drástica reducción del espacio inviable.\n"
-        "3. Conectividad global del suelo como métrica de calidad: El QUBO integrado garantiza al 100% la navegabilidad jugable "
-        "(camino continuo START->GOAL), presentando entre 1 y 3 componentes conexas en el suelo circundante. Exigir que todo el suelo "
-        "del mapa forme una única componente conexa sin salas aisladas requeriría incorporar un flujo multicommodity o variables de árbol "
-        "de expansión que elevarían el QUBO a más de 500 variables binarias. Por tanto, delegar la conectividad secundaria a un filtro "
-        "clásico o aceptarla como parte de la variedad estética del mapa es la estrategia óptima en la era NISQ."
+        "era asimétrico debido a las 116 ramas candidatas y la lógica de gameplay. Al crear el CP-SAT Core (exactamente las mismas "
+        "96 variables de decisión principales), la comparativa resulta limpia y formal: CP-SAT resuelve el núcleo en 2.19 s alcanzando "
+        "el óptimo global de 20 fronteras, mientras que el QUBO integrado resuelve en 0.20 s alcanzando 29 fronteras con una estimación "
+        "empírica de TTS_99 en CPU de 4.39 ms.\n\n"
+        "2. Carácter determinista vs. muestreo heurístico (precaución sobre el concepto de velocidad): Es crucial no confundir tiempos de "
+        "ejecución con garantías matemáticas de resolución. CP-SAT devuelve estado OPTIMAL, certificando la optimalidad para la formulación "
+        "considerada (20 fronteras). En cambio, Simulated Annealing es una metaheurística estocástica que obtiene 100 muestras aproximadas "
+        "en una superficie de energía rugosa. No se debe hablar de un 'speedup' en sentido estricto, sino de dos paradigmas con garantías diferentes.\n\n"
+        "3. El trade-off real: Factibilidad vs. Calidad espacial: El QUBO integrado logra un avance decisivo en factibilidad, elevando la "
+        "tasa de éxito del 8.30% al 93.60%. Sin embargo, el muestreo heurístico no recupera con la misma consistencia la calidad visual del "
+        "óptimo clásico (promedio de 29.25 ± 2.14 fronteras frente a las 20 del CP-SAT). Esta discrepancia es un resultado científicamente "
+        "honesto y valioso: el acoplamiento de restricciones duras en el Hamiltoniano estabiliza la navegabilidad pero dificulta que el sampler "
+        "alcance el mínimo absoluto del término de coherencia espacial.\n\n"
+        "4. Componentes conexas de suelo como métrica de calidad: La solución del QUBO integrado renderizada en Blender presenta 3 componentes "
+        "de suelo (la componente principal que contiene la ruta de 13 celdas / 12 movimientos START->GOAL y dos bolsas secundarias de suelo desconectadas). "
+        "Esto no invalida la condición de navegabilidad START->GOAL definida para el experimento, que queda plenamente garantizada por las variables q y el BFS. "
+        "En el conjunto de las 20 semillas, aproximadamente el 50% de las soluciones válidas presentan una única componente conexa y el resto 2 o 3. "
+        "Forzar la conectividad global de todas las celdas transitables requeriría variables y restricciones auxiliares adicionales —por ejemplo mediante "
+        "formulaciones de flujo o estructuras de conectividad—, aumentando significativamente el tamaño y la densidad del QUBO. Por ello se mantiene como métrica de calidad y no como restricción dura."
     )
 
     # =========================================================================
