@@ -58,6 +58,19 @@ ACTIVAR_VISTA_MATERIAL = True
 # =============================================================================
 
 def obtener_ruta_json():
+    import os
+    if "--json" in sys.argv:
+        idx = sys.argv.index("--json")
+        if idx + 1 < len(sys.argv):
+            arg_p = Path(sys.argv[idx + 1])
+            if arg_p.exists():
+                return arg_p
+
+    if os.environ.get("CASO3_BLENDER_JSON"):
+        env_p = Path(os.environ["CASO3_BLENDER_JSON"])
+        if env_p.exists():
+            return env_p
+
     if RUTA_JSON is not None and Path(RUTA_JSON).exists():
         return Path(RUTA_JSON)
 
@@ -931,9 +944,16 @@ def construir_escena_caso3():
 
     # Si se ejecuta en segundo plano (-b), renderizar y guardar
     if bpy.app.background:
-        es_qubo = "qubo" in str(json_path).lower()
-        stem = "caso3_nivel_blender_qubo_6x8" if es_qubo else "caso3_nivel_blender_6x8"
-        img_stem = "caso3_blender_qubo_render_6x8.png" if es_qubo else "caso3_blender_render_6x8.png"
+        json_str = str(json_path).lower()
+        if "qubo_full" in json_str or "qubo_completo" in json_str:
+            stem = "caso3_nivel_blender_qubo_full_6x8"
+            img_stem = "caso3_blender_qubo_full_render_6x8.png"
+        elif "qubo" in json_str:
+            stem = "caso3_nivel_blender_qubo_6x8"
+            img_stem = "caso3_blender_qubo_render_6x8.png"
+        else:
+            stem = "caso3_nivel_blender_6x8"
+            img_stem = "caso3_blender_render_6x8.png"
 
         blend_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\resultados") / f"{stem}.blend"
         blend_output.parent.mkdir(parents=True, exist_ok=True)

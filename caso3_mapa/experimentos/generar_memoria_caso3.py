@@ -230,7 +230,7 @@ def construir_memoria():
     filas_cp = [
         ("Métrica / Parámetro", "CP-SAT Core (Modelo Base)", "CP-SAT v3 (Demostrador Final)"),
         ("Alcance del modelo", "Geometría + Ruta principal", "Geometría + Ruta + Rama + Gameplay"),
-        ("Variables de decisión", "96 principales (+ 82 aux.)", "238 principales (+ 130 aux.)"),
+        ("Desglose de variables", "Variables principales: 96; auxiliares: 82", "Variables principales: 238; auxiliares: 130"),
         ("Variables totales solver", "178 variables", "368 variables"),
         ("Tiempo de resolución (s)", "2.189 s (CPU monohilo)", "18.257 s (CPU monohilo)"),
         ("Fronteras suelo/pared (F)", "20 transiciones (Óptimo absoluto)", "22 transiciones (Óptimo con gameplay)"),
@@ -453,16 +453,19 @@ def construir_memoria():
     )
 
     # Tabla de Robustez Integrado (Homogeneizada a 20 semillas idénticas)
-    t_rob = doc.add_table(rows=6, cols=3)
-    t_rob.alignment = WD_TABLE_ALIGNMENT.CENTER
     filas_rob = [
         ("Métrica Estadística (20 semillas)", "QUBO Desacoplado (48 vars)", "QUBO Integrado (96 vars)"),
-        ("Tasa media de cumplimiento de zonas", "100.0% (Estricto P=100)", "100.0% (Estricto P=100)"),
+        ("Restricción de zonas en solución válida", "Satisfecha (5 muros por zona)", "Satisfecha (5 muros por zona)"),
         ("Tasa media de éxito / ruta válida", "8.30% ± 2.51% (Filtro BFS)", "93.60% ± 2.35% (Ruta q válida)"),
-        ("Fronteras de la mejor solución válida", "34.55 ± 2.13 transiciones", "29.25 ± 2.14 transiciones"),
-        ("Estimación empírica TTS_99 en CPU", "63.47 ± 28.29 ms", "4.39 ± 0.60 ms"),
+        ("Semillas con ≥1 muestra válida", "100.0% (20/20 semillas)", "100.0% (20/20 semillas)"),
+        ("Fronteras de la mejor solución válida", "34.55 ± 2.13 (rango: 29-39)", "29.25 ± 2.14 (rango: 23-32)"),
+        ("Fronteras de muestra de menor energía", "31.80 ± 1.86", "29.25 ± 2.14"),
+        ("Estimación empírica TTS_99 en CPU", "63.47 ± 28.29 ms", "4.39 ms aprox. (4.39 ± 0.60 ms)"),
         ("Tiempo medio de muestreo (100 reads)", "0.104 s (en CPU)", "0.209 s (en CPU)"),
+        ("Componentes conexas de suelo (calidad)", "1–4 componentes (CC ∈ {1, 2, 3, 4})", "1–3 componentes (CC ∈ [1, 3])"),
     ]
+    t_rob = doc.add_table(rows=len(filas_rob), cols=3)
+    t_rob.alignment = WD_TABLE_ALIGNMENT.CENTER
     for i, fila in enumerate(filas_rob):
         for j, texto in enumerate(fila):
             c = t_rob.cell(i, j)
@@ -485,22 +488,24 @@ def construir_memoria():
     )
 
     # Tabla Maestra 4 Vías
-    t_comp = doc.add_table(rows=12, cols=5)
-    t_comp.alignment = WD_TABLE_ALIGNMENT.CENTER
     filas_comp = [
         ("Métrica Comparativa", "CP-SAT Demostrador", "CP-SAT Core", "QUBO Desacoplado", "QUBO Integrado"),
-        ("Problema resuelto", "Geo + Ruta + Gameplay", "Geometría + Ruta", "Geometría pura", "Geometría + Ruta q"),
-        ("Variables de decisión", "238 (+ 130 aux.)", "96 (+ 82 aux.)", "48 variables", "96 variables"),
+        ("Problema resuelto", "Geo + Ruta + Gameplay", "Geometría + Ruta", "Geometría + validación BFS externa", "Geometría + Ruta q"),
+        ("Desglose de variables", "Variables principales: 238; auxiliares: 130", "Variables principales: 96; auxiliares: 82", "Variables principales: 48; auxiliares: 0", "Variables principales: 96; auxiliares: 0"),
         ("Variables totales solver", "368 variables", "178 variables", "48 variables", "96 variables"),
         ("Términos cuadráticos", "N/A (modelo CP-SAT)", "N/A (modelo CP-SAT)", "278 términos", "541 términos"),
-        ("Tiempo de resolución (s)", "18.257 s", "2.189 s", "0.104 s (media SA)", "0.209 s (media SA)"),
-        ("Fronteras (mejor válida)", "22 (Óptimo)", "20 (Óptimo)", "34.55 ± 2.13", "29.25 ± 2.14"),
+        ("Tiempo de resolución / muestreo", "18.257 s", "2.189 s", "0.104 s (media SA)", "0.209 s (media SA)"),
+        ("Fronteras (mejor válida)", "22 (Óptimo)", "20 (Óptimo)", "34.55 ± 2.13 (rango: 29-39)", "29.25 ± 2.14 (rango: 23-32)"),
         ("Fronteras (mínimo energía)", "22 (Óptimo)", "20 (Óptimo)", "31.80 ± 1.86", "29.25 ± 2.14"),
-        ("Cumplimiento de zonas", "100.0% (Exacto)", "100.0% (Exacto)", "100.0% (P=100)", "100.0% (P=100)"),
+        ("Restricción de zonas (sol. válida)", "Satisfecha (Exacto)", "Satisfecha (Exacto)", "Satisfecha (5 muros/zona)", "Satisfecha (5 muros/zona)"),
+        ("Reads con zonas correctas", "N/A (restricción exacta)", "N/A (restricción exacta)", "100.0% (100/100 reads)", "100.0% (100/100 reads)"),
         ("Tasa de éxito / navegable", "100.0% (Garantizado)", "100.0% (Garantizado)", "8.30% ± 2.51% (BFS)", "93.60% ± 2.35% (Ruta q)"),
         ("Longitud de ruta START->GOAL", "12 mov. (13 celdas)", "12 mov. (13 celdas)", "12 mov. (13 celdas)", "12 mov. (13 celdas)"),
-        ("Estimación empírica TTS_99 en CPU", "N/A (Determinista)", "N/A (Determinista)", "63.47 ± 28.29 ms", "4.39 ± 0.60 ms"),
+        ("Componentes conexas de suelo (calidad)", "1 componente (100% conexo)", "1 componente (100% conexo)", "1–4 componentes (CC ∈ {1, 2, 3, 4})", "1–3 componentes (CC ∈ [1, 3])"),
+        ("Estimación empírica TTS_99 en CPU", "N/A (Determinista)", "N/A (Determinista)", "63.47 ± 28.29 ms", "4.39 ms aprox. (4.39 ± 0.60 ms)"),
     ]
+    t_comp = doc.add_table(rows=len(filas_comp), cols=5)
+    t_comp.alignment = WD_TABLE_ALIGNMENT.CENTER
 
     for i, fila in enumerate(filas_comp):
         for j, texto in enumerate(fila):
@@ -534,9 +539,15 @@ def construir_memoria():
         "4. Componentes conexas de suelo como métrica de calidad: La solución del QUBO integrado renderizada en Blender presenta 3 componentes "
         "de suelo (la componente principal que contiene la ruta de 13 celdas / 12 movimientos START->GOAL y dos bolsas secundarias de suelo desconectadas). "
         "Esto no invalida la condición de navegabilidad START->GOAL definida para el experimento, que queda plenamente garantizada por las variables q y el BFS. "
-        "En el conjunto de las 20 semillas, aproximadamente el 50% de las soluciones válidas presentan una única componente conexa y el resto 2 o 3. "
-        "Forzar la conectividad global de todas las celdas transitables requeriría variables y restricciones auxiliares adicionales —por ejemplo mediante "
-        "formulaciones de flujo o estructuras de conectividad—, aumentando significativamente el tamaño y la densidad del QUBO. Por ello se mantiene como métrica de calidad y no como restricción dura."
+        "En el conjunto de las 20 semillas, las mejores soluciones válidas del modelo desacoplado oscilan en un rango de 1 a 4 componentes conexas "
+        "(CC in {1, 2, 3, 4}; por ejemplo, la semilla 1000 obtiene 1 única componente transitable conexa y la semilla 1666 llega a cuatro). "
+        "Por su parte, el QUBO integrado restringe la dispersión a un rango estricto de 1 a 3 componentes (CC in [1, 3], con aproximadamente el 50% de las semillas "
+        "alcanzando 1 única componente de conectividad global perfecta). "
+        "Este comportamiento empírico refuerza de forma nítida nuestra interpretación metodológica: la conectividad global de todo el espacio transitable "
+        "constituye una métrica de calidad espacial y de diseño, no parte de la factibilidad dura del problema de navegabilidad START->GOAL. "
+        "Forzar la conectividad global de todas las celdas de suelo en el Hamiltoniano requeriría variables y restricciones cuadráticas adicionales "
+        "—por ejemplo mediante formulaciones de flujo multicommodity o potenciales escalares de conectividad—, lo que aumentaría drásticamente "
+        "el número de variables y la densidad de acoplamientos del grafo cuántico. Por este motivo, se mantiene formalmente como métrica de calidad arquitectónica y no como restricción dura."
     )
 
     # =========================================================================
