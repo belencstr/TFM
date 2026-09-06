@@ -1,0 +1,697 @@
+{
+  "metadata": {
+    "caso": 3,
+    "titulo": "Mapa 2D con obstáculos y gameplay",
+    "solver": "CP-SAT v3",
+    "status": "OPTIMAL",
+    "seed": 42,
+    "timestamp": "20260906_180911",
+    "solve_time_seconds": 20.912668,
+    "objective_value": 22.0,
+    "grid_rows": 6,
+    "grid_cols": 8,
+    "total_cells": 48,
+    "floor_cells_count": 28,
+    "wall_cells_count": 20,
+    "components_count": 1,
+    "bfs_path_length": 12,
+    "witness_path_length": 12
+  },
+  "points_of_interest": {
+    "start": {
+      "row": 0,
+      "col": 0
+    },
+    "goal": {
+      "row": 5,
+      "col": 7
+    },
+    "route_rewards": [
+      {
+        "row": 2,
+        "col": 0
+      }
+    ],
+    "route_enemies": [
+      {
+        "row": 3,
+        "col": 3
+      },
+      {
+        "row": 4,
+        "col": 7
+      }
+    ],
+    "branch_attachment": {
+      "row": 3,
+      "col": 0
+    },
+    "branch_a": {
+      "row": 4,
+      "col": 0
+    },
+    "branch_b": {
+      "row": 5,
+      "col": 0
+    },
+    "branch_reward": {
+      "row": 5,
+      "col": 0
+    }
+  },
+  "paths": {
+    "main_path": [
+      {
+        "row": 0,
+        "col": 0,
+        "step": 0
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "step": 1
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "step": 2
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "step": 3
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "step": 4
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "step": 5
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "step": 6
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "step": 7
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "step": 8
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "step": 9
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "step": 10
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "step": 11
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "step": 12
+      }
+    ],
+    "branch_path": [
+      {
+        "row": 3,
+        "col": 0,
+        "step": 0
+      },
+      {
+        "row": 4,
+        "col": 0,
+        "step": 1
+      },
+      {
+        "row": 5,
+        "col": 0,
+        "step": 2
+      }
+    ],
+    "bfs_shortest_path": [
+      {
+        "row": 0,
+        "col": 0,
+        "step": 0
+      },
+      {
+        "row": 1,
+        "col": 0,
+        "step": 1
+      },
+      {
+        "row": 2,
+        "col": 0,
+        "step": 2
+      },
+      {
+        "row": 3,
+        "col": 0,
+        "step": 3
+      },
+      {
+        "row": 3,
+        "col": 1,
+        "step": 4
+      },
+      {
+        "row": 3,
+        "col": 2,
+        "step": 5
+      },
+      {
+        "row": 3,
+        "col": 3,
+        "step": 6
+      },
+      {
+        "row": 3,
+        "col": 4,
+        "step": 7
+      },
+      {
+        "row": 3,
+        "col": 5,
+        "step": 8
+      },
+      {
+        "row": 3,
+        "col": 6,
+        "step": 9
+      },
+      {
+        "row": 3,
+        "col": 7,
+        "step": 10
+      },
+      {
+        "row": 4,
+        "col": 7,
+        "step": 11
+      },
+      {
+        "row": 5,
+        "col": 7,
+        "step": 12
+      }
+    ]
+  },
+  "cells": [
+    {
+      "row": 0,
+      "col": 0,
+      "type": "START",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 1,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 2,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 3,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 4,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 5,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 6,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 0,
+      "col": 7,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 2,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 3,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 5,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 6,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 1,
+      "col": 7,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "type": "REWARD",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": true,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 5,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 6,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 2,
+      "col": 7,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "type": "ENEMY",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": true
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 5,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 6,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 3,
+      "col": 7,
+      "type": "PATH",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 0,
+      "type": "BRANCH",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": true,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 1,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 3,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 4,
+      "type": "FLOOR",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 6,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 4,
+      "col": 7,
+      "type": "ENEMY",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": true
+    },
+    {
+      "row": 5,
+      "col": 0,
+      "type": "BRANCH_REWARD",
+      "is_open": true,
+      "is_path": false,
+      "is_branch": true,
+      "is_reward": true,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 1,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 2,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 3,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 4,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 5,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 6,
+      "type": "WALL",
+      "is_open": false,
+      "is_path": false,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    },
+    {
+      "row": 5,
+      "col": 7,
+      "type": "GOAL",
+      "is_open": true,
+      "is_path": true,
+      "is_branch": false,
+      "is_reward": false,
+      "is_enemy": false
+    }
+  ]
+}

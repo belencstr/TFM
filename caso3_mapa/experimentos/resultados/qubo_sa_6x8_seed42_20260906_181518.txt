@@ -1,0 +1,31 @@
+============================================================
+CASO 3 — SIMULATED ANNEALING SOBRE MODELO QUBO
+============================================================
+Fecha: 20260906_181518
+Cuadrícula: 6x8 (48 celdas)
+START: (0, 0), GOAL: (5, 7)
+Semilla: 42
+Num Reads: 100, Num Sweeps: 1000
+Pesos QUBO: frontera=1.0, zona=12.0, start_goal=50.0
+
+Variables binarias: 48
+Términos cuadráticos: 278
+Tiempo de resolución: 0.0933 s
+
+Energía de la mejor muestra: 26.0000
+Fronteras suelo/pared (Ising): 26
+Muros totales: 20 (Esperado: 20)
+Suelo total: 28 (Esperado: 28)
+Distribución por zonas: {'A': 5, 'B': 5, 'C': 5, 'D': 5}
+Factible en zonas: True
+Navegable START->GOAL: True
+Longitud camino BFS: 12
+Componentes transitables: 2
+Tasa factibilidad zonas: 100.0%
+Tasa navegabilidad válida: 16.0%
+
+Celdas transitables de la mejor muestra:
+[(0, 0), (0, 1), (0, 3), (0, 4), (0, 5), (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 5), (2, 6), (2, 7), (3, 1), (3, 6), (3, 7), (4, 0), (4, 1), (4, 2), (4, 5), (4, 6), (4, 7), (5, 0), (5, 1), (5, 2), (5, 6), (5, 7)]
+
+Camino mínimo BFS:
+[(0, 0), (1, 0), (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2, 5), (2, 6), (3, 6), (4, 6), (5, 6), (5, 7)]

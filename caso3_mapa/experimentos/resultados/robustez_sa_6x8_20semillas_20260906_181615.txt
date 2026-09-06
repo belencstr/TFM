@@ -1,0 +1,37 @@
+============================================================
+CASO 3 — INFORME DE ROBUSTEZ (20 SEMILLAS)
+============================================================
+Fecha: 20260906_181615
+Instancia: 6x8 (48 variables)
+Reads: 100, Sweeps: 1000
+Pesos QUBO: frontera=1.0, zona=12.0, start_goal=50.0
+
+RESUMEN AGREGADO:
+  Fronteras mejor muestra: 25.55 ± 2.11 (rango: [21, 28])
+  Tasa cumplimiento zonas: 100.00%
+  Tasa muestras navegables: 18.65%
+  Semillas con mejor muestra navegable: 25.0%
+  Tiempo medio: 0.0902 s
+
+DETALLE POR SEMILLA:
+Semilla | Fronteras | Zonas_OK | Navegable | Comp | Long_BFS | Tasa_Nav | Tiempo(s)
+   1000 |        28 | True     | False     |    2 | None     |    19.0% | 0.0864
+   1037 |        26 | True     | False     |    3 | None     |    27.0% | 0.0867
+   1074 |        27 | True     | True      |    2 | 12       |    16.0% | 0.0891
+   1111 |        27 | True     | False     |    3 | None     |    23.0% | 0.1050
+   1148 |        28 | True     | False     |    2 | None     |    13.0% | 0.0846
+   1185 |        22 | True     | False     |    2 | None     |    19.0% | 0.0846
+   1222 |        24 | True     | True      |    2 | 12       |    16.0% | 0.0890
+   1259 |        28 | True     | False     |    3 | None     |    15.0% | 0.0898
+   1296 |        26 | True     | False     |    3 | None     |    20.0% | 0.0890
+   1333 |        25 | True     | True      |    1 | 12       |    32.0% | 0.0927
+   1370 |        21 | True     | False     |    3 | None     |    18.0% | 0.0885
+   1407 |        25 | True     | True      |    1 | 12       |    16.0% | 0.0893
+   1444 |        25 | True     | False     |    3 | None     |    17.0% | 0.0900
+   1481 |        23 | True     | False     |    2 | None     |    20.0% | 0.0924
+   1518 |        26 | True     | False     |    2 | None     |    16.0% | 0.1068
+   1555 |        27 | True     | False     |    2 | None     |    13.0% | 0.0869
+   1592 |        28 | True     | False     |    3 | None     |    15.0% | 0.0847
+   1629 |        22 | True     | False     |    2 | None     |    13.0% | 0.0899
+   1666 |        27 | True     | False     |    2 | None     |    25.0% | 0.0875
+   1703 |        26 | True     | True      |    2 | 12       |    20.0% | 0.0905

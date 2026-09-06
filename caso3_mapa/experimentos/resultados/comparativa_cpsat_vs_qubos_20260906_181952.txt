@@ -1,0 +1,18 @@
+===========================================================================
+CASO 3 — COMPARATIVA DEFINITIVA: CP-SAT vs QUBO DESACOPLADO vs QUBO INTEGRADO
+===========================================================================
+Fecha: 20260906_181952
+Cuadrícula: 6x8 (48 celdas)
+Parámetros SA: Reads=100, Sweeps=1500, Semilla=42
+
+Métrica                          | CP-SAT v3      | QUBO Desacoplado | QUBO Integrado
+----------------------------------------------------------------------------------
+Variables binarias               | ~150           | 48               | 96            
+Términos cuadráticos             | N/A            | 278              | 541           
+Tiempo de resolución (s)         | 14.2420        | 0.1391           | 0.2549        
+Fronteras suelo/pared (Ising)    | 22             | 22               | 26            
+Factibilidad de zonas (%)        | 100.0          | 100.0            | 100.0         
+Tasa mapas navegables (%)        | 100.0          | 17.0             | 98.0          
+Longitud camino BFS              | 12             | No ruta          | 12            
+Componentes de suelo             | 1              | 3                | 2             
+==================================================================================
