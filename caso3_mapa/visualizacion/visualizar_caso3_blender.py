@@ -892,12 +892,13 @@ def construir_escena_caso3():
         pos_rew = coord_a_blender(item["row"], item["col"], rows, cols)
         crear_cofre_tesoro(pos_rew, col_gameplay, mats)
 
-    # Altar de la Recompensa Secreta (Final de la rama)
-    pos_sec = coord_a_blender(poi["branch_reward"]["row"], poi["branch_reward"]["col"], rows, cols)
-    crear_altar_recompensa_secreta(pos_sec, col_gameplay, mats)
+    # Altar de la Recompensa Secreta (Final de la rama si existe)
+    if poi.get("branch_reward") is not None:
+        pos_sec = coord_a_blender(poi["branch_reward"]["row"], poi["branch_reward"]["col"], rows, cols)
+        crear_altar_recompensa_secreta(pos_sec, col_gameplay, mats)
 
-    # MONSTRUOS REALES (Enemigos)
-    for item in poi["route_enemies"]:
+    # MONSTRUOS REALES (Enemigos si existen)
+    for item in poi.get("route_enemies", []):
         pos_ene = coord_a_blender(item["row"], item["col"], rows, cols)
         crear_monstruo_3d(pos_ene, col_gameplay, mats)
 
@@ -930,12 +931,16 @@ def construir_escena_caso3():
 
     # Si se ejecuta en segundo plano (-b), renderizar y guardar
     if bpy.app.background:
-        blend_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\resultados\caso3_nivel_blender_6x8.blend")
+        es_qubo = "qubo" in str(json_path).lower()
+        stem = "caso3_nivel_blender_qubo_6x8" if es_qubo else "caso3_nivel_blender_6x8"
+        img_stem = "caso3_blender_qubo_render_6x8.png" if es_qubo else "caso3_blender_render_6x8.png"
+
+        blend_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\resultados") / f"{stem}.blend"
         blend_output.parent.mkdir(parents=True, exist_ok=True)
         bpy.ops.wm.save_as_mainfile(filepath=str(blend_output))
         print(f"Escena .blend guardada en: {blend_output}")
 
-        img_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\figuras\caso3_blender_render_6x8.png")
+        img_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\figuras") / img_stem
         img_output.parent.mkdir(parents=True, exist_ok=True)
         bpy.context.scene.render.filepath = str(img_output)
         bpy.ops.render.render(write_still=True)

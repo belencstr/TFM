@@ -1,17 +1,23 @@
-"""Solver de Simulated Annealing para el QUBO del Caso 3.
+"""Solver de Simulated Annealing para los modelos QUBO del Caso 3.
 
-Utiliza dwave.samplers.SimulatedAnnealingSampler para muestrear el
-espacio de estados del QUBO y evaluar las soluciones obtenidas:
-- Cumplimiento de START y GOAL.
-- Cumplimiento estricto de obstáculos por zona (5 muros / 7 suelos).
-- Navegabilidad mediante BFS (camino mínimo START->GOAL).
-- Conectividad global (número de componentes conexas transitables).
-- Número de fronteras suelo/pared (valor objetivo de Ising).
+Incorpora:
+1. Validación rigurosa de las variables q_{t, c} del QUBO Integrado (validar_ruta_q):
+   - Exactamente una celda por paso t in [0..12].
+   - START en t=0 y GOAL en t=12.
+   - Continuidad ortogonal entre pasos consecutivos.
+   - Compatibilidad estricta con suelo transitable (x_c = 1).
+2. Cálculo de Time To Solution (TTS) para una confianza del 99%:
+   TTS_99 = t_read * ln(1 - 0.99) / ln(1 - p_exito)
+3. Doble reporte de mejor muestra:
+   - mejor_muestra_energia: menor energía raw (reveladora teóricamente).
+   - mejor_muestra_valida: menor energía entre las factibles según restricciones duras.
+4. Métrica de calidad: número de componentes conexas de suelo.
 """
 
 from collections import deque
 from time import perf_counter
 from pathlib import Path
+import math
 import sys
 
 BASE_DIR = Path(__file__).resolve().parents[1]
@@ -26,8 +32,11 @@ from formulacion.qubo_caso3 import (
     GOAL,
     ZONES,
     N_WALLS_PER_ZONE,
+    CANDIDATES,
+    PATH_CELLS,
     neighbors,
     var_x,
+    var_q,
     extraer_mapa_de_solucion,
 )
 
@@ -44,22 +53,17 @@ def _importar_sampler():
 
 
 def convertir_a_diccionario_qubo(qubo):
-    """Convierte la estructura QUBO a la representación Q[(u, v)] = coeff."""
     Q = {}
     for var, coef in qubo["lineal"].items():
         Q[(var, var)] = float(coef)
-
     for (u, v), coef in qubo["cuadratico"].items():
         Q[(u, v)] = Q.get((u, v), 0.0) + float(coef)
-
     return Q
 
 
 def bfs_camino_minimo(open_cells, start=START, goal=GOAL):
-    """Calcula el camino más corto entre START y GOAL sobre las celdas abiertas."""
     if start not in open_cells or goal not in open_cells:
         return None
-
     queue = deque([start])
     parent = {start: None}
 
@@ -67,7 +71,6 @@ def bfs_camino_minimo(open_cells, start=START, goal=GOAL):
         current = queue.popleft()
         if current == goal:
             break
-
         for nxt in neighbors(current):
             if nxt in open_cells and nxt not in parent:
                 parent[nxt] = current
@@ -86,40 +89,95 @@ def bfs_camino_minimo(open_cells, start=START, goal=GOAL):
 
 
 def contar_componentes(open_cells):
-    """Cuenta el número de componentes conexas de suelo."""
     unseen = set(open_cells)
     components = 0
-
     while unseen:
         components += 1
         first = next(iter(unseen))
         queue = deque([first])
         unseen.remove(first)
-
         while queue:
             curr = queue.popleft()
             for nxt in neighbors(curr):
                 if nxt in unseen:
                     unseen.remove(nxt)
                     queue.append(nxt)
-
     return components
 
 
 def calcular_fronteras_reales(open_cells):
-    """Cuenta las transiciones suelo/muro reales en el mapa."""
     from clasico.caso3_cpsat_v3 import EDGES
     fronteras = 0
     for u, v in EDGES:
-        u_open = u in open_cells
-        v_open = v in open_cells
-        if u_open != v_open:
+        if (u in open_cells) != (v in open_cells):
             fronteras += 1
     return fronteras
 
 
-def resolver_qubo_sa(qubo, num_reads=100, num_sweeps=1000, seed=42):
-    """Ejecuta Simulated Annealing sobre el QUBO y analiza las muestras."""
+def validar_ruta_q(sol_dict, open_cells):
+    """Valida exhaustivamente si las variables q_{t, c} forman una ruta continua sobre suelo.
+
+    Returns:
+        (es_valida, ruta_celdas, motivo_fallo)
+    """
+    ruta_celdas = []
+
+    for t in range(PATH_CELLS):
+        activas = [c for c in CANDIDATES[t] if sol_dict.get(var_q(t, c[0], c[1]), 0) == 1]
+        if len(activas) != 1:
+            return False, None, f"Paso {t} tiene {len(activas)} celdas activas (esperado: 1)"
+        ruta_celdas.append(activas[0])
+
+    # START y GOAL
+    if ruta_celdas[0] != START:
+        return False, None, f"Paso 0 no es START: {ruta_celdas[0]}"
+    if ruta_celdas[-1] != GOAL:
+        return False, None, f"Paso {PATH_CELLS-1} no es GOAL: {ruta_celdas[-1]}"
+
+    # Continuidad
+    for t in range(PATH_CELLS - 1):
+        a = ruta_celdas[t]
+        b = ruta_celdas[t + 1]
+        dist = abs(a[0] - b[0]) + abs(a[1] - b[1])
+        if dist != 1:
+            return False, None, f"Discontinuidad entre paso {t} {a} y {t+1} {b} (dist={dist})"
+
+    # Suelo transitable
+    for t, c in enumerate(ruta_celdas):
+        if c not in open_cells:
+            return False, None, f"Paso {t} en {c} no es suelo transitable (x=0)"
+
+    return True, ruta_celdas, "OK"
+
+
+def calcular_tts(tiempo_total, num_reads, p_exito, confianza=0.99):
+    """Calcula Time To Solution (TTS) para un nivel de confianza dado (por defecto 99%).
+
+    TTS_99 = t_read * ln(1 - confianza) / ln(1 - p_exito)
+    """
+    if num_reads <= 0 or tiempo_total <= 0:
+        return 0.0
+    t_read = tiempo_total / num_reads
+
+    if p_exito <= 0.0:
+        return float("inf")
+    if p_exito >= 1.0:
+        return t_read
+
+    numerador = math.log(1.0 - confianza)
+    denominador = math.log(1.0 - p_exito)
+    r_reads = math.ceil(numerador / denominador)
+    return r_reads * t_read
+
+
+def resolver_qubo_sa(
+    qubo,
+    num_reads=100,
+    num_sweeps=1000,
+    seed=42,
+    es_modelo_integrado=False,
+):
+    """Ejecuta Simulated Annealing y evalúa rigurosamente factibilidad y TTS."""
     SimulatedAnnealingSampler = _importar_sampler()
     sampler = SimulatedAnnealingSampler()
 
@@ -135,40 +193,53 @@ def resolver_qubo_sa(qubo, num_reads=100, num_sweeps=1000, seed=42):
     tiempo_sa = perf_counter() - t0
 
     muestras_evaluadas = []
-    num_factibles_zona = 0
-    num_factibles_navegables = 0
+    muestras_validas = []
+    num_exito = 0
 
     for registro in sampleset.data(fields=["sample", "energy", "num_occurrences"], sorted_by="energy"):
         sol_dict = dict(registro.sample)
         energia_total = float(registro.energy) + qubo["constante"]
         open_cells = extraer_mapa_de_solucion(sol_dict)
 
-        # 1. Validación de START y GOAL
         start_ok = START in open_cells
         goal_ok = GOAL in open_cells
 
-        # 2. Validación de zonas
+        # Zonas
         muros_por_zona = {}
         zonas_ok = True
         for z_name, z_cells in ZONES.items():
-            muros = sum(1 for c in z_cells if c not in open_cells)
-            muros_por_zona[z_name] = muros
-            if muros != N_WALLS_PER_ZONE:
+            m = sum(1 for c in z_cells if c not in open_cells)
+            muros_por_zona[z_name] = m
+            if m != N_WALLS_PER_ZONE:
                 zonas_ok = False
 
-        if start_ok and goal_ok and zonas_ok:
-            num_factibles_zona += 1
-
-        # 3. Validación de conectividad (BFS)
+        # Navegabilidad clásica (BFS)
         camino_bfs = bfs_camino_minimo(open_cells)
-        es_navegable = camino_bfs is not None
-        if start_ok and goal_ok and zonas_ok and es_navegable:
-            num_factibles_navegables += 1
+        es_navegable_bfs = camino_bfs is not None
+
+        # Validación ruta q si es modelo integrado
+        if es_modelo_integrado:
+            es_ruta_q_ok, ruta_q, motivo_q = validar_ruta_q(sol_dict, open_cells)
+        else:
+            es_ruta_q_ok = False
+            ruta_q = None
+            motivo_q = "N/A (modelo desacoplado)"
+
+        # Criterio de ÉXITO (Factibilidad dura):
+        # - Desacoplado: START/GOAL + Zonas + Navegable BFS
+        # - Integrado: START/GOAL + Zonas + Ruta q válida sobre suelo
+        if es_modelo_integrado:
+            es_factible = start_ok and goal_ok and zonas_ok and es_ruta_q_ok
+        else:
+            es_factible = start_ok and goal_ok and zonas_ok and es_navegable_bfs
+
+        if es_factible:
+            num_exito += int(registro.num_occurrences)
 
         comp = contar_componentes(open_cells)
         fronteras = calcular_fronteras_reales(open_cells)
 
-        muestras_evaluadas.append({
+        info_muestra = {
             "asignacion": sol_dict,
             "energia": energia_total,
             "energia_raw": float(registro.energy),
@@ -180,25 +251,43 @@ def resolver_qubo_sa(qubo, num_reads=100, num_sweeps=1000, seed=42):
             "goal_ok": goal_ok,
             "zonas_ok": zonas_ok,
             "muros_por_zona": muros_por_zona,
-            "es_navegable": es_navegable,
+            "es_navegable_bfs": es_navegable_bfs,
             "camino_bfs": camino_bfs,
             "longitud_bfs": len(camino_bfs) - 1 if camino_bfs else None,
+            "es_ruta_q_valida": es_ruta_q_ok,
+            "ruta_q": ruta_q,
+            "motivo_fallo_q": motivo_q,
             "componentes": comp,
             "fronteras": fronteras,
-            "es_completamente_valida": start_ok and goal_ok and zonas_ok and es_navegable and comp == 1,
-        })
+            "es_factible": es_factible,
+            "calidad_perfecta": es_factible and comp == 1,
+        }
 
-    mejor_muestra = muestras_evaluadas[0]
+        muestras_evaluadas.append(info_muestra)
+        if es_factible:
+            muestras_validas.append(info_muestra)
+
+    # Probabilidad de éxito
+    p_exito = num_exito / float(num_reads)
+
+    # Time To Solution 99%
+    tts_99 = calcular_tts(tiempo_sa, num_reads, p_exito, confianza=0.99)
+
+    # Dos mejores muestras: por energía y por validez
+    mejor_muestra_energia = muestras_evaluadas[0]
+    mejor_muestra_valida = muestras_validas[0] if muestras_validas else None
 
     return {
         "muestras": muestras_evaluadas,
-        "mejor_muestra": mejor_muestra,
+        "mejor_muestra_energia": mejor_muestra_energia,
+        "mejor_muestra_valida": mejor_muestra_valida,
         "tiempo_segundos": tiempo_sa,
         "num_reads": num_reads,
         "num_sweeps": num_sweeps,
         "seed": seed,
-        "tasa_factibilidad_zonas": num_factibles_zona / num_reads,
-        "tasa_factibilidad_navegable": num_factibles_navegables / num_reads,
+        "p_exito": p_exito,
+        "tts_99_segundos": tts_99,
         "num_variables": len(qubo["variables"]),
         "num_terminos_cuadraticos": len(qubo["cuadratico"]),
+        "es_modelo_integrado": es_modelo_integrado,
     }
