@@ -1,0 +1,49 @@
+====================================
+CASO 3 - CP-SAT
+NIVEL 2D BASADO EN TILES
+====================================
+
+Tamaño: 6x8
+START: (0, 0)
+GOAL: (5, 7)
+Semilla: 42
+
+Suelo transitable: 28
+Obstáculos: 20
+Obstáculos por zona: {'A': 5, 'B': 5, 'C': 5, 'D': 5}
+Ruta principal: 13 celdas / 12 movimientos
+Recompensas totales: 2
+  - Recompensa en ruta: 1
+  - Recompensa en rama: 1
+Enemigos totales: 2
+  - Ambos en ruta principal
+Variables de ruta tras poda: 48
+Pares candidatos para rama: 116
+
+Estado: OPTIMAL
+Objetivo (fronteras suelo/pared): 22.0
+Tiempo: 13.389473 s
+Componentes transitables: 1
+Mapa navegable START->GOAL: True
+Longitud ruta principal: 12
+Longitud mínima BFS: 12
+
+Ruta principal:
+[(0, 0), (1, 0), (2, 0), (3, 0), (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (4, 7), (5, 7)]
+
+Ruta mínima BFS:
+[(0, 0), (1, 0), (2, 0), (3, 0), (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (4, 7), (5, 7)]
+
+Recompensa de ruta - pasos: [2]
+Recompensa de ruta - celdas: [(2, 0)]
+
+Enemigos de ruta - pasos: [6, 11]
+Enemigos de ruta - celdas: [(3, 3), (4, 7)]
+
+Rama secundaria - conexión con ruta: (3, 0)
+Rama secundaria - primera celda: (4, 0)
+Rama secundaria - final: (5, 0)
+Recompensa de rama: (5, 0)
+
+Celdas transitables:
+[(0, 0), (0, 7), (1, 0), (1, 1), (1, 6), (1, 7), (2, 0), (2, 1), (2, 2), (2, 3), (2, 4), (2, 5), (2, 6), (2, 7), (3, 0), (3, 1), (3, 2), (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (4, 0), (4, 3), (4, 4), (4, 7), (5, 0), (5, 7)]
