@@ -183,14 +183,14 @@ def ejecutar():
     print(f"  Tiempo ejecución              | ~513.69 s             | {res['tiempo']:.4f} s")
     print(f"  Probabilidad factible         | 0.00%                 | {100.0 * analisis['probabilidad_factible']:.2f}%")
     print(f"  Probabilidad óptima           | 0.00%                 | {100.0 * analisis['probabilidad_optimo']:.2f}%")
-    print(f"  TTS99                         | inf                   | Finito (< 0.1 s)")
+    print(f"  TTS99 (estimación en barrido) | No estimable          | Finito (< 0.3 s)")
     print()
 
     print("INTERPRETACIÓN PARA EL TFM")
     print(
-        "La formulación compacta resuelve la barrera del espacio de Hilbert provocada por\n"
-        "las variables de asignación y_ij. Al reducir el operador a 4 qubits, QAOA alcanza\n"
-        "el óptimo exacto de forma sistemática y reproducible en menos de medio segundo."
+        "La formulación compacta para k=2 mitiga la dilución del espacio de Hilbert generada\n"
+        "por las variables auxiliares y_ij. Al reducir el operador a 4 qubits, QAOA devuelve\n"
+        "una solución óptima en la configuración evaluada en menos de medio segundo."
     )
 
 

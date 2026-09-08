@@ -1,4 +1,4 @@
-"""Cálculo exacto de la probabilidad máxima de muestreo en QAOA (p=1) para 20 qubits.
+"""Barrido de la evolución unitaria exacta de QAOA (p=1) en 20 qubits.
 
 Este script proporciona la evidencia analítica y numérica rigurosa para la memoria del TFM:
 Simula la acción unitaria exacta del circuito QAOA (p=1) sobre los 2^20 = 1.048.576 estados
@@ -29,6 +29,7 @@ from modelo.candidatas import obtener_candidatas
 from modelo.grafo import construir_grafo
 from modelo.distancias import construir_matriz_navegable
 from modelo.qubo_pmedian import construir_qubo_pmedian
+from solvers.k_medoids import k_medoids_pam
 
 
 def construir_hamiltoniano_diagonal_20q():
@@ -36,7 +37,10 @@ def construir_hamiltoniano_diagonal_20q():
     grafo = construir_grafo(MAPA_QAOA_MINIMO)
     matriz = construir_matriz_navegable(candidatas, grafo)
 
-    qubo = construir_qubo_pmedian(matriz, k=2, cota_factible=2.0)
+    # Fijar la cota de penalización a partir de la solución heurística conocida (PAM)
+    # sin presuponer conocimiento del óptimo:
+    pam = k_medoids_pam(candidatas, matriz, 2)
+    qubo = construir_qubo_pmedian(matriz, k=2, cota_factible=pam["coste_total"])
     vars = qubo["variables"]
     var_to_idx = {v: i for i, v in enumerate(vars)}
     n_vars = len(vars)
@@ -102,7 +106,7 @@ def simular_qaoa_p1(energies, feasible_mask, opt_mask, gamma, beta):
 
 def barrido_gamma_beta():
     print("=" * 84)
-    print("CÁLCULO EXACTO DE MÁXIMA PROBABILIDAD TEÓRICA EN QAOA 20 QUBITS (p=1)")
+    print("BARRIDO DE LA EVOLUCIÓN UNITARIA EXACTA DE QAOA p=1 (20 QUBITS)")
     print("=" * 84)
     print(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("Generando operador diagonal sobre 2^20 = 1.048.576 amplitudes...")
@@ -150,19 +154,39 @@ def barrido_gamma_beta():
 
     print(f"Barrido completado en {duracion_grid:.2f} s")
     print()
-    print("RESULTADOS DEL MÁXIMO TEÓRICO ALCANZABLE:")
+    print("MÁXIMA PROBABILIDAD OBSERVADA EN LA REJILLA EVALUADA:")
     print(f"  Máxima prob. factible observada: {100.0 * max_p_fact:.4f}% en gamma={mejor_punto_fact[0]:.3f}, beta={mejor_punto_fact[1]:.3f} rad")
     print(f"  Máxima prob. óptima observada:   {100.0 * max_p_opt:.4f}% en gamma={mejor_punto_opt[0]:.3f}, beta={mejor_punto_opt[1]:.3f} rad")
     print()
-    print("INTERPRETACIÓN ANALÍTICA PARA EL TFM:")
+
+    shots_ejemplos = [20, 40, 80, 160, 2048]
+    p_cero_fact = [(1.0 - max_p_fact)**n for n in shots_ejemplos]
+    p_cero_opt = [(1.0 - max_p_opt)**n for n in shots_ejemplos]
+
+    shots_99_fact = int(np.ceil(np.log(0.01) / np.log(1.0 - max_p_fact)))
+    shots_99_opt = int(np.ceil(np.log(0.01) / np.log(1.0 - max_p_opt)))
+
+    print("ANÁLISIS ESTADÍSTICO DE DISPAROS (SHOTS):")
+    print(f"  Para el máximo de factibilidad observado (p_fact = {max_p_fact:.6f}):")
+    for n, p0 in zip(shots_ejemplos, p_cero_fact):
+        print(f"    - Con N = {n:4d} shots: P(0 éxitos factibles) = {100.0 * p0:.2f}%")
+    print(f"    - Disparos necesarios para 99% de confianza de al menos 1 factible: {shots_99_fact} shots")
+    print()
+    print(f"  Para el máximo de optimalidad observado (p_opt = {max_p_opt:.6f}):")
+    for n, p0 in zip(shots_ejemplos, p_cero_opt):
+        print(f"    - Con N = {n:4d} shots: P(0 éxitos óptimos)   = {100.0 * p0:.2f}%")
+    print(f"    - Disparos necesarios para 99% de confianza de al menos 1 óptimo:   {shots_99_opt} shots")
+    print()
+
+    print("INTERPRETACIÓN ACADÉMICA PARA EL TFM:")
     print(
-        f"Incluso en el punto óptimo de la rejilla explorada, la probabilidad de medir\n"
-        f"un estado factible apenas alcanza ~{100.0 * max_p_fact:.4f}% (un orden de magnitud similar\n"
-        f"a la superposición uniforme de 0.0092%).\n"
-        f"Para tener un 99% de confianza de observar al menos una muestra factible con p ~ {max_p_fact:.6f},\n"
-        f"se requerirían N_shots = ln(0.01) / ln(1 - {max_p_fact:.6f}) ~ {int(np.ceil(np.log(0.01) / np.log(1 - max_p_fact)))} disparos.\n"
-        f"Con los tamaños de muestra evaluados en el barrido experimental (20 a 160 shots, e incluso 2048),\n"
-        f"la probabilidad empírica observada de 0.00% es coherente con esta dinámica variacional."
+        "En el barrido experimental con 20 a 160 shots, la probabilidad de no observar ninguna\n"
+        "muestra factible oscila entre el 88.4% y el 98.5%, y la de no observar ninguna muestra\n"
+        "óptima supera el 98.4%, lo que hace completamente previsible el 0.00% empírico registrado.\n"
+        "Con 2048 shots, la probabilidad de no observar ningún óptimo sigue siendo del ~81.7%.\n"
+        "La ausencia de muestras factibles observadas con 2048 shots en la ejecución variacional\n"
+        "refleja adicionalmente que el optimizador clásico (COBYLA a p=1) no converge necesariamente\n"
+        "a los parámetros variacionales óptimos de la rejilla explorada."
     )
 
     return {

@@ -60,7 +60,7 @@ def generar_figura_comparativa(carpeta_figuras):
     ax2.bar(x - ancho/2, prob_factible, ancho, label="Prob. Factible (%)", color="#2980b9")
     ax2.bar(x + ancho/2, prob_optimo, ancho, label="Prob. Óptimo (%)", color="#8e44ad")
     ax2.set_ylabel("Probabilidad por disparo (%)")
-    ax2.set_title("Probabilidad de Muestreo ($p$ / shot)\n(Configuración: maxiter=25, shots=160)", fontsize=10, fontweight="bold")
+    ax2.set_title("Probabilidad empírica observada por disparo\n(Configuración: maxiter = 25, shots = 160)", fontsize=10, fontweight="bold")
     ax2.set_xticks(x)
     ax2.set_xticklabels(metodos)
     ax2.set_ylim(0, 100)
@@ -169,12 +169,18 @@ a) Representación del subespacio factible:
 b) Evaluación unitaria exacta de QAOA con mezclador estándar (p=1):
    - Mediante simulación analítica de la evolución unitaria completa
      (script reproducible: experimentos/simulacion_unitaria_20q_max_prob.py),
-     se evaluó la rejilla de parámetros variacionales (gamma, beta).
-   - En la rejilla explorada, la probabilidad de medir un estado factible alcanza
-     como máximo un ~0.0769%, y la de medir un estado óptimo un ~0.0099%.
-   - Con tamaños de muestra convencionales (20 a 160 shots, e incluso 2048), la
-     probabilidad de observar cero éxitos es superior al 98%, lo que resulta
-     completamente consistente con el 0.00% empírico registrado.
+     se evaluó una rejilla de 225 puntos en el plano de parámetros variacionales (gamma, beta).
+   - En la rejilla evaluada, la probabilidad de medir un estado factible alcanza como máximo
+     un ~0.0769% (p_fact = 0.000769), y la de medir un estado óptimo un ~0.0099% (p_opt = 0.000099).
+   - Con esa probabilidad, la probabilidad de observar cero éxitos P(0) = (1 - p)^N es:
+     * Con N = 20 shots:  98.47% sin factibles, 99.80% sin óptimos.
+     * Con N = 160 shots: 88.42% sin factibles, 98.43% sin óptimos.
+     * Con N = 2048 shots: 20.69% sin factibles, 81.71% sin óptimos.
+   - Por tanto, en el barrido sistemático con 20 a 160 disparos, no observar ninguna muestra
+     factible u óptima es estadísticamente muy plausible (88.4% a 99.8%). Con 2048 disparos,
+     no observar óptimos sigue siendo la norma (~81.7%), mientras que la ausencia de factibles
+     refleja adicionalmente que el optimizador clásico (COBYLA a p=1) no converge necesariamente
+     al parámetro óptimo de la rejilla.
 c) Conclusión de esta fase:
    En esta codificación directa, con p=1, el mezclador transversal estándar y la
    configuración evaluada, el subespacio factible resulta extremadamente poco representado
@@ -217,11 +223,11 @@ Escalabilidad en qubits (k=2)  | n=8 -> 72 qubits         | n=8 -> 8 qubits (~0.
 El contraste entre ambos enfoques no reemplaza el modelo general del Caso 1, sino que
 aporta una contribución metodológica relevante:
 "El primer resultado negativo nos llevó a revisar no el algoritmo, sino la formulación.
-Al eliminar variables auxiliares que son computacionalmente ventajosas en solvers lineales
-clásicos pero sumamente gravosas en espacio de Hilbert cuántico, la misma instancia pasó
-de 20 a 4 qubits y QAOA sí produjo soluciones factibles y óptimas con alta probabilidad.
-Por tanto, la elección de la codificación condiciona de forma decisiva la viabilidad
-práctica de los algoritmos cuánticos variacionales."
+Al eliminar variables auxiliares que forman parte de la formulación lineal clásica pero
+incrementan considerablemente el número de variables binarias en la codificación cuántica,
+la misma instancia pasó de 20 a 4 qubits y QAOA sí produjo soluciones factibles y óptimas
+con alta probabilidad. Por tanto, la elección de la codificación condiciona de forma
+decisiva la viabilidad práctica de los algoritmos cuánticos variacionales."
 
 Figura generada: {ruta_figura}
 """

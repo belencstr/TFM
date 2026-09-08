@@ -1,0 +1,47 @@
+====================================================================================
+BARRIDO DE LA EVOLUCIÓN UNITARIA EXACTA DE QAOA p=1 (20 QUBITS)
+====================================================================================
+Fecha: 2026-09-08 22:59:31
+Generando operador diagonal sobre 2^20 = 1.048.576 amplitudes...
+Hamiltoniano diagonal construido en 0.44 s
+Estados factibles identificados: 96 de 1.048.576 (0.0092%)
+Estados óptimos globales:       6 de 1.048.576 (0.00057%)
+
+Probabilidad en superposición uniforme (|0> mixer libre):
+  p_fact_uniforme = 0.009155%
+  p_opt_uniforme  = 0.000572%
+
+Iniciando barrido sobre rejilla de 15x15 = 225 puntos (gamma, beta)...
+Barrido completado en 137.91 s
+
+MÁXIMA PROBABILIDAD OBSERVADA EN LA REJILLA EVALUADA:
+  Máxima prob. factible observada: 0.0769% en gamma=1.086, beta=0.919 rad
+  Máxima prob. óptima observada:   0.0099% en gamma=1.189, beta=1.028 rad
+
+ANÁLISIS ESTADÍSTICO DE DISPAROS (SHOTS):
+  Para el máximo de factibilidad observado (p_fact = 0.000769):
+    - Con N =   20 shots: P(0 éxitos factibles) = 98.47%
+    - Con N =   40 shots: P(0 éxitos factibles) = 96.97%
+    - Con N =   80 shots: P(0 éxitos factibles) = 94.03%
+    - Con N =  160 shots: P(0 éxitos factibles) = 88.42%
+    - Con N = 2048 shots: P(0 éxitos factibles) = 20.69%
+    - Disparos necesarios para 99% de confianza de al menos 1 factible: 5987 shots
+
+  Para el máximo de optimalidad observado (p_opt = 0.000099):
+    - Con N =   20 shots: P(0 éxitos óptimos)   = 99.80%
+    - Con N =   40 shots: P(0 éxitos óptimos)   = 99.61%
+    - Con N =   80 shots: P(0 éxitos óptimos)   = 99.21%
+    - Con N =  160 shots: P(0 éxitos óptimos)   = 98.43%
+    - Con N = 2048 shots: P(0 éxitos óptimos)   = 81.71%
+    - Disparos necesarios para 99% de confianza de al menos 1 óptimo:   46679 shots
+
+INTERPRETACIÓN ACADÉMICA PARA EL TFM:
+En el barrido experimental con 20 a 160 shots, la probabilidad de no observar ninguna
+muestra factible oscila entre el 88.4% y el 98.5%, y la de no observar ninguna muestra
+óptima supera el 98.4%, lo que hace completamente previsible el 0.00% empírico registrado.
+Con 2048 shots, la probabilidad de no observar ningún óptimo sigue siendo del ~81.7%.
+La ausencia de muestras factibles observadas con 2048 shots en la ejecución variacional
+refleja adicionalmente que el optimizador clásico (COBYLA a p=1) no converge necesariamente
+a los parámetros variacionales óptimos de la rejilla explorada.
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\simulacion_unitaria_20q_max_prob_20260908_225931.txt
