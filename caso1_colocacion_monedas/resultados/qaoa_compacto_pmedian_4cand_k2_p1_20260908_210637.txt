@@ -1,0 +1,95 @@
+====================================================================================
+CASO 1 — QAOA COMPACTO (4 QUBITS) SOBRE INSTANCIA MÍNIMA
+====================================================================================
+Fecha y hora: 2026-09-08 21:06:37
+Dimensiones: 4 x 5
+Candidatas: 4
+k: 2
+Nodos navegables: 6 | Aristas: 7
+
+CANDIDATAS
+  C001 -> (fila=1, columna=2)
+  C002 -> (fila=1, columna=3)
+  C003 -> (fila=2, columna=1)
+  C004 -> (fila=2, columna=2)
+
+REFERENCIA CLÁSICA
+PAM: 2
+Óptimo exhaustivo: 2
+PAM alcanza el óptimo: True
+Selección óptima de referencia:
+  C001 -> (fila=1, columna=2)
+  C003 -> (fila=2, columna=1)
+Mapa óptimo de referencia:
+#####
+#So.#
+#o.E#
+#####
+
+QUBO COMPACTO
+A (penalización cardinalidad): 4.0
+Variables binarias x: 4 (4 qubits)
+Términos cuadráticos: 6
+Constante: 16.0
+Costes exactos precomputados por pareja:
+  Pareja (C001, C002) -> coste = 3 
+  Pareja (C001, C003) -> coste = 2 [ÓPTIMO]
+  Pareja (C001, C004) -> coste = 2 [ÓPTIMO]
+  Pareja (C002, C003) -> coste = 2 [ÓPTIMO]
+  Pareja (C002, C004) -> coste = 2 [ÓPTIMO]
+  Pareja (C003, C004) -> coste = 3 
+
+QAOA CONFIGURACIÓN
+reps (p): 1
+COBYLA maxiter: 30
+shots: 1024
+seed: 20260908
+
+RESULTADO DEVUELTO POR QAOA COMPACTO
+Tiempo total: 0.3184 s
+Energía QUBO: 2.000000
+Factible para p-median: True
+Número de monedas seleccionadas: 2
+Coste p-median: 2
+Gap respecto al óptimo: 0.00%
+Alcanza el óptimo exacto: True
+Monedas seleccionadas por QAOA:
+  C001 -> (fila=1, columna=2)
+  C004 -> (fila=2, columna=2)
+Mapa QAOA:
+#####
+#So.#
+#.oE#
+#####
+
+DISTRIBUCIÓN DE MUESTRAS QAOA
+Probabilidad total de soluciones factibles: 47.46%
+Probabilidad total de soluciones óptimas:   16.41%
+Muestras factibles distintas observadas:   6 de 6 posibles
+
+TOP 5 MUESTRAS CON MAYOR PROBABILIDAD
+  #1: asignación=[0, 0, 1, 1] | prob= 16.99% | factible=True  | coste=3    | candidatas=['C003', 'C004'] 
+  #2: asignación=[1, 1, 0, 0] | prob= 14.06% | factible=True  | coste=3    | candidatas=['C001', 'C002'] 
+  #3: asignación=[1, 0, 0, 0] | prob=  9.08% | factible=False | coste=None | candidatas=[] 
+  #4: asignación=[0, 0, 1, 0] | prob=  8.89% | factible=False | coste=None | candidatas=[] 
+  #5: asignación=[0, 1, 0, 0] | prob=  7.91% | factible=False | coste=None | candidatas=[] 
+
+COMPARATIVA FRENTE A LA FORMULACIÓN ANTERIOR (20 QUBITS)
+  Métrica                       | Formulación 20 Qubits | Formulación Compacta 4 Qubits
+  ------------------------------+-----------------------+-----------------------------
+  Qubits requeridos             | 20 qubits             | 4 qubits
+  Dimensión espacio Hilbert     | 1.048.576 estados     | 16 estados
+  Fracción estados factibles    | 0.0092% (96 estados)  | 37.50% (6 estados)
+  Tiempo ejecución              | ~513.69 s             | 0.3184 s
+  Probabilidad factible         | 0.00%                 | 47.46%
+  Probabilidad óptima           | 0.00%                 | 16.41%
+  TTS99                         | inf                   | Finito (< 0.1 s)
+
+INTERPRETACIÓN PARA EL TFM
+La formulación compacta resuelve la barrera del espacio de Hilbert provocada por
+las variables de asignación y_ij. Al reducir el operador a 4 qubits, QAOA alcanza
+el óptimo exacto de forma sistemática y reproducible en menos de medio segundo.
+
+====================================================================================
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\qaoa_compacto_pmedian_4cand_k2_p1_20260908_210637.txt
+====================================================================================

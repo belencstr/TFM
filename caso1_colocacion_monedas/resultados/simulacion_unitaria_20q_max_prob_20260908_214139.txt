@@ -1,0 +1,30 @@
+====================================================================================
+CÁLCULO EXACTO DE MÁXIMA PROBABILIDAD TEÓRICA EN QAOA 20 QUBITS (p=1)
+====================================================================================
+Fecha: 2026-09-08 21:41:39
+Generando operador diagonal sobre 2^20 = 1.048.576 amplitudes...
+Hamiltoniano diagonal construido en 0.30 s
+Estados factibles identificados: 96 de 1.048.576 (0.0092%)
+Estados óptimos globales:       6 de 1.048.576 (0.00057%)
+
+Probabilidad en superposición uniforme (|0> mixer libre):
+  p_fact_uniforme = 0.009155%
+  p_opt_uniforme  = 0.000572%
+
+Iniciando barrido sobre rejilla de 15x15 = 225 puntos (gamma, beta)...
+Barrido completado en 147.51 s
+
+RESULTADOS DEL MÁXIMO TEÓRICO ALCANZABLE:
+  Máxima prob. factible observada: 0.0769% en gamma=1.086, beta=0.919 rad
+  Máxima prob. óptima observada:   0.0099% en gamma=1.189, beta=1.028 rad
+
+INTERPRETACIÓN ANALÍTICA PARA EL TFM:
+Incluso en el punto óptimo de la rejilla explorada, la probabilidad de medir
+un estado factible apenas alcanza ~0.0769% (un orden de magnitud similar
+a la superposición uniforme de 0.0092%).
+Para tener un 99% de confianza de observar al menos una muestra factible con p ~ 0.000769,
+se requerirían N_shots = ln(0.01) / ln(1 - 0.000769) ~ 5987 disparos.
+Con los tamaños de muestra evaluados en el barrido experimental (20 a 160 shots, e incluso 2048),
+la probabilidad empírica observada de 0.00% es coherente con esta dinámica variacional.
+
+Registro guardado en: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados\simulacion_unitaria_20q_max_prob_20260908_214139.txt

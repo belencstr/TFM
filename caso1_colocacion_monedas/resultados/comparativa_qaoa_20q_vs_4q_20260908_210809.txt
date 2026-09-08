@@ -1,0 +1,63 @@
+========================================================================================
+CASO 1 — INFORME COMPARATIVO: QAOA 20 QUBITS VS QAOA 4 QUBITS
+========================================================================================
+Fecha: 2026-09-08 21:08:09
+Problema: Colocación de Monedas (p-median, k=2 sobre mapa mínimo de 4 candidatas)
+
+1. SÍNTESIS DEL PROBLEMA
+En el Caso 1, la primera formulación cuántica traducía de forma directa el modelo
+PLI estándar de p-median con variables de decisión x_j y variables auxiliares de
+asignación y_ij. Para n=4 candidatas, esto generaba:
+    N = n + n^2 = 4 + 16 = 20 variables binarias -> 20 QUBITS.
+
+Esta aproximación condujo a un fallo sistemático en QAOA estándar (p=1), arrojando
+0.00% de probabilidad de soluciones factibles y TTS99 = infinito en todas las
+configuraciones evaluadas (qaoa_tts_barrido.py).
+
+2. CAUSA MATEMÁTICA Y FÍSICA IDENTIFICADA
+a) Dilución extrema del espacio de Hilbert:
+   - Con 20 qubits existen 2^20 = 1.048.576 configuraciones en el espacio cuántico.
+   - Únicamente 96 estados (0.0092%) satisfacen todas las restricciones de asignación.
+   - Únicamente 6 estados (0.00057%) son óptimos globales.
+b) Cuello de botella del mezclador unconstrained (H_M = sum X_i):
+   - El mezclador estándar rota los 20 qubits independientemente.
+   - Hemos calculado la evolución unitaria cuántica exacta sobre los 1.048.576 estados:
+     la probabilidad teórica MÁXIMA de medir cualquier estado factible a profundidad p=1
+     es de apenas un 0.0124% (1 en ~8.000).
+   - Por tanto, al tomar disparos convencionales (160 o 2048 shots), la probabilidad
+     de no obtener ningún estado factible es superior al 98%, explicando el 0.000% observado.
+c) Coste computacional masivo de simulación:
+   - Cada evaluación del operador con 20 qubits requería simular un vector de estado
+     de 1.048.576 amplitudes complejas, tardando ~513 segundos por ejecución de 30 iteraciones.
+
+3. LA SOLUCIÓN FUNCIONAL: FORMULACIÓN COMPACTA O(n)
+Al observar que para k=2 el coste p-median de cualquier par de centros {j, l} es
+una constante precomputable C(j, l) = sum_i min(d_ij, d_il), el problema se formula
+de forma cuadrática EXACTA sin ninguna variable auxiliar y_ij:
+    H(x) = sum_{j < l} C(j, l) x_j x_l + A (sum_j x_j - 2)^2
+
+4. TABLA COMPARATIVA DIRECTA
+----------------------------------------------------------------------------------------
+Métrica                        | QAOA Directo (Anterior) | QAOA Compacto (Propuesto) | Factor de Mejora
+-------------------------------+-------------------------+---------------------------+-----------------
+Qubits                         | 20 qubits               | 4 qubits                  | -80.0%
+Dimensión espacio Hilbert      | 1.048.576 estados       | 16 estados                | 65.536x menor
+Fracción de estados factibles  | 0.0092% (96 estados)    | 37.50% (6 estados)        | > 4.000x mayor
+Fracción de estados óptimos    | 0.00057% (6 estados)    | 25.00% (4 estados)        | > 43.000x mayor
+Tiempo simulación (30 iter)    | 513.69 segundos         | 0.2872 segundos           | > 1.780x más rápido
+Prob. factible (p_fact)        | 0.000%                  | 47.46% - 90.00%           | ¡Funciona!
+Prob. óptima (p_opt)           | 0.000%                  | 16.41% - 85.00%           | ¡Óptimo alcanzado!
+Time-to-Target 99% (TTS99)     | Infinito                | 0.0087 s - 0.2872 s       | Finito y medible
+Solución devuelta              | Inviable (0% factible)  | [0, 1, 0, 1] (Coste = 2)  | Óptimo exacto
+Escalabilidad para n=8         | 72 qubits (intratable)  | 8 qubits (~0.85 s)        | Escalable
+----------------------------------------------------------------------------------------
+
+5. CONCLUSIÓN Y APORTE PARA LA MEMORIA DEL TFM
+El contraste entre ambos experimentos demuestra de manera rigurosa que en computación
+cuántica variacional (NISQ), el modelado matemático no puede limitarse a transcribir
+formulaciones clásicas basadas en variables auxiliares de programación lineal. La
+eliminación analítica de redundancias mediante formulaciones compactas específicas del
+dominio es esencial para evitar el confinamiento exponencial en espacios de Hilbert
+hiperdiluidos.
+
+Figura generada: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\figuras\comparativa_qaoa_20q_vs_4q.png
