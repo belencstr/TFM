@@ -1,9 +1,9 @@
 {
   "caso": "Caso 1 - Colocación de Monedas",
-  "algoritmo": "Gonzalez Multi-start (k-center / Farthest-First Traversal)",
-  "metodo": "gonzalez",
-  "mapa_id": "C",
-  "mapa_nombre": "Mapa C (Laberinto y Pasillos)",
+  "algoritmo": "Partitioning Around Medoids (PAM / k-medoids)",
+  "metodo": "pam",
+  "mapa_id": "B",
+  "mapa_nombre": "Mapa B (Obstáculos y Cobertura)",
   "dimensiones": {
     "filas": 17,
     "columnas": 17
@@ -20,47 +20,47 @@
   "monedas": [
     {
       "idx": 0,
-      "id": "C099",
-      "row": 11,
-      "col": 8,
-      "assigned_cells": 49
+      "id": "C085",
+      "row": 7,
+      "col": 5,
+      "assigned_cells": 38
     },
     {
       "idx": 1,
-      "id": "C005",
-      "row": 1,
-      "col": 7,
-      "assigned_cells": 17
+      "id": "C038",
+      "row": 3,
+      "col": 12,
+      "assigned_cells": 45
     },
     {
       "idx": 2,
-      "id": "C001",
-      "row": 1,
-      "col": 2,
-      "assigned_cells": 27
+      "id": "C017",
+      "row": 2,
+      "col": 3,
+      "assigned_cells": 25
     },
     {
       "idx": 3,
-      "id": "C051",
-      "row": 5,
-      "col": 13,
-      "assigned_cells": 29
+      "id": "C143",
+      "row": 11,
+      "col": 12,
+      "assigned_cells": 55
     },
     {
       "idx": 4,
-      "id": "C124",
-      "row": 14,
-      "col": 1,
-      "assigned_cells": 20
+      "id": "C163",
+      "row": 13,
+      "col": 4,
+      "assigned_cells": 40
     }
   ],
   "metricas": {
-    "radio_cobertura": 10,
-    "separacion_minima": 14,
-    "separacion_media": 20.4,
-    "separacion_total": 204,
-    "id_inicio_optimo": "C099",
-    "num_candidatas": 140
+    "radio_cobertura": 7,
+    "separacion_minima": 7,
+    "separacion_media": 11.4,
+    "separacion_total": 114,
+    "coste_pmedian": 656,
+    "num_candidatas": 201
   },
   "celdas": [
     {
@@ -270,11 +270,209 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 2,
-      "dist_to_coin": 1
+      "dist_to_coin": 3
     },
     {
       "row": 1,
       "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 1,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 1,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 1,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 1,
+      "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 1,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 6
+    },
+    {
+      "row": 1,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 1,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 1,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 1,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 1,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 1,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 1,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 1,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 2,
+      "col": 3,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -284,7 +482,183 @@
       "dist_to_coin": 0
     },
     {
-      "row": 1,
+      "row": 2,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 2,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 2,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 2,
+      "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 2,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 2,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 2,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 2,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 2,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 2,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 2,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 2,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 2,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 3,
       "col": 3,
       "char": ".",
       "is_wall": false,
@@ -295,7 +669,7 @@
       "dist_to_coin": 1
     },
     {
-      "row": 1,
+      "row": 3,
       "col": 4,
       "char": ".",
       "is_wall": false,
@@ -306,18 +680,18 @@
       "dist_to_coin": 2
     },
     {
-      "row": 1,
+      "row": 3,
       "col": 5,
-      "char": ".",
-      "is_wall": false,
+      "char": "#",
+      "is_wall": true,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 3
+      "closest_coin_idx": null,
+      "dist_to_coin": null
     },
     {
-      "row": 1,
+      "row": 3,
       "col": 6,
       "char": "#",
       "is_wall": true,
@@ -328,8 +702,63 @@
       "dist_to_coin": null
     },
     {
-      "row": 1,
+      "row": 3,
       "col": 7,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 3,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 3,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 3,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 3,
+      "col": 12,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -339,8 +768,8 @@
       "dist_to_coin": 0
     },
     {
-      "row": 1,
-      "col": 8,
+      "row": 3,
+      "col": 13,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -350,8 +779,8 @@
       "dist_to_coin": 1
     },
     {
-      "row": 1,
-      "col": 9,
+      "row": 3,
+      "col": 14,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -361,8 +790,8 @@
       "dist_to_coin": 2
     },
     {
-      "row": 1,
-      "col": 10,
+      "row": 3,
+      "col": 15,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -372,62 +801,7 @@
       "dist_to_coin": 3
     },
     {
-      "row": 1,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 1,
-      "col": 12,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 1,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 1,
-      "col": 14,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 1,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 1,
+      "row": 3,
       "col": 16,
       "char": "#",
       "is_wall": true,
@@ -438,7 +812,7 @@
       "dist_to_coin": null
     },
     {
-      "row": 2,
+      "row": 4,
       "col": 0,
       "char": "#",
       "is_wall": true,
@@ -449,8 +823,30 @@
       "dist_to_coin": null
     },
     {
-      "row": 2,
+      "row": 4,
       "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 4,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 4,
+      "col": 3,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -460,74 +856,107 @@
       "dist_to_coin": 2
     },
     {
-      "row": 2,
-      "col": 2,
+      "row": 4,
+      "col": 4,
       "char": ".",
       "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 2,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 4,
+      "col": 5,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 4,
+      "col": 6,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 4,
+      "col": 7,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 4,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 4,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 4,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 4,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 4,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
       "dist_to_coin": 1
     },
     {
-      "row": 2,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 2
-    },
-    {
-      "row": 2,
-      "col": 4,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 2,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 2,
-      "col": 6,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 2,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 1
-    },
-    {
-      "row": 2,
-      "col": 8,
+      "row": 4,
+      "col": 13,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -537,184 +966,8 @@
       "dist_to_coin": 2
     },
     {
-      "row": 2,
-      "col": 9,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 2,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 2,
-      "col": 11,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 2,
-      "col": 12,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 2,
-      "col": 13,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 2,
+      "row": 4,
       "col": 14,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 2,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 2,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 3,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 3,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 3,
-      "col": 2,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 2
-    },
-    {
-      "row": 3,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 3,
-      "col": 4,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 3,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 3,
-      "col": 6,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 3,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 2
-    },
-    {
-      "row": 3,
-      "col": 8,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -724,8 +977,8 @@
       "dist_to_coin": 3
     },
     {
-      "row": 3,
-      "col": 9,
+      "row": 4,
+      "col": 15,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -735,73 +988,7 @@
       "dist_to_coin": 4
     },
     {
-      "row": 3,
-      "col": 10,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 3,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 3,
-      "col": 12,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 3,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 3,
-      "col": 14,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 3,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 3,
+      "row": 4,
       "col": 16,
       "char": "#",
       "is_wall": true,
@@ -812,7 +999,7 @@
       "dist_to_coin": null
     },
     {
-      "row": 4,
+      "row": 5,
       "col": 0,
       "char": "#",
       "is_wall": true,
@@ -823,8 +1010,19 @@
       "dist_to_coin": null
     },
     {
-      "row": 4,
+      "row": 5,
       "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 2,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 5,
+      "col": 2,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -834,1350 +1032,19 @@
       "dist_to_coin": 4
     },
     {
-      "row": 4,
-      "col": 2,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
+      "row": 5,
       "col": 3,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 5,
       "char": ".",
       "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 2,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 4,
-      "col": 6,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 7,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 8,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 9,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 1,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 4,
-      "col": 12,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 13,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 14,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 4,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
       "dist_to_coin": 3
     },
     {
-      "row": 4,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 5,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 5,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 5,
-      "col": 2,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 5,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 7
-    },
-    {
       "row": 5,
       "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 5,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 5,
-      "col": 6,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 5,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 5,
-      "col": 8,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 5,
-      "col": 9,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 5,
-      "col": 10,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 5,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 5,
-      "col": 12,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 5,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": true,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 0
-    },
-    {
-      "row": 5,
-      "col": 14,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 1
-    },
-    {
-      "row": 5,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 2
-    },
-    {
-      "row": 5,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 1,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 2,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 6,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 6,
-      "col": 6,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 7,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 8,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 9,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 6,
-      "col": 12,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 1
-    },
-    {
-      "row": 6,
-      "col": 14,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 6,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 6,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 7,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 7,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 7,
-      "col": 2,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 7,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 7,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 7,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 2,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 7,
-      "col": 6,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 10
-    },
-    {
-      "row": 7,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 7,
-      "col": 8,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 10
-    },
-    {
-      "row": 7,
-      "col": 9,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 7,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 7,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 7,
-      "col": 12,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 7,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 2
-    },
-    {
-      "row": 7,
-      "col": 14,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 7,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 7,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 8,
-      "col": 2,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 3,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 5,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 6,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 8,
-      "col": 8,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 9,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 8,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 11,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 12,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 13,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 14,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 8,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 8,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 9,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 9,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 9,
-      "col": 2,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 9,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 9,
-      "col": 4,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 9,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 9,
-      "col": 6,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 9,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 9,
-      "col": 8,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 9,
-      "col": 9,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 9,
-      "col": 10,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 9,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 9,
-      "col": 12,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 9,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 9,
-      "col": 14,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 9,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 9,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 10,
-      "col": 2,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 3,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 10,
-      "col": 6,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 7,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 8,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 9,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 10,
-      "col": 12,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 13,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 14,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 10,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 3,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 10,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 11,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 11,
-      "col": 1,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 11,
-      "col": 2,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 11,
-      "col": 3,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 4,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 11,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 11,
-      "col": 5,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2187,8 +1054,8 @@
       "dist_to_coin": 3
     },
     {
-      "row": 11,
-      "col": 6,
+      "row": 5,
+      "col": 5,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2198,8 +1065,184 @@
       "dist_to_coin": 2
     },
     {
-      "row": 11,
+      "row": 5,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 5,
       "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 5,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 5,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 5,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 5,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 5,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 5,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 5,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 5,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 5,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 6,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 6,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 6,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 6,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 6,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 6,
+      "col": 5,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2209,8 +1252,184 @@
       "dist_to_coin": 1
     },
     {
-      "row": 11,
+      "row": 6,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 6,
+      "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 6,
       "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 6,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 6,
+      "col": 10,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 6,
+      "col": 11,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 6,
+      "col": 12,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 6,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 6,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 6,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 6
+    },
+    {
+      "row": 6,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 7,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 7,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 7,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 7,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 7,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 7,
+      "col": 5,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2220,8 +1439,8 @@
       "dist_to_coin": 0
     },
     {
-      "row": 11,
-      "col": 9,
+      "row": 7,
+      "col": 6,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2231,8 +1450,8 @@
       "dist_to_coin": 1
     },
     {
-      "row": 11,
-      "col": 10,
+      "row": 7,
+      "col": 7,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2242,8 +1461,8 @@
       "dist_to_coin": 2
     },
     {
-      "row": 11,
-      "col": 11,
+      "row": 7,
+      "col": 8,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2253,7 +1472,40 @@
       "dist_to_coin": 3
     },
     {
-      "row": 11,
+      "row": 7,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 7,
+      "col": 10,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 7,
+      "col": 11,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 7,
       "col": 12,
       "char": "#",
       "is_wall": true,
@@ -2264,6 +1516,754 @@
       "dist_to_coin": null
     },
     {
+      "row": 7,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 7,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 6
+    },
+    {
+      "row": 7,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 7
+    },
+    {
+      "row": 7,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 8,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 8,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 8,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 8,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 8,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 8,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 8,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 8,
+      "col": 7,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 8,
+      "col": 8,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 8,
+      "col": 9,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 8,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 8,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 8,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 8,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 8,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 8,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 6
+    },
+    {
+      "row": 8,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 9,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 9,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 6
+    },
+    {
+      "row": 9,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 9,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 9,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 9,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 9,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 9,
+      "col": 7,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 9,
+      "col": 8,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 9,
+      "col": 9,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 9,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 9,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 9,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 9,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 9,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 9,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 9,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 10,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 10,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 6
+    },
+    {
+      "row": 10,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 10,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 10,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 10,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 10,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 10,
+      "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 10,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 10,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 10,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 10,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 10,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 10,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 10,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 10,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 10,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 11,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 11,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 11,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 11,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 11,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 11,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 11,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 11,
+      "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 11,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 11,
+      "col": 9,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 11,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 11,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 11,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": true,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 0
+    },
+    {
       "row": 11,
       "col": 13,
       "char": ".",
@@ -2272,7 +2272,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 3,
-      "dist_to_coin": 10
+      "dist_to_coin": 1
     },
     {
       "row": 11,
@@ -2283,7 +2283,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 3,
-      "dist_to_coin": 9
+      "dist_to_coin": 2
     },
     {
       "row": 11,
@@ -2294,7 +2294,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 3,
-      "dist_to_coin": 8
+      "dist_to_coin": 3
     },
     {
       "row": 11,
@@ -2327,18 +2327,18 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 2
+      "dist_to_coin": 4
     },
     {
       "row": 12,
       "col": 2,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
     },
     {
       "row": 12,
@@ -2349,51 +2349,51 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 6
+      "dist_to_coin": 2
     },
     {
       "row": 12,
       "col": 4,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 1
     },
     {
       "row": 12,
       "col": 5,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 2
     },
     {
       "row": 12,
       "col": 6,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
     },
     {
       "row": 12,
       "col": 7,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 4
     },
     {
       "row": 12,
@@ -2409,17 +2409,6 @@
     {
       "row": 12,
       "col": 9,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 2
-    },
-    {
-      "row": 12,
-      "col": 10,
       "char": "#",
       "is_wall": true,
       "is_start": false,
@@ -2427,6 +2416,17 @@
       "is_coin": false,
       "closest_coin_idx": null,
       "dist_to_coin": null
+    },
+    {
+      "row": 12,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
     },
     {
       "row": 12,
@@ -2436,41 +2436,41 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 4
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
     },
     {
       "row": 12,
       "col": 12,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 1
     },
     {
       "row": 12,
       "col": 13,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
     },
     {
       "row": 12,
       "col": 14,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
     },
     {
       "row": 12,
@@ -2481,7 +2481,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 3,
-      "dist_to_coin": 9
+      "dist_to_coin": 4
     },
     {
       "row": 12,
@@ -2514,18 +2514,18 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 1
+      "dist_to_coin": 3
     },
     {
       "row": 13,
       "col": 2,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 2
     },
     {
       "row": 13,
@@ -2536,165 +2536,11 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 7
+      "dist_to_coin": 1
     },
     {
       "row": 13,
       "col": 4,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 13,
-      "col": 5,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 13,
-      "col": 6,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 13,
-      "col": 7,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 13,
-      "col": 8,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 4
-    },
-    {
-      "row": 13,
-      "col": 9,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 3
-    },
-    {
-      "row": 13,
-      "col": 10,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 13,
-      "col": 11,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 5
-    },
-    {
-      "row": 13,
-      "col": 12,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 6
-    },
-    {
-      "row": 13,
-      "col": 13,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
-    },
-    {
-      "row": 13,
-      "col": 14,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 8
-    },
-    {
-      "row": 13,
-      "col": 15,
-      "char": ".",
-      "is_wall": false,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 9
-    },
-    {
-      "row": 13,
-      "col": 16,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 14,
-      "col": 0,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 14,
-      "col": 1,
       "char": ".",
       "is_wall": false,
       "is_start": false,
@@ -2704,73 +2550,40 @@
       "dist_to_coin": 0
     },
     {
-      "row": 14,
-      "col": 2,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 14,
-      "col": 3,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 14,
-      "col": 4,
-      "char": "#",
-      "is_wall": true,
-      "is_start": false,
-      "is_end": false,
-      "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
-    },
-    {
-      "row": 14,
+      "row": 13,
       "col": 5,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 1
     },
     {
-      "row": 14,
+      "row": 13,
       "col": 6,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 2
     },
     {
-      "row": 14,
+      "row": 13,
       "col": 7,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
     },
     {
-      "row": 14,
+      "row": 13,
       "col": 8,
       "char": "#",
       "is_wall": true,
@@ -2781,6 +2594,193 @@
       "dist_to_coin": null
     },
     {
+      "row": 13,
+      "col": 9,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 13,
+      "col": 10,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 13,
+      "col": 11,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 13,
+      "col": 12,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 13,
+      "col": 13,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 13,
+      "col": 14,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 13,
+      "col": 15,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
+    },
+    {
+      "row": 13,
+      "col": 16,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 14,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 14,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 14,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 14,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 14,
+      "col": 4,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 14,
+      "col": 5,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 14,
+      "col": 6,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 3
+    },
+    {
+      "row": 14,
+      "col": 7,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 4
+    },
+    {
+      "row": 14,
+      "col": 8,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 4,
+      "dist_to_coin": 5
+    },
+    {
       "row": 14,
       "col": 9,
       "char": ".",
@@ -2788,63 +2788,63 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 4
+      "closest_coin_idx": 3,
+      "dist_to_coin": 6
     },
     {
       "row": 14,
       "col": 10,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
     },
     {
       "row": 14,
       "col": 11,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
     },
     {
       "row": 14,
       "col": 12,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 3
     },
     {
       "row": 14,
       "col": 13,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
     },
     {
       "row": 14,
       "col": 14,
-      "char": "#",
-      "is_wall": true,
+      "char": ".",
+      "is_wall": false,
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": null,
-      "dist_to_coin": null
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
     },
     {
       "row": 14,
@@ -2854,8 +2854,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 10
+      "closest_coin_idx": 3,
+      "dist_to_coin": 6
     },
     {
       "row": 14,
@@ -2888,7 +2888,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 1
+      "dist_to_coin": 5
     },
     {
       "row": 15,
@@ -2899,7 +2899,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 2
+      "dist_to_coin": 4
     },
     {
       "row": 15,
@@ -2921,7 +2921,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 4
+      "dist_to_coin": 2
     },
     {
       "row": 15,
@@ -2932,7 +2932,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 5
+      "dist_to_coin": 3
     },
     {
       "row": 15,
@@ -2943,7 +2943,7 @@
       "is_end": false,
       "is_coin": false,
       "closest_coin_idx": 4,
-      "dist_to_coin": 6
+      "dist_to_coin": 4
     },
     {
       "row": 15,
@@ -2953,8 +2953,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
+      "closest_coin_idx": 4,
+      "dist_to_coin": 5
     },
     {
       "row": 15,
@@ -2964,7 +2964,7 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
+      "closest_coin_idx": 4,
       "dist_to_coin": 6
     },
     {
@@ -2975,8 +2975,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 5
+      "closest_coin_idx": 3,
+      "dist_to_coin": 7
     },
     {
       "row": 15,
@@ -2986,7 +2986,7 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
+      "closest_coin_idx": 3,
       "dist_to_coin": 6
     },
     {
@@ -2997,8 +2997,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 7
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
     },
     {
       "row": 15,
@@ -3008,8 +3008,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 8
+      "closest_coin_idx": 3,
+      "dist_to_coin": 4
     },
     {
       "row": 15,
@@ -3019,8 +3019,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 9
+      "closest_coin_idx": 3,
+      "dist_to_coin": 5
     },
     {
       "row": 15,
@@ -3030,8 +3030,8 @@
       "is_start": false,
       "is_end": false,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 10
+      "closest_coin_idx": 3,
+      "dist_to_coin": 6
     },
     {
       "row": 15,
@@ -3041,8 +3041,8 @@
       "is_start": false,
       "is_end": true,
       "is_coin": false,
-      "closest_coin_idx": 0,
-      "dist_to_coin": 11
+      "closest_coin_idx": 3,
+      "dist_to_coin": 7
     },
     {
       "row": 15,

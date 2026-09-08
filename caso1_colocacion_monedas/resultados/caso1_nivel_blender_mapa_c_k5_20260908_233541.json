@@ -1,7 +1,6 @@
 {
   "caso": "Caso 1 - Colocación de Monedas",
-  "algoritmo": "Gonzalez Multi-start (k-center / Farthest-First Traversal)",
-  "metodo": "gonzalez",
+  "algoritmo": "Gonzalez Multi-start (Farthest-First Traversal)",
   "mapa_id": "C",
   "mapa_nombre": "Mapa C (Laberinto y Pasillos)",
   "dimensiones": {

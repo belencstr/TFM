@@ -1,6 +1,7 @@
 {
   "caso": "Caso 1 - Colocación de Monedas",
-  "algoritmo": "Gonzalez Multi-start (Farthest-First Traversal)",
+  "algoritmo": "Gonzalez Multi-start (k-center / Farthest-First Traversal)",
+  "metodo": "gonzalez",
   "mapa_id": "B",
   "mapa_nombre": "Mapa B (Obstáculos y Cobertura)",
   "dimensiones": {

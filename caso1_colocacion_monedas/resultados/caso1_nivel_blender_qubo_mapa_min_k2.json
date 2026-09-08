@@ -1,0 +1,267 @@
+{
+  "caso": "Caso 1 - Colocación de Monedas",
+  "algoritmo": "QAOA / QUBO (Resultado experimental congelado)",
+  "metodo": "qubo",
+  "mapa_id": "MIN",
+  "mapa_nombre": "Mapa Mínimo QAOA (4 candidatas)",
+  "dimensiones": {
+    "filas": 4,
+    "columnas": 5
+  },
+  "k": 2,
+  "start": {
+    "row": 1,
+    "col": 1
+  },
+  "end": {
+    "row": 2,
+    "col": 3
+  },
+  "monedas": [
+    {
+      "idx": 0,
+      "id": "C002",
+      "row": 1,
+      "col": 3,
+      "assigned_cells": 4
+    },
+    {
+      "idx": 1,
+      "id": "C004",
+      "row": 2,
+      "col": 2,
+      "assigned_cells": 2
+    }
+  ],
+  "metricas": {
+    "radio_cobertura": 1,
+    "separacion_minima": 2,
+    "separacion_media": 2.0,
+    "separacion_total": 2,
+    "coste_pmedian": 2,
+    "num_candidatas": 4,
+    "archivo_origen": "benchmark_qaoa_compacto_4q.json"
+  },
+  "celdas": [
+    {
+      "row": 0,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 0,
+      "col": 1,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 0,
+      "col": 2,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 0,
+      "col": 3,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 0,
+      "col": 4,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 1,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 1,
+      "col": 1,
+      "char": "S",
+      "is_wall": false,
+      "is_start": true,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 2
+    },
+    {
+      "row": 1,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 1,
+      "col": 3,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": true,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 0
+    },
+    {
+      "row": 1,
+      "col": 4,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 2,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 2,
+      "col": 1,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 2,
+      "col": 2,
+      "char": ".",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": true,
+      "closest_coin_idx": 1,
+      "dist_to_coin": 0
+    },
+    {
+      "row": 2,
+      "col": 3,
+      "char": "E",
+      "is_wall": false,
+      "is_start": false,
+      "is_end": true,
+      "is_coin": false,
+      "closest_coin_idx": 0,
+      "dist_to_coin": 1
+    },
+    {
+      "row": 2,
+      "col": 4,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 0,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 1,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 2,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 3,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    },
+    {
+      "row": 3,
+      "col": 4,
+      "char": "#",
+      "is_wall": true,
+      "is_start": false,
+      "is_end": false,
+      "is_coin": false,
+      "closest_coin_idx": null,
+      "dist_to_coin": null
+    }
+  ]
+}

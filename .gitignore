@@ -3,3 +3,6 @@ doc_tfm/
 # Caché de Python
 __pycache__/
 *.py[cod]
+*.pyc
+*.pyo
+*.pyd
