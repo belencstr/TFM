@@ -364,6 +364,31 @@ def inicializar_todos_materiales():
             emision=(1.0, 0.30, 0.75, 1.0),
             emision_fuerza=9.0,
         ),
+
+        # Zócalo Diorama y Ambientación
+        "plinth": crear_material_pbr_simple("Mat_Diorama_Plinth", (0.05, 0.05, 0.06, 1.0), roughness=0.8),
+        "hierro_antorcha": crear_material_pbr_simple("Mat_Hierro_Antorcha", (0.08, 0.08, 0.09, 1.0), metallic=0.8, roughness=0.4),
+        "fuego_antorcha": crear_material_pbr_simple(
+            "Mat_Fuego_Antorcha",
+            (1.0, 0.45, 0.05, 1.0),
+            emision=(1.0, 0.50, 0.08, 1.0),
+            emision_fuerza=12.0,
+        ),
+        "oro_moneda": crear_material_pbr_simple(
+            "Mat_Oro_Moneda",
+            (1.0, 0.80, 0.12, 1.0),
+            metallic=0.95,
+            roughness=0.20,
+            emision=(1.0, 0.80, 0.12, 1.0),
+            emision_fuerza=2.0,
+        ),
+        "sombra_monstruo": crear_material_pbr_simple("Mat_Sombra_Monstruo", (0.02, 0.01, 0.03, 0.8), roughness=0.9),
+        "anillo_arcano": crear_material_pbr_simple(
+            "Mat_Anillo_Arcano",
+            (0.85, 0.20, 1.0, 1.0),
+            emision=(0.85, 0.20, 1.0, 1.0),
+            emision_fuerza=7.0,
+        ),
     }
 
 
@@ -380,6 +405,92 @@ def coord_a_blender(row, col, rows, cols, z=0.0):
 # =============================================================================
 # MODELADO DE ELEMENTOS
 # =============================================================================
+
+def crear_plinth_diorama(rows, cols, col_entorno, mat_plinth):
+    """Zócalo de piedra subterránea sólida bajo el diorama para eliminar el vacío plano."""
+    ancho_x = cols * TILE_SIZE + 0.8
+    ancho_y = rows * TILE_SIZE + 0.8
+    profundidad_z = 1.4
+
+    bpy.ops.mesh.primitive_cube_add(
+        size=1.0,
+        location=(0.0, 0.0, -profundidad_z / 2.0 - ALTURA_SUELO),
+    )
+    base = bpy.context.object
+    base.name = "Diorama_Plinth"
+    base.scale = (ancho_x, ancho_y, profundidad_z)
+    bpy.ops.object.transform_apply(scale=True)
+    base.data.materials.append(mat_plinth)
+
+    bevel = base.modifiers.new("Bisel", type="BEVEL")
+    bevel.width = 0.20
+    bevel.segments = 3
+    mover_a_coleccion(base, col_entorno)
+
+
+def crear_antorcha_pared(pos_muro, offset_dir, col_entorno, mats):
+    """Crea un aplique de antorcha medieval en un muro con fuego y luz cálida."""
+    pos_antorcha = (
+        pos_muro
+        + offset_dir * (TILE_SIZE * 0.44)
+        + Vector((0.0, 0.0, ALTURA_MURO * 0.65))
+    )
+
+    # Soporte de hierro
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices=8,
+        radius=0.04,
+        depth=0.35,
+        location=(pos_antorcha.x, pos_antorcha.y, pos_antorcha.z - 0.12),
+    )
+    soporte = bpy.context.object
+    soporte.rotation_euler = (math.radians(25.0), 0.0, 0.0)
+    soporte.data.materials.append(mats["hierro_antorcha"])
+    mover_a_coleccion(soporte, col_entorno)
+
+    # Fuego / Ascua ardiente
+    bpy.ops.mesh.primitive_ico_sphere_add(
+        subdivisions=2,
+        radius=0.10,
+        location=(pos_antorcha.x, pos_antorcha.y, pos_antorcha.z + 0.08),
+    )
+    fuego = bpy.context.object
+    fuego.data.materials.append(mats["fuego_antorcha"])
+    mover_a_coleccion(fuego, col_entorno)
+
+    # Luz cálida parpadeante
+    crear_luz_puntual(
+        f"Luz_Antorcha_{pos_muro.x:.1f}_{pos_muro.y:.1f}",
+        (pos_antorcha.x, pos_antorcha.y, pos_antorcha.z + 0.15),
+        color=(1.0, 0.55, 0.12),
+        potencia=45.0,
+        radio=0.25,
+        coleccion=col_entorno,
+    )
+
+
+def crear_monedas_tesoro(pos, col_gameplay, mat_oro):
+    """Esparce monedas de oro 3D en el suelo alrededor del cofre."""
+    offsets = [
+        (-0.35, -0.30),
+        (0.32, -0.28),
+        (-0.25, 0.35),
+        (0.38, 0.25),
+        (-0.45, 0.05),
+        (0.42, -0.05),
+    ]
+    for dx, dy in offsets:
+        bpy.ops.mesh.primitive_cylinder_add(
+            vertices=16,
+            radius=0.11,
+            depth=0.03,
+            location=(pos.x + dx, pos.y + dy, 0.02),
+        )
+        m = bpy.context.object
+        m.rotation_euler = (0.0, 0.0, math.radians((dx + dy) * 100))
+        m.data.materials.append(mat_oro)
+        mover_a_coleccion(m, col_gameplay)
+
 
 def crear_losa_suelo(pos, col, mat):
     ancho = TILE_SIZE - GAP_SUELO
@@ -401,6 +512,7 @@ def crear_losa_suelo(pos, col, mat):
 
 def crear_bloque_muro(pos, col, mat):
     ancho = TILE_SIZE - GAP_SUELO * 0.5
+    # Bloque principal
     bpy.ops.mesh.primitive_cube_add(
         size=1.0,
         location=(pos.x, pos.y, ALTURA_MURO / 2.0),
@@ -414,6 +526,23 @@ def crear_bloque_muro(pos, col, mat):
     bevel.width = BISEL_MURO
     bevel.segments = 3
     mover_a_coleccion(obj, col)
+
+    # Cornisa superior decorativa
+    bpy.ops.mesh.primitive_cube_add(
+        size=1.0,
+        location=(pos.x, pos.y, ALTURA_MURO + 0.06),
+    )
+    cornisa = bpy.context.object
+    cornisa.name = "Muro_Cornisa"
+    cornisa.scale = (ancho + 0.08, ancho + 0.08, 0.12)
+    bpy.ops.object.transform_apply(scale=True)
+    cornisa.data.materials.append(mat)
+
+    bev_c = cornisa.modifiers.new("Bisel", type="BEVEL")
+    bev_c.width = 0.03
+    bev_c.segments = 2
+    mover_a_coleccion(cornisa, col)
+
     return obj
 
 
@@ -423,6 +552,18 @@ def crear_bloque_muro(pos, col, mat):
 
 def crear_monstruo_3d(pos, coleccion, mats):
     """Crea una criatura monstruosa 3D detallada (gárgola demoníaca ciclópea)."""
+    # 0. Sombra / Aura oscura demoníaca en la losa
+    bpy.ops.mesh.primitive_cylinder_add(
+        vertices=24,
+        radius=0.65,
+        depth=0.01,
+        location=(pos.x, pos.y, 0.01),
+    )
+    sombra = bpy.context.object
+    sombra.name = "Monstruo_Aura_Sombra"
+    sombra.data.materials.append(mats["sombra_monstruo"])
+    mover_a_coleccion(sombra, coleccion)
+
     # 1. Cuerpo / Cabeza orgánica
     bpy.ops.mesh.primitive_ico_sphere_add(
         subdivisions=3,
@@ -637,6 +778,9 @@ def crear_cofre_tesoro(pos, coleccion, mats):
             coleccion=coleccion,
         )
 
+    # 5. Monedas de oro 3D derramadas alrededor del cofre
+    crear_monedas_tesoro(pos, coleccion, mats["oro_moneda"])
+
 
 def crear_altar_recompensa_secreta(pos, coleccion, mats):
     """Crea un altar místico con pedestal rúnico y un orbe de amatista flotante."""
@@ -670,6 +814,17 @@ def crear_altar_recompensa_secreta(pos, coleccion, mats):
     orbe = bpy.context.object
     orbe.data.materials.append(mats["gema_secreta"])
     mover_a_coleccion(orbe, coleccion)
+
+    # Anillo rúnico místico en la losa de suelo
+    bpy.ops.mesh.primitive_torus_add(
+        major_radius=0.75,
+        minor_radius=0.035,
+        location=(pos.x, pos.y, 0.02),
+    )
+    runa_suelo = bpy.context.object
+    runa_suelo.name = "Altar_Runa_Suelo"
+    runa_suelo.data.materials.append(mats["anillo_arcano"])
+    mover_a_coleccion(runa_suelo, coleccion)
 
     if MOSTRAR_LUCES_LOCALES:
         crear_luz_puntual(
@@ -880,7 +1035,11 @@ def construir_escena_caso3():
     col_gameplay = obtener_o_crear_coleccion("02_Gameplay", col_raiz)
     col_rutas = obtener_o_crear_coleccion("03_Rutas", col_raiz)
 
-    # 1. Celdas de Suelo Real y Muros de Piedra Real
+    # 0. Zócalo base subterráneo del diorama
+    crear_plinth_diorama(rows, cols, col_entorno, mats["plinth"])
+
+    # 1. Celdas de Suelo Real y Muros de Piedra Real con antorchas
+    antorchas_puestas = 0
     for cell_info in data["cells"]:
         r = cell_info["row"]
         c = cell_info["col"]
@@ -890,6 +1049,11 @@ def construir_escena_caso3():
             crear_losa_suelo(pos, col_entorno, mats["suelo"])
         else:
             crear_bloque_muro(pos, col_entorno, mats["muro"])
+            # Colocar 4 antorchas en muros interiores
+            if antorchas_puestas < 4 and 0 < r < rows - 1 and 0 < c < cols - 1:
+                if (r + c) % 4 == 0:
+                    crear_antorcha_pared(pos, Vector((0.0, -1.0, 0.0)), col_entorno, mats)
+                    antorchas_puestas += 1
 
     # 2. Props de Gameplay: Monstruos Reales, Cofres del Tesoro y Portales
     poi = data["points_of_interest"]
