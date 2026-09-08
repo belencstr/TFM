@@ -309,7 +309,7 @@ def exportar_qubo_completo_blender(mejor_val, seed, timestamp, tiempo_sa=0.0):
     return json_fixed_path
 
 
-def ejecutar_sa_qubo_completo(num_reads=100, num_sweeps=2000, seed=42):
+def ejecutar_sa_qubo_completo(num_reads=100, num_sweeps=1500, seed=42):
     print("=" * 76)
     print("CASO 3 — RESOLUCIÓN DEL QUBO COMPLETO MEDIANTE SIMULATED ANNEALING")
     print("Geometría + Ruta Integrada + 2 Enemigos + 1 Premio + Rama Secundaria")
@@ -441,4 +441,4 @@ def ejecutar_sa_qubo_completo(num_reads=100, num_sweeps=2000, seed=42):
 
 
 if __name__ == "__main__":
-    ejecutar_sa_qubo_completo(num_reads=100, num_sweeps=2000, seed=42)
+    ejecutar_sa_qubo_completo(num_reads=100, num_sweeps=1500, seed=42)

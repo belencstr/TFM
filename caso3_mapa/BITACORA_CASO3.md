@@ -293,27 +293,40 @@ Para comprobar la expresividad completa del paradigma QUBO frente al demostrador
   * Callejón sin salida estricto (*dead-end*): penalización $b_k x_w$ para vecinos no autorizados de $a$ y $b$.
   * Recompensa secreta ubicada automáticamente en $b$.
 
-### 2. Resultados Experimentales con Simulated Annealing ([`ejecutar_sa_caso3_completo.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/ejecutar_sa_caso3_completo.py))
-- **Dimensiones del modelo:** 117 variables binarias y 719 términos cuadráticos.
-- **Parámetros:** 100 reads, 2000 sweeps, semilla 42.
-- **Tasa de éxito / Nivel válido completo:** **$59.0\%$** (59/100 reads satisfacen estrictamente el 100% de restricciones duras: balance zonal, START/GOAL, ruta $q$ continua, 2 enemigos, 2 recompensas, rama acoplada y callejón sin salida estricto).
-- **Time To Solution ($TTS_{99}$):** **$21.64\text{ ms}$** (tiempo total de muestreo: $0.361\text{ s}$).
-- **Solución representativa:** Obtiene 34 fronteras de transición Ising y **1 única componente conexa de suelo** (100% transitable sin islas aisladas). Selecciona el patrón geométrico #5 en la esquina nordeste ($u=(2, 7) \to a=(1, 7) \to b=(0, 7)$).
+### 2. Resultados Experimentales con Simulated Annealing
 
-### 3. Visualización 3D en Blender 5.2
-- La solución válida obtenida por el QUBO Full fue exportada a [`caso3_nivel_blender_qubo_full_6x8.json`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/resultados/caso3_nivel_blender_qubo_full_6x8.json).
-- Generación de escena 3D y renderizado mediante Blender 5.2:
-  * Archivo de escena 3D: [`caso3_nivel_blender_qubo_full_6x8.blend`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/resultados/caso3_nivel_blender_qubo_full_6x8.blend).
-  * Render en alta resolución (1920x1080): [`caso3_blender_qubo_full_render_6x8.png`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/figuras/caso3_blender_qubo_full_render_6x8.png).
-  * Muestra el trazado de neón cian (ruta principal), neón magenta (rama secundaria), los monstruos demoníacos patrullando los pasos intermedios y el altar con gema en el callejón terminal.
+#### A. Ejecución Representativa Individual (Semilla 42, 100 reads, 1500 sweeps)
+- **Dimensiones del modelo:** 117 variables binarias y 719 términos cuadráticos.
+- **Tasa de éxito / Nivel válido completo:** **$52.0\%$** (52/100 reads satisfacen estrictamente el 100% de restricciones duras: balance zonal, START/GOAL, ruta $q$ continua, 2 enemigos, 2 recompensas, rama acoplada y callejón sin salida estricto).
+- **Time To Solution ($TTS_{99}$):** **$19.76\text{ ms}$** (tiempo total de muestreo: $0.282\text{ s}$).
+- **Solución representativa:** Obtiene **29 fronteras** de transición Ising, seleccionando el patrón geométrico #0 en el borde sudoeste ($u=(3, 0) \to a=(4, 0) \to b=(5, 0)$) con cofre en *dead-end*.
+
+#### B. Estudio Riguroso de Robustez Estadística (20 Semillas × 100 Reads × 1500 Sweeps)
+Ejecutado con el script [`robustez_sa_caso3_completo.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/robustez_sa_caso3_completo.py) bajo idéntico protocolo que el modelo desacoplado y el integrado:
+- **Semillas con ≥1 solución válida:** **$100.0\%$ (20/20 semillas)**.
+- **Tasa de éxito media:** **$54.35 \pm 4.17\%$** (todas las semillas oscilan en el rango $46\% \text{--} 62\%$).
+- **Time To Solution ($TTS_{99}$) medio:** **$19.47 \pm 5.06\text{ ms}$** en CPU clásica.
+- **Fronteras en solución válida:** **$29.85 \pm 1.65$** (consistente con el modelo integrado de 96 vars, que obtiene $29.25$).
+- **Componentes conexas de suelo:** Rango $[1, 3]$ (media de $1.65$; el $50\%$ de las semillas logra 1 única componente conexa perfecta).
+- **Diversidad morfológica de ramas:** El solucionador estocástico no se polariza en una única rama trivial, sino que selecciona dinámicamente diferentes patrones del catálogo según la topología de muros circundante (patrones #0, #2, #5, #6, #7, #9 y #10).
+
+### 3. Visualización 3D en Blender 5.2 y Rigor Semántico en Exportación
+- **Rigor semántico en la exportación:** El exportador [`exportar_qubo_completo_blender()`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/ejecutar_sa_caso3_completo.py) ejecuta explícitamente el algoritmo BFS clásico (`bfs_camino_minimo`) sobre las celdas abiertas resultantes, registrando con total fidelidad `bfs_path_length`, el camino más corto `bfs_shortest_path` y la trayectoria validada `validated_main_path` (extraída de $q$).
+- **Archivos generados:**
+  * JSON de nivel: [`caso3_nivel_blender_qubo_full_6x8.json`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/resultados/caso3_nivel_blender_qubo_full_6x8.json).
+  * Escena 3D: [`caso3_nivel_blender_qubo_full_6x8.blend`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/resultados/caso3_nivel_blender_qubo_full_6x8.blend).
+  * Render en alta definición (1920×1080): [`caso3_blender_qubo_full_render_6x8.png`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/figuras/caso3_blender_qubo_full_render_6x8.png).
 
 ### 4. Conclusión Epistemológica: La Progresión Conceptual del Caso 3
-El Caso 3 cierra con una progresión dimensional y metodológica ejemplar:
-$$\mathbf{48} \quad\longrightarrow\quad \mathbf{96} \quad\longrightarrow\quad \mathbf{117}$$
+El Caso 3 culmina con la tabla comparativa más sólida de todo el proyecto, donde los tres modelos QUBO se comparan bajo exactamente el mismo protocolo estocástico:
 
-1. **QUBO Desacoplado (48 vars):** Geometría Ising + balance zonal, delegando la conectividad navegable a un algoritmo clásico externo (BFS post-hoc). Tasa de éxito: $8.3\%$.
-2. **QUBO Integrado Core (96 vars):** Geometría + ruta simultáneas dentro del Hamiltoniano mediante conos de Manhattan. Tasa de éxito: $93.6\%$. Comparación formal 1 a 1 con CP-SAT Core.
-3. **QUBO Full Restringido (117 vars):** Geometría + ruta + enemigos + recompensas + rama de exploración en un único problema cuadrático puro de grado 2. Tasa de éxito: $59.0\%$.
+| Modelo | Variables | Qué incorpora | $p_{\text{éxito}}$ (20 semillas) | $TTS_{99}$ medio | Fronteras Ising |
+| :--- | :---: | :--- | :---: | :---: | :---: |
+| **QUBO desacoplado** | 48 | Geometría Ising + BFS ext. | $8.30 \pm 2.51\%$ | $63.47 \pm 28.29\text{ ms}$ | $34.55 \pm 2.13$ |
+| **QUBO integrado** | 96 | Geometría + Ruta START $\to$ GOAL | $93.60 \pm 2.35\%$ | $4.39 \pm 0.69\text{ ms}$ | $29.25 \pm 2.14$ |
+| **QUBO Full** | 117 | Geom + Ruta + Gameplay + Rama | $54.35 \pm 4.17\%$ | $19.47 \pm 5.06\text{ ms}$ | $29.85 \pm 1.65$ |
+
+$$\mathbf{48} \quad\longrightarrow\quad \mathbf{96} \quad\longrightarrow\quad \mathbf{117}$$
 
 *Reflexión académica de cierre:* **Aumentar la expresividad en una formulación QUBO no es gratuito; cada nueva propiedad de diseño introduce variables y acoplamientos cuadráticos, por lo que es necesario decidir qué libertad del generador merece mantenerse y cuál conviene podar geométricamente.** Demostrar esta progresión valida la madurez científica del trabajo.
 
@@ -328,7 +341,8 @@ $$\mathbf{48} \quad\longrightarrow\quad \mathbf{96} \quad\longrightarrow\quad \m
 | [`qubo_caso3.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/formulacion/qubo_caso3.py) | Formulación QUBO desacoplada (48 vars, $P=100$, 8.30% de éxito). |
 | [`qubo_caso3_integrado.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/formulacion/qubo_caso3_integrado.py) | Formulación QUBO integrada con conos de Manhattan (96 vars, $P=100$, 93.6% de éxito). |
 | [`qubo_caso3_completo.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/formulacion/qubo_caso3_completo.py) | Formulación QUBO extendida con gameplay y rama secundaria de exploración (117 vars). |
-| [`ejecutar_sa_caso3_completo.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/ejecutar_sa_caso3_completo.py) | Solver SA y validador de nivel completo QUBO (59% éxito, TTS=21.81 ms). |
+| [`ejecutar_sa_caso3_completo.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/ejecutar_sa_caso3_completo.py) | Solver SA individual y exportador de nivel completo con BFS real a Blender. |
+| [`robustez_sa_caso3_completo.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/robustez_sa_caso3_completo.py) | Estudio de robustez estadística con 20 semillas del QUBO Completo de 117 variables. |
 | [`simulated_annealing_caso3.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/solvers/simulated_annealing_caso3.py) | Sampler SA con `validar_ruta_qubo()`, $TTS_{99}$ y seguimiento de mínima energía vs válida. |
 | [`robustez_sa_caso3_integrado.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/robustez_sa_caso3_integrado.py) | Estudio de robustez estadística con 20 semillas aleatorias del QUBO Integrado. |
 | [`comparar_desacoplado_vs_integrado.py`](file:///c:/Users/BCP/Desktop/TFM/caso3_mapa/experimentos/comparar_desacoplado_vs_integrado.py) | Benchmark comparativo de 4 vías que genera el informe tabular consolidado. |
