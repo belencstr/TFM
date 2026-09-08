@@ -1,2 +1,5 @@
 venv/
 doc_tfm/
+# Caché de Python
+__pycache__/
+*.py[cod]
