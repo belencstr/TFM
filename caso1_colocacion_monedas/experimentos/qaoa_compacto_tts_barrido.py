@@ -1,3 +1,4 @@
+import argparse
 import json
 import math
 import os
@@ -74,9 +75,9 @@ def ejecutar():
     print("2. TTS_batch_99 representa una estimación condicionada a la distribución obtenida tras la optimización:")
     print("   P_batch se infiere analíticamente de p_shot (P_batch = 1 - (1 - p_shot)^S), no mediante múltiples")
     print("   ejecuciones independientes del optimizador con distintas semillas.")
-    print("3. La primera ejecución (iter=1, shots=20) presenta un coste de inicialización (importación,")
-    print("   transpilación inicial en Qiskit y creación del simulador) superior al de las ejecuciones posteriores,")
-    print("   por lo que los tiempos obtenidos incorporan overhead del entorno de simulación además del coste algorítmico.")
+    print("3. La primera ejecución presenta un tiempo superior a las posteriores, compatible")
+    print("   con costes de inicialización o calentamiento del entorno de simulación.")
+    print("   Esta medición no descompone dicho overhead por componentes.")
     print("4. Con REPS = 1, el tiempo de cada configuración corresponde al tiempo empírico observado en la sesión de")
     print("   ejecución, evitando interpretar variaciones menores como diferencias algorítmicas significativas.")
     print("=" * 135)
@@ -158,6 +159,16 @@ def ejecutar():
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        description="Barrido QAOA Compacto (4 Qubits) para estimación de TTS."
+    )
+    parser.add_argument(
+        "--actualizar-benchmark",
+        action="store_true",
+        help="Sincronizar explícitamente el archivo congelado benchmark_qaoa_compacto_4q.json."
+    )
+    args = parser.parse_args()
+
     carpeta = os.path.join(RAIZ, "resultados")
     os.makedirs(carpeta, exist_ok=True)
     marca = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -197,7 +208,7 @@ def main():
         print(f"JSON resumen del barrido guardado en: {ruta_json}")
 
         ruta_bench = os.path.join(carpeta, "benchmark_qaoa_compacto_4q.json")
-        if os.path.exists(ruta_bench):
+        if args.actualizar_benchmark and os.path.exists(ruta_bench):
             try:
                 with open(ruta_bench, "r", encoding="utf-8") as f:
                     bench = json.load(f)
@@ -210,9 +221,14 @@ def main():
                 bench["fecha_congelacion"] = resumen["fecha"]
                 with open(ruta_bench, "w", encoding="utf-8") as f:
                     json.dump(bench, f, indent=2, ensure_ascii=False)
-                print(f"Bloque 'barrido' sincronizado automáticamente en: {ruta_bench}")
+                print(f"Bloque 'barrido' sincronizado explícitamente en: {ruta_bench}")
             except Exception as e:
                 print(f"Aviso al sincronizar benchmark congelado: {e}")
+        elif not args.actualizar_benchmark:
+            print(
+                "Nota: benchmark_qaoa_compacto_4q.json permanece congelado "
+                "(use --actualizar-benchmark para sincronizarlo explícitamente)."
+            )
 
 
 if __name__ == "__main__":

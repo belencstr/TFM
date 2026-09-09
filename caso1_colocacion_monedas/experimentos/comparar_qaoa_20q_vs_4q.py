@@ -120,13 +120,13 @@ def generar_figura_comparativa(carpeta_figuras):
     ax3.set_yscale("log")
     ax3.set_ylim(0.05, 3000.0)
     ax3.set_ylabel("Tiempo de simulación en s (escala log)")
-    ax3.set_title("Tiempo de Simulación (COBYLA)", fontsize=11, fontweight="bold")
+    ax3.set_title("Tiempo de Simulación (Configuración de Referencia)", fontsize=10, fontweight="bold")
     ax3.grid(True, linestyle="--", alpha=0.4, which="both")
 
     t20 = tiempos[0]
     t4 = tiempos[1]
     ax3.text(0, t20 * 1.3, f"{t20:.2f} s\n(~{t20/60:.1f} min)", ha="center", va="bottom", fontweight="bold", color="#922b21", fontsize=9)
-    ax3.text(1, t4 * 1.4, f"{t4:.3f} s\n(>{t20/t4:.0f}x más rápido)", ha="center", va="bottom", fontweight="bold", color="#196f3d", fontsize=9)
+    ax3.text(1, t4 * 1.4, f"{t4:.3f} s\n(≈{t20/t4:.0f}× menor\ntiempo observado)", ha="center", va="bottom", fontweight="bold", color="#196f3d", fontsize=9)
 
     # 4. Time-to-Target 99% (TTS99 Estimado en Simulación)
     ax4 = axes[1, 1]
@@ -242,7 +242,7 @@ def main():
     factor_dim = f"{dim_20 // dim_4:,}x menor"
     factor_fact = f">{pct_fact_4 / pct_fact_20:.0f}x mayor"
     factor_opt = f">{pct_opt_4 / pct_opt_20:.0f}x mayor"
-    factor_tiempo = f">{t_sim_20 / t_sim_4:.0f}x más rápido"
+    factor_tiempo = f"≈{t_sim_20 / t_sim_4:.0f}× menor tiempo"
 
     informe = f"""========================================================================================
 CASO 1 — INFORME COMPARATIVO: QAOA {qubits_20} QUBITS (DIRECTO) VS {qubits_4} QUBITS (COMPACTO PARA k={cfg_4['k']})
@@ -317,7 +317,7 @@ Qubits                         | {qubits_20} qubits                | {qubits_4} 
 Dimensión espacio Hilbert      | {dim_20:,} estados        | {dim_4} estados                    | {factor_dim}
 Fracción de estados factibles  | {pct_fact_20:.4f}% ({fact_20} estados)     | {pct_fact_4:.2f}% ({fact_4} estados)            | {factor_fact}
 Fracción de estados óptimos    | {pct_opt_20:.5f}% ({opt_20} estados)     | {pct_opt_4:.2f}% ({opt_4} estados)            | {factor_opt}
-Tiempo simulación (30 iter)    | {t_sim_20:.2f} segundos          | {t_sim_4:.4f} segundos               | {factor_tiempo}
+Tiempo simulación (config. ref.) | {t_sim_20:.2f} s (iter={cfg_20['cobyla_maxiter']:<2})       | {t_sim_4:.4f} s (iter={cfg_4['cobyla_maxiter']:<2})         | {factor_tiempo}
 Prob. factible (maxiter={cfg_4['cobyla_maxiter']})    | {p_fact_20:.2f}%                    | {p_fact_4:.2f}%                       | Muestras factibles
 Prob. óptima (maxiter={cfg_4['cobyla_maxiter']})      | {p_opt_20:.2f}%                    | {p_opt_4:.2f}%                       | Muestras óptimas
 TTS99 estimado (simulación)    | {tts_str_20:<24} | {tts_str_4:<29} | Estimación finita
@@ -329,8 +329,9 @@ Notas metodológicas sobre tiempos y reproducibilidad:
 1. Simulación clásica (REPS = 1): Los tiempos de simulación y las estimaciones TTS corresponden
    al coste empírico de ejecución en CPU clásica (COBYLA + muestreo) con una repetición por configuración,
    por lo que no constituyen medidas de tiempo de hardware cuántico real (QPU).
-2. Overhead de entorno: La primera ejecución de una sesión puede presentar un tiempo superior debido a la
-   inicialización, carga de módulos y transpilación en Qiskit/Python, estabilizándose en ejecuciones posteriores.
+2. Overhead de entorno: La primera ejecución presenta un tiempo superior a las posteriores, compatible
+   con costes de inicialización o calentamiento del entorno de simulación. Esta medición no descompone
+   dicho overhead por componentes.
 3. Estimación condicionada de TTS_batch_99: Representa una estimación condicionada a la distribución
    obtenida tras la optimización, donde P_batch = 1 - (1 - p_shot)^S se infiere de la probabilidad por disparo.
 

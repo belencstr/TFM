@@ -21,6 +21,11 @@
     "fraccion_optima_pct": 25.0
   },
   "rendimiento_experimental": {
+    "tiempo_simulacion": {
+      "segundos": 0.2872,
+      "maxiter": 25,
+      "shots": 160
+    },
     "tiempo_simulacion_segundos": 0.2872,
     "probabilidad_factible_pct": 68.125,
     "probabilidad_optimo_pct": 65.625,
