@@ -1,7 +1,7 @@
 {
   "experimento": "QAOA Compacto (4 Qubits, k=2) - Instancia Mínima p-median",
   "caso": 1,
-  "fecha_congelacion": "2026-09-08",
+  "fecha_congelacion": "2026-09-09",
   "semilla": 20260908,
   "configuracion": {
     "n_candidatas": 4,
@@ -34,11 +34,10 @@
     "coste_pmedian": 2
   },
   "barrido": {
-    "tts_batch_99_min_segundos": 0.0087,
-    "tts_batch_99_max_segundos": 0.2872,
+    "tts_batch_99_min_segundos": 0.0499,
+    "tts_batch_99_max_segundos": 0.3543,
     "r_shot_99_min": 3,
-    "r_shot_99_max": 13
+    "r_shot_99_max": 44
   },
-  "interpretacion": "Al formular el problema sobre n variables de decisión para k=2 precalculando C(j,l), la densidad factible asciende al 37.5%, permitiendo a QAOA muestrear soluciones factibles y óptimas con alta probabilidad y alcanzar tts_batch_99 finito en menos de 0.3 s."
+  "interpretacion": "Al formular el problema sobre n variables de decisión para k=2 precalculando C(j,l), la densidad factible asciende al 37.5%, permitiendo a QAOA muestrear soluciones factibles y óptimas con alta probabilidad y alcanzar estimaciones finitas de TTS_batch_99 en todas las configuraciones evaluadas."
 }
-

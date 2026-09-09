@@ -1,3 +1,4 @@
+import json
 import math
 import os
 import sys
@@ -73,6 +74,11 @@ def ejecutar():
     print("2. TTS_batch_99 representa una estimación condicionada a la distribución obtenida tras la optimización:")
     print("   P_batch se infiere analíticamente de p_shot (P_batch = 1 - (1 - p_shot)^S), no mediante múltiples")
     print("   ejecuciones independientes del optimizador con distintas semillas.")
+    print("3. La primera ejecución (iter=1, shots=20) presenta un coste de inicialización (importación,")
+    print("   transpilación inicial en Qiskit y creación del simulador) superior al de las ejecuciones posteriores,")
+    print("   por lo que los tiempos obtenidos incorporan overhead del entorno de simulación además del coste algorítmico.")
+    print("4. Con REPS = 1, el tiempo de cada configuración corresponde al tiempo empírico observado en la sesión de")
+    print("   ejecución, evitando interpretar variaciones menores como diferencias algorítmicas significativas.")
     print("=" * 135)
     print(
         f"{'iter':>4} | {'shots':>5} | {'t_batch':>8} | "
@@ -140,7 +146,15 @@ def ejecutar():
         f"preparado para alcanzar una probabilidad acumulada de éxito de al menos el 99% bajo la probabilidad por disparo estimada."
     )
 
-
+    return {
+        "fecha": datetime.now().strftime("%Y-%m-%d"),
+        "semilla": SEED,
+        "n_configuraciones": len(ITERACIONES) * len(SHOTS_LIST),
+        "r_shot_99_min": min_r_shot,
+        "r_shot_99_max": max_r_shot,
+        "tts_batch_99_min_segundos": round(min_tts_batch, 4),
+        "tts_batch_99_max_segundos": round(max_tts_batch, 4),
+    }
 
 
 def main():
@@ -164,16 +178,41 @@ def main():
             for x in self.s:
                 x.flush()
 
+    resumen = None
     try:
         with open(ruta, "w", encoding="utf-8") as f:
             sys.stdout = Tee(stdout_original, f)
-            ejecutar()
+            resumen = ejecutar()
             print()
             print(f"Registro guardado en: {ruta}")
     finally:
         sys.stdout = stdout_original
 
     print(f"\nTXT generado correctamente: {ruta}")
+
+    if resumen is not None:
+        ruta_json = os.path.join(carpeta, f"qaoa_compacto_tts_barrido_{marca}.json")
+        with open(ruta_json, "w", encoding="utf-8") as f:
+            json.dump(resumen, f, indent=2, ensure_ascii=False)
+        print(f"JSON resumen del barrido guardado en: {ruta_json}")
+
+        ruta_bench = os.path.join(carpeta, "benchmark_qaoa_compacto_4q.json")
+        if os.path.exists(ruta_bench):
+            try:
+                with open(ruta_bench, "r", encoding="utf-8") as f:
+                    bench = json.load(f)
+                bench["barrido"] = {
+                    "tts_batch_99_min_segundos": resumen["tts_batch_99_min_segundos"],
+                    "tts_batch_99_max_segundos": resumen["tts_batch_99_max_segundos"],
+                    "r_shot_99_min": resumen["r_shot_99_min"],
+                    "r_shot_99_max": resumen["r_shot_99_max"],
+                }
+                bench["fecha_congelacion"] = resumen["fecha"]
+                with open(ruta_bench, "w", encoding="utf-8") as f:
+                    json.dump(bench, f, indent=2, ensure_ascii=False)
+                print(f"Bloque 'barrido' sincronizado automáticamente en: {ruta_bench}")
+            except Exception as e:
+                print(f"Aviso al sincronizar benchmark congelado: {e}")
 
 
 if __name__ == "__main__":

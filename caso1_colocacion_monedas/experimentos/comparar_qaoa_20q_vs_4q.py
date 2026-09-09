@@ -184,14 +184,14 @@ def main():
     marca = datetime.now().strftime("%Y%m%d_%H%M%S")
     ruta_txt = os.path.join(carpeta_resultados, f"comparativa_qaoa_20q_vs_4q_{marca}.txt")
 
-    # Extracción dinámica de variables desde los registros congelados
+    # Extracción estricta sin fallbacks
     cfg_20 = data_20q["configuracion"]
     cfg_4 = data_4q["configuracion"]
     hilbert_20 = data_20q["espacio_hilbert"]
     hilbert_4 = data_4q["espacio_hilbert"]
     rend_20 = data_20q["rendimiento_experimental"]
     rend_4 = data_4q["rendimiento_experimental"]
-    barrido_4 = data_4q.get("barrido", {})
+    barrido_4 = data_4q["barrido"]
 
     qubits_20 = cfg_20["qubits"]
     qubits_4 = cfg_4["qubits"]
@@ -213,17 +213,30 @@ def main():
     p_opt_20 = rend_20["probabilidad_optimo_pct"]
     p_opt_4 = rend_4["probabilidad_optimo_pct"]
 
-    cota_rejilla = rend_20.get("cota_rejilla_analitica", {})
-    p_fact_cota = cota_rejilla.get("p_fact_max_rejilla_pct", 0.0769)
-    p_opt_cota = cota_rejilla.get("p_opt_max_rejilla_pct", 0.0099)
+    cota_rejilla = rend_20["cota_rejilla_analitica"]
+    p_fact_cota = cota_rejilla["p_fact_max_rejilla_pct"]
+    p_opt_cota = cota_rejilla["p_opt_max_rejilla_pct"]
 
-    tts_str_20 = "No estimable (p_opt=0)" if not rend_20.get("tts_estimable", False) else f"{rend_20.get('tts_segundos', 0):.4f} s"
-    tts_min_4 = barrido_4.get("tts_batch_99_min_segundos", rend_4.get("tts_batch_99_segundos", 0.0087))
-    tts_max_4 = barrido_4.get("tts_batch_99_max_segundos", rend_4.get("tts_batch_99_segundos", 0.2872))
+    # Cálculo dinámico de probabilidades de 0 éxitos en N disparos: P(0) = (1 - p)^N
+    p_fact_elem = p_fact_cota / 100.0
+    p_opt_elem = p_opt_cota / 100.0
+
+    p0_fact_20 = ((1.0 - p_fact_elem) ** 20) * 100.0
+    p0_opt_20 = ((1.0 - p_opt_elem) ** 20) * 100.0
+
+    p0_fact_160 = ((1.0 - p_fact_elem) ** 160) * 100.0
+    p0_opt_160 = ((1.0 - p_opt_elem) ** 160) * 100.0
+
+    p0_fact_2048 = ((1.0 - p_fact_elem) ** 2048) * 100.0
+    p0_opt_2048 = ((1.0 - p_opt_elem) ** 2048) * 100.0
+
+    tts_str_20 = "No estimable (p_opt=0)" if not rend_20["tts_estimable"] else f"{rend_20['tts_segundos']:.4f} s"
+    tts_min_4 = barrido_4["tts_batch_99_min_segundos"]
+    tts_max_4 = barrido_4["tts_batch_99_max_segundos"]
     tts_str_4 = f"{tts_min_4:.4f} s - {tts_max_4:.4f} s"
 
-    sol_bits_4 = rend_4.get("solucion_bits", [0, 1, 0, 1])
-    coste_4 = rend_4.get("coste_pmedian", 2)
+    sol_bits_4 = rend_4["solucion_bits"]
+    coste_4 = rend_4["coste_pmedian"]
 
     factor_qubits = f"-{(1.0 - qubits_4 / qubits_20) * 100:.1f}%"
     factor_dim = f"{dim_20 // dim_4:,}x menor"
@@ -236,8 +249,8 @@ CASO 1 — INFORME COMPARATIVO: QAOA {qubits_20} QUBITS (DIRECTO) VS {qubits_4} 
 ========================================================================================
 Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 Problema: Colocación de Monedas (p-median, instancia mínima con k={cfg_4['k']} sobre {cfg_4['n_candidatas']} candidatas)
-Fuente 20Q: {os.path.basename(ruta_20q)} (congelado {data_20q.get('fecha_congelacion', 'N/A')})
-Fuente 4Q:  {os.path.basename(ruta_4q)} (congelado {data_4q.get('fecha_congelacion', 'N/A')})
+Fuente 20Q: {os.path.basename(ruta_20q)} (congelado {data_20q['fecha_congelacion']})
+Fuente 4Q:  {os.path.basename(ruta_4q)} (congelado {data_4q['fecha_congelacion']})
 
 1. SÍNTESIS DEL PROBLEMA Y CONTEXTO
 En el Caso 1, el problema de colocación de monedas se modela originalmente como p-median /
@@ -249,8 +262,7 @@ La primera formulación tradujo directamente el modelo lineal estándar de enter
 utilizando variables de apertura x_j ({cfg_20['variables_x']}) y variables de asignación y_ij ({cfg_20['variables_y']}):
     N = n + n^2 = {cfg_20['variables_x']} + {cfg_20['variables_y']} = {qubits_20} variables binarias -> {qubits_20} QUBITS.
 
-En las 32 configuraciones del barrido sistemático (qaoa_tts_barrido.py: iter in [1..30],
-shots in [20..160]), esta codificación directa arrojó:
+En el barrido sistemático del modelo directo ({rend_20['motivo_fallo']}), esta codificación arrojó:
     - Probabilidad factible observada: {p_fact_20:.2f}%
     - Probabilidad óptima observada:   {p_opt_20:.2f}%
     - TTS99: {tts_str_20} por ausencia de éxitos (p_opt = 0).
@@ -267,15 +279,14 @@ b) Evaluación unitaria exacta de QAOA con mezclador estándar (p={cfg_20['reps_
      se evaluó una rejilla de 225 puntos en el plano de parámetros variacionales (gamma, beta).
    - En la rejilla evaluada, la probabilidad de medir un estado factible alcanza como máximo
      un ~{p_fact_cota:.4f}% (p_fact = {p_fact_cota/100:.6f}), y la de medir un estado óptimo un ~{p_opt_cota:.4f}% (p_opt = {p_opt_cota/100:.6f}).
-   - Con esa probabilidad, la probabilidad de observar cero éxitos P(0) = (1 - p)^N es:
-     * Con N = 20 shots:  98.47% sin factibles, 99.80% sin óptimos.
-     * Con N = 160 shots: 88.42% sin factibles, 98.43% sin óptimos.
-     * Con N = 2048 shots: 20.69% sin factibles, 81.71% sin óptimos.
+   - Con esa probabilidad, la probabilidad de observar cero éxitos P(0) = (1 - p)^N calculada analíticamente es:
+     * Con N = 20 shots:  {p0_fact_20:.2f}% sin factibles, {p0_opt_20:.2f}% sin óptimos.
+     * Con N = 160 shots: {p0_fact_160:.2f}% sin factibles, {p0_opt_160:.2f}% sin óptimos.
+     * Con N = 2048 shots: {p0_fact_2048:.2f}% sin factibles, {p0_opt_2048:.2f}% sin óptimos.
    - Por tanto, en el barrido sistemático con 20 a 160 disparos, no observar ninguna muestra
-     factible u óptima es estadísticamente muy plausible (88.4% a 99.8%). Con 2048 disparos,
-     no observar óptimos sigue siendo la norma (~81.7%), mientras que la ausencia de factibles
-     refleja adicionalmente que el optimizador clásico (COBYLA a p=1) no converge necesariamente
-     al parámetro óptimo de la rejilla.
+     factible u óptima es estadísticamente esperable ({p0_fact_160:.1f}% a {p0_opt_20:.1f}% de probabilidad de ausencia).
+     Con 2048 disparos, no observar óptimos sigue siendo la norma (~{p0_opt_2048:.1f}%), mientras que la ausencia de factibles
+     refleja adicionalmente que el optimizador clásico (COBYLA a p=1) no converge necesariamente al parámetro óptimo de la rejilla.
 c) Conclusión de esta fase:
    En esta codificación directa, con p=1, el mezclador transversal estándar y la
    configuración evaluada, el subespacio factible resulta extremadamente poco representado
@@ -307,12 +318,21 @@ Dimensión espacio Hilbert      | {dim_20:,} estados        | {dim_4} estados   
 Fracción de estados factibles  | {pct_fact_20:.4f}% ({fact_20} estados)     | {pct_fact_4:.2f}% ({fact_4} estados)            | {factor_fact}
 Fracción de estados óptimos    | {pct_opt_20:.5f}% ({opt_20} estados)     | {pct_opt_4:.2f}% ({opt_4} estados)            | {factor_opt}
 Tiempo simulación (30 iter)    | {t_sim_20:.2f} segundos          | {t_sim_4:.4f} segundos               | {factor_tiempo}
-Prob. factible (maxiter={cfg_4['cobyla_maxiter']})    | {p_fact_20:.2f}%                    | {p_fact_4:.2f}% (hasta 90.0% con N=20) | Muestras factibles
-Prob. óptima (maxiter={cfg_4['cobyla_maxiter']})      | {p_opt_20:.2f}%                    | {p_opt_4:.2f}% (hasta 85.0% con N=20) | Muestras óptimas
+Prob. factible (maxiter={cfg_4['cobyla_maxiter']})    | {p_fact_20:.2f}%                    | {p_fact_4:.2f}%                       | Muestras factibles
+Prob. óptima (maxiter={cfg_4['cobyla_maxiter']})      | {p_opt_20:.2f}%                    | {p_opt_4:.2f}%                       | Muestras óptimas
 TTS99 estimado (simulación)    | {tts_str_20:<24} | {tts_str_4:<29} | Estimación finita
 Solución devuelta              | Inviable (0% factible)   | {sol_bits_4} (Coste = {coste_4})      | Óptimo exacto
-Escalabilidad en qubits (k=2)  | n=8 -> 72 qubits         | n=8 -> 8 qubits (~0.85 s)     | Mejor escalabilidad
+Escalabilidad analítica (k=2)  | n + n^2 variables binarias | n variables binarias          | Formulación compacta
 ----------------------------------------------------------------------------------------
+
+Notas metodológicas sobre tiempos y reproducibilidad:
+1. Simulación clásica (REPS = 1): Los tiempos de simulación y las estimaciones TTS corresponden
+   al coste empírico de ejecución en CPU clásica (COBYLA + muestreo) con una repetición por configuración,
+   por lo que no constituyen medidas de tiempo de hardware cuántico real (QPU).
+2. Overhead de entorno: La primera ejecución de una sesión puede presentar un tiempo superior debido a la
+   inicialización, carga de módulos y transpilación en Qiskit/Python, estabilizándose en ejecuciones posteriores.
+3. Estimación condicionada de TTS_batch_99: Representa una estimación condicionada a la distribución
+   obtenida tras la optimización, donde P_batch = 1 - (1 - p_shot)^S se infiere de la probabilidad por disparo.
 
 5. APORTE CONCEPTUAL PARA LA MEMORIA DEL TFM
 El contraste entre ambos enfoques no reemplaza el modelo general del Caso 1, sino que
