@@ -6,7 +6,7 @@ Este script genera la evidencia comparativa definitiva para la memoria del TFM:
 3. Genera una figura gráfica académica pulida en figuras/ (comparativa_qaoa_20q_vs_4q.png) con:
    - Dimensión del espacio de Hilbert (escala log).
    - Probabilidad de muestreo por disparo para la configuración representativa (maxiter=25, shots=160).
-   - Tiempo de simulación con COBYLA (30 iter).
+   - Tiempo de simulación en las configuraciones de referencia registradas.
    - Time-to-Target 99% (TTS99 estimado sin barras ficticias para inf).
 4. Guarda un informe textual exhaustivo en resultados/.
 """
@@ -91,7 +91,7 @@ def generar_figura_comparativa(carpeta_figuras):
     ax2.bar(x - ancho/2, prob_factible, ancho, label="Prob. Factible (%)", color="#2980b9")
     ax2.bar(x + ancho/2, prob_optimo, ancho, label="Prob. Óptimo (%)", color="#8e44ad")
     ax2.set_ylabel("Probabilidad por disparo (%)")
-    ax2.set_title("Probabilidad empírica observada por disparo\n(Configuración: maxiter = 25, shots = 160)", fontsize=10, fontweight="bold")
+    ax2.set_title("Probabilidad empírica observada por disparo\n(4Q: maxiter=25, shots=160; 20Q: 0% en el barrido evaluado)", fontsize=9.5, fontweight="bold")
     ax2.set_xticks(x)
     ax2.set_xticklabels(metodos)
     ax2.set_ylim(0, 100)
@@ -136,7 +136,7 @@ def generar_figura_comparativa(carpeta_figuras):
     ax4.set_ylim(0.01, 2.0)
     ax4.set_yscale("log")
     ax4.set_ylabel("TTS_batch_99 estimado en segundos (escala log)")
-    ax4.set_title("Time-to-Target 99% ($TTS_{\\mathrm{batch},99}$ estimado)", fontsize=11, fontweight="bold")
+    ax4.set_title("Time-to-Target 99% — Configuración de Referencia", fontsize=10.5, fontweight="bold")
     ax4.set_xticks([0, 1])
     ax4.set_xticklabels(metodos)
     ax4.grid(True, linestyle="--", alpha=0.4, which="both")
@@ -148,11 +148,13 @@ def generar_figura_comparativa(carpeta_figuras):
         color="#c0392b", fontweight="bold", fontsize=9,
         bbox=dict(boxstyle="round,pad=0.4", fc="#fceae8", ec="#e74c3c", lw=1.2)
     )
+    tts_min_barrido = data_4q["barrido"]["tts_batch_99_min_segundos"]
+    tts_max_barrido = data_4q["barrido"]["tts_batch_99_max_segundos"]
     ax4.text(
-        1, tts_compacto * 1.5,
-        f"{tts_compacto:.2f} s\n$TTS_{{\\mathrm{{batch}},99}}$",
+        1, tts_compacto * 1.35,
+        f"{tts_compacto:.2f} s ($TTS_{{\\mathrm{{batch}},99}}$)\nBarrido: {tts_min_barrido:.4f}–{tts_max_barrido:.4f} s",
         ha="center", va="bottom",
-        color="#0e6251", fontweight="bold", fontsize=9
+        color="#0e6251", fontweight="bold", fontsize=8.5
     )
 
     plt.suptitle("Caso 1: Influencia de la Codificación Cuántica en QAOA (20 Qubits vs 4 Qubits)", fontsize=13, fontweight="bold")
@@ -240,8 +242,8 @@ def main():
 
     factor_qubits = f"-{(1.0 - qubits_4 / qubits_20) * 100:.1f}%"
     factor_dim = f"{dim_20 // dim_4:,}x menor"
-    factor_fact = f">{pct_fact_4 / pct_fact_20:.0f}x mayor"
-    factor_opt = f">{pct_opt_4 / pct_opt_20:.0f}x mayor"
+    factor_fact = f"≈{pct_fact_4 / pct_fact_20:.0f}× mayor"
+    factor_opt = f"≈{pct_opt_4 / pct_opt_20:.0f}× mayor"
     factor_tiempo = f"≈{t_sim_20 / t_sim_4:.0f}× menor tiempo"
 
     informe = f"""========================================================================================
@@ -318,8 +320,8 @@ Dimensión espacio Hilbert      | {dim_20:,} estados        | {dim_4} estados   
 Fracción de estados factibles  | {pct_fact_20:.4f}% ({fact_20} estados)     | {pct_fact_4:.2f}% ({fact_4} estados)            | {factor_fact}
 Fracción de estados óptimos    | {pct_opt_20:.5f}% ({opt_20} estados)     | {pct_opt_4:.2f}% ({opt_4} estados)            | {factor_opt}
 Tiempo simulación (config. ref.) | {t_sim_20:.2f} s (iter={cfg_20['cobyla_maxiter']:<2})       | {t_sim_4:.4f} s (iter={cfg_4['cobyla_maxiter']:<2})         | {factor_tiempo}
-Prob. factible (maxiter={cfg_4['cobyla_maxiter']})    | {p_fact_20:.2f}%                    | {p_fact_4:.2f}%                       | Muestras factibles
-Prob. óptima (maxiter={cfg_4['cobyla_maxiter']})      | {p_opt_20:.2f}%                    | {p_opt_4:.2f}%                       | Muestras óptimas
+Prob. factible observada       | {p_fact_20:.2f}%                    | {p_fact_4:.2f}%                       | Muestras factibles
+Prob. óptima observada         | {p_opt_20:.2f}%                    | {p_opt_4:.2f}%                       | Muestras óptimas
 TTS99 estimado (simulación)    | {tts_str_20:<24} | {tts_str_4:<29} | Estimación finita
 Solución devuelta              | Inviable (0% factible)   | {sol_bits_4} (Coste = {coste_4})      | Óptimo exacto
 Escalabilidad analítica (k=2)  | n + n^2 variables binarias | n variables binarias          | Formulación compacta

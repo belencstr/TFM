@@ -1,0 +1,102 @@
+========================================================================================
+CASO 1 — INFORME COMPARATIVO: QAOA 20 QUBITS (DIRECTO) VS 4 QUBITS (COMPACTO PARA k=2)
+========================================================================================
+Fecha: 2026-09-09 21:53:05
+Problema: Colocación de Monedas (p-median, instancia mínima con k=2 sobre 4 candidatas)
+Fuente 20Q: benchmark_qaoa_20q.json (congelado 2026-09-08)
+Fuente 4Q:  benchmark_qaoa_compacto_4q.json (congelado 2026-09-09)
+
+1. SÍNTESIS DEL PROBLEMA Y CONTEXTO
+En el Caso 1, el problema de colocación de monedas se modela originalmente como p-median /
+k-medoids. Para las instancias de mapa completo se utiliza k=4. Como estudio de la
+viabilidad de resolución cuántica variacional (QAOA), se planteó una instancia mínima
+con n=4 candidatas y k=2 monedas.
+
+La primera formulación tradujo directamente el modelo lineal estándar de enteros (PLI)
+utilizando variables de apertura x_j (4) y variables de asignación y_ij (16):
+    N = n + n^2 = 4 + 16 = 20 variables binarias -> 20 QUBITS.
+
+En el barrido sistemático del modelo directo (Ausencia de muestras factibles en el barrido sistemático (20-160 shots, iter<=30)), esta codificación arrojó:
+    - Probabilidad factible observada: 0.00%
+    - Probabilidad óptima observada:   0.00%
+    - TTS99: No estimable (p_opt=0) por ausencia de éxitos (p_opt = 0).
+
+2. DIAGNÓSTICO EXPERIMENTAL Y ANALÍTICO
+a) Representación del subespacio factible:
+   - El espacio de Hilbert con 20 qubits comprende 2^20 = 1,048,576 estados.
+   - Únicamente 96 estados (0.0092%) satisfacen simultáneamente la cardinalidad
+     y las restricciones de asignación y enlace.
+   - Únicamente 6 estados (0.00057%) representan soluciones óptimas globales.
+b) Evaluación unitaria exacta de QAOA con mezclador estándar (p=1):
+   - Mediante simulación analítica de la evolución unitaria completa
+     (script reproducible: experimentos/simulacion_unitaria_20q_max_prob.py),
+     se evaluó una rejilla de 225 puntos en el plano de parámetros variacionales (gamma, beta).
+   - En la rejilla evaluada, la probabilidad de medir un estado factible alcanza como máximo
+     un ~0.0769% (p_fact = 0.000769), y la de medir un estado óptimo un ~0.0099% (p_opt = 0.000099).
+   - Con esa probabilidad, la probabilidad de observar cero éxitos P(0) = (1 - p)^N calculada analíticamente es:
+     * Con N = 20 shots:  98.47% sin factibles, 99.80% sin óptimos.
+     * Con N = 160 shots: 88.42% sin factibles, 98.43% sin óptimos.
+     * Con N = 2048 shots: 20.69% sin factibles, 81.65% sin óptimos.
+   - Por tanto, en el barrido sistemático con 20 a 160 disparos, no observar ninguna muestra
+     factible u óptima es estadísticamente esperable (88.4% a 99.8% de probabilidad de ausencia).
+     Con 2048 disparos, no observar óptimos sigue siendo la norma (~81.6%), mientras que la ausencia de factibles
+     refleja adicionalmente que el optimizador clásico (COBYLA a p=1) no converge necesariamente al parámetro óptimo de la rejilla.
+c) Conclusión de esta fase:
+   En esta codificación directa, con p=1, el mezclador transversal estándar y la
+   configuración evaluada, el subespacio factible resulta extremadamente poco representado
+   y QAOA no produjo muestras factibles en los experimentos realizados.
+
+3. LA REFORMULACIÓN COMPACTA ESPECÍFICA PARA k=2
+En lugar de desechar QAOA, este resultado negativo motivó una revisión de la codificación:
+Para el caso particular de k=2 monedas, cualquier selección factible contiene exactamente
+un único par de centros activo (x_j x_l = 1). Por tanto, el coste de asignación óptimo de
+cada pareja puede precalcularse analíticamente como:
+    C(j, l) = sum_i min(d_ij, d_il)
+permitiendo formular el problema de forma exacta mediante una forma cuadrática pura
+sobre únicamente las n variables de decisión x_j:
+    H(x) = sum_{j < l} C(j, l) x_j x_l + A (sum_j x_j - 2)^2
+
+(Nota de alcance: esta propiedad es específica de k=2; para k > 2 habría C(k,2) productos
+cruzados activos y la suma de parejas no reproduce min_{j in S} d_ij).
+
+Para fijar la penalización A sin utilizar el óptimo (el cual no se conoce a priori en un
+caso real), se utiliza la solución factible conocida obtenida mediante PAM (cota_factible),
+reservando la búsqueda exhaustiva exclusivamente para la evaluación posterior de las muestras.
+
+4. TABLA COMPARATIVA DIRECTA (GENERADA DESDE REGISTROS CONGELADOS)
+----------------------------------------------------------------------------------------
+Métrica                        | QAOA Directo (20 Qubits) | QAOA Compacto (4 Qubits, k=2) | Factor de Mejora
+-------------------------------+--------------------------+-------------------------------+-----------------
+Qubits                         | 20 qubits                | 4 qubits                      | -80.0%
+Dimensión espacio Hilbert      | 1,048,576 estados        | 16 estados                    | 65,536x menor
+Fracción de estados factibles  | 0.0092% (96 estados)     | 37.50% (6 estados)            | >4096x mayor
+Fracción de estados óptimos    | 0.00057% (6 estados)     | 25.00% (4 estados)            | >43691x mayor
+Tiempo simulación (config. ref.) | 513.69 s (iter=30)       | 0.2872 s (iter=25)         | ≈1789× menor tiempo
+Prob. factible (maxiter=25)    | 0.00%                    | 68.12%                       | Muestras factibles
+Prob. óptima (maxiter=25)      | 0.00%                    | 65.62%                       | Muestras óptimas
+TTS99 estimado (simulación)    | No estimable (p_opt=0)   | 0.0499 s - 0.3543 s           | Estimación finita
+Solución devuelta              | Inviable (0% factible)   | [0, 1, 0, 1] (Coste = 2)      | Óptimo exacto
+Escalabilidad analítica (k=2)  | n + n^2 variables binarias | n variables binarias          | Formulación compacta
+----------------------------------------------------------------------------------------
+
+Notas metodológicas sobre tiempos y reproducibilidad:
+1. Simulación clásica (REPS = 1): Los tiempos de simulación y las estimaciones TTS corresponden
+   al coste empírico de ejecución en CPU clásica (COBYLA + muestreo) con una repetición por configuración,
+   por lo que no constituyen medidas de tiempo de hardware cuántico real (QPU).
+2. Overhead de entorno: La primera ejecución presenta un tiempo superior a las posteriores, compatible
+   con costes de inicialización o calentamiento del entorno de simulación. Esta medición no descompone
+   dicho overhead por componentes.
+3. Estimación condicionada de TTS_batch_99: Representa una estimación condicionada a la distribución
+   obtenida tras la optimización, donde P_batch = 1 - (1 - p_shot)^S se infiere de la probabilidad por disparo.
+
+5. APORTE CONCEPTUAL PARA LA MEMORIA DEL TFM
+El contraste entre ambos enfoques no reemplaza el modelo general del Caso 1, sino que
+aporta una contribución metodológica relevante:
+"El primer resultado negativo nos llevó a revisar no el algoritmo, sino la formulación.
+Al eliminar variables auxiliares que forman parte de la formulación lineal clásica pero
+incrementan considerablemente el número de variables binarias en la codificación cuántica,
+la misma instancia pasó de 20 a 4 qubits y QAOA sí produjo soluciones factibles y óptimas
+con alta probabilidad. Por tanto, la elección de la codificación condiciona de forma
+decisiva la viabilidad práctica de los algoritmos cuánticos variacionales."
+
+Figura generada: C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\figuras\comparativa_qaoa_20q_vs_4q.png
