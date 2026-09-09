@@ -1,5 +1,16 @@
+"""[VERSIÓN HISTÓRICA]
+
+Este script utiliza la definición continua de TTS y corresponde a la evaluación
+del modelo lineal directo de 20 qubits (con variables y_ij) en QAOA con mezclador estándar.
+
+Los resultados finales y consolidados del TFM utilizan la formulación compacta de 4 qubits
+(qaoa_compacto_tts_barrido.py) y la definición discreta R_99 con techo (ceil)
+centralizada en common.metricas_tts.calcular_tts99.
+"""
+
 import math, os, sys, time
 from datetime import datetime
+
 
 RAIZ=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if RAIZ not in sys.path:

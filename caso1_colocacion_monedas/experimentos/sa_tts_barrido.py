@@ -1,5 +1,16 @@
+"""[VERSIÓN HISTÓRICA]
+
+Este script utiliza la definición continua de TTS empleada durante una fase inicial
+del desarrollo del Caso 1.
+
+Los resultados finales del TFM utilizan la definición discreta R_99 con techo (ceil)
+centralizada en common.metricas_tts.calcular_tts99.
+Para los resultados finales y metodológicamente unificados, consultar sa_tts_barrido_v2.py.
+"""
+
 import math, os, sys, time
 from datetime import datetime
+
 
 RAIZ=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if RAIZ not in sys.path:

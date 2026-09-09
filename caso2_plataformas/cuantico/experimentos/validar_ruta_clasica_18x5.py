@@ -11,7 +11,17 @@ from modelo.grafo_saltos_segmentos_v4 import (
     contar_aristas,
 )
 
-from cuantico.formulacion.qubo_caso2_18x5 import *
+from cuantico.formulacion.qubo_caso2_18x5 import (
+    ANCHO,
+    ALTO,
+    START,
+    GOAL,
+    construir_qubo,
+    muestra_desde_ruta,
+    energia_qubo,
+    evaluar_restricciones,
+)
+
 
 RUTA_CLASICA=[
     (0,2),

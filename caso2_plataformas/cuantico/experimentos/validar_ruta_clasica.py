@@ -6,7 +6,26 @@ if RAIZ not in sys.path:
     sys.path.insert(0,RAIZ)
 
 from modelo.grafo_saltos_segmentos_v4 import obtener_anclas_candidatas, construir_grafo_segmentos_v4, contar_aristas
-from cuantico.formulacion.qubo import *
+from cuantico.formulacion.qubo import (
+    ANCHO,
+    ALTO,
+    START,
+    GOAL,
+    L_OBJETIVO,
+    SUBIDAS_OBJETIVO,
+    BAJADAS_OBJETIVO,
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    construir_qubo,
+    muestra_desde_ruta,
+    energia_qubo,
+    evaluar_restricciones,
+)
+
 
 RUTA_CLASICA=[(0,2),(2,0),(6,2),(9,4),(12,4),(15,2)]
 

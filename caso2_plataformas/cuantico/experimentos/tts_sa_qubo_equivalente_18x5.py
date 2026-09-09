@@ -1,8 +1,19 @@
+"""[VERSIÓN HISTÓRICA]
+
+Este script utiliza la definición continua de TTS durante el estudio exploratorio
+del QUBO equivalente sobre la instancia de 18x5.
+
+Los experimentos finales unificados del TFM utilizan la formulación discreta
+R_99 con techo (ceil) centralizada en common.metricas_tts.calcular_tts99
+(véase p. ej. tts_sa_qubo_reducido_18x5.py).
+"""
+
 import math
 import os
 import sys
 import time
 from datetime import datetime
+
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if RAIZ not in sys.path:
