@@ -70,9 +70,11 @@ def obtener_ruta_json():
     if RUTA_JSON is not None and Path(RUTA_JSON).exists():
         return Path(RUTA_JSON)
 
+    script_dir = Path(__file__).resolve().parent
+    base_caso1 = script_dir.parent
     rutas_candidatas = [
-        Path(r"C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados"),
-        Path(r"C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\visualizacion"),
+        base_caso1 / "resultados",
+        script_dir,
     ]
 
     archivos = []
@@ -711,8 +713,10 @@ def construir_escena_caso1():
     # Si se ejecuta en modo headless (-b), guardar escena y renderizar imagen
     if bpy.app.background:
         id_mapa = data.get("mapa_id", "b").lower()
-        res_dir = Path(r"C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\resultados")
-        fig_dir = Path(r"C:\Users\BCP\Desktop\TFM\caso1_colocacion_monedas\figuras")
+        script_dir = Path(__file__).resolve().parent
+        base_caso1 = script_dir.parent
+        res_dir = base_caso1 / "resultados"
+        fig_dir = base_caso1 / "figuras"
         res_dir.mkdir(parents=True, exist_ok=True)
         fig_dir.mkdir(parents=True, exist_ok=True)
 

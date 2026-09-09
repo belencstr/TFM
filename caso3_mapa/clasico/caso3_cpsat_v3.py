@@ -1250,9 +1250,15 @@ def plot_map(result, timestamp):
             f"seed{SEED}_{timestamp}.png"
         )
     )
+    canonical_figure_path = FIGURES_DIR / f"cpsat_{ROWS}x{COLS}_canonical.png"
 
     fig.savefig(
         figure_path,
+        dpi=200,
+        bbox_inches="tight",
+    )
+    fig.savefig(
+        canonical_figure_path,
         dpi=200,
         bbox_inches="tight",
     )
@@ -1264,6 +1270,9 @@ def plot_map(result, timestamp):
 
     print(
         figure_path
+    )
+    print(
+        canonical_figure_path
     )
 
     plt.show()

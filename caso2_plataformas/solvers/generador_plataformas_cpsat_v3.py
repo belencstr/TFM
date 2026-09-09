@@ -1,4 +1,7 @@
-"""CP-SAT v3: ruta formada por plataformas horizontales de ancho fijo."""
+"""[VERSIÓN HISTÓRICA v3 - Conservada para trazabilidad experimental]
+CP-SAT v3: ruta formada por plataformas horizontales de ancho fijo.
+La versión canónica actual del generador CP-SAT para el Caso 2 es generador_plataformas_cpsat_v4.py.
+"""
 
 from ortools.sat.python import cp_model
 from modelo.grafo_saltos_segmentos import ANCHO_PLATAFORMA

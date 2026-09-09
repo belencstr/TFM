@@ -5,10 +5,17 @@ import time
 from collections import deque
 from datetime import datetime
 
+from pathlib import Path
+
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 if RAIZ not in sys.path:
     sys.path.insert(0, RAIZ)
 
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from common.metricas_tts import calcular_tts99
 from modelo.grafo_saltos_segmentos_v4 import obtener_anclas_candidatas, construir_grafo_segmentos_v4
 import cuantico.formulacion.qubo_caso2_18x5 as qmod
 from cuantico.solvers.simulated_annealing import resolver_qubo_sa
@@ -27,9 +34,8 @@ class Tee:
         for s in self.streams: s.flush()
 
 def tts(t_read, p_success, confidence=CONFIDENCE):
-    if p_success <= 0.0: return math.inf
-    if p_success >= 1.0: return t_read
-    return t_read * math.log(1.0-confidence) / math.log(1.0-p_success)
+    _, tts_val = calcular_tts99(p_success, t_read, confidence=confidence)
+    return tts_val
 
 def fmt_tts(x):
     return 'no estimable' if math.isinf(x) else f'{x:.6f} s'

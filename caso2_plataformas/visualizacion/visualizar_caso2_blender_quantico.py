@@ -16,19 +16,22 @@ from pathlib import Path
 import os
 import sys
 
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_CASO2 = SCRIPT_DIR.parent
+
 # Ruta por defecto al JSON de QUBO reducido
 RUTA_JSON_QUBO = (
-    r"C:\Users\BCP\Desktop\TFM\caso2_plataformas"
-    r"\cuantico\resultados"
-    r"\caso2_nivel_blender_qubo_reducido_18x5_20260903_180117.json"
+    BASE_CASO2
+    / "cuantico"
+    / "resultados"
+    / "caso2_nivel_blender_qubo_reducido_18x5_20260903_180117.json"
 )
 
 # Establecer variable de entorno para que el visualizador unificado lo cargue
-os.environ["CASO2_BLENDER_JSON"] = RUTA_JSON_QUBO
+os.environ["CASO2_BLENDER_JSON"] = str(RUTA_JSON_QUBO)
 
-SCRIPT_DIR = str(Path(__file__).resolve().parent)
-if SCRIPT_DIR not in sys.path:
-    sys.path.insert(0, SCRIPT_DIR)
+if str(SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPT_DIR))
 
 # Importar y ejecutar el visualizador avanzado de plataformas
 from visualizar_caso2_blender import construir_escena_caso2

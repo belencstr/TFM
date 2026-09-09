@@ -1,3 +1,8 @@
+"""[VERSIÓN HISTÓRICA v2 - Conservada para trazabilidad experimental]
+Generador CP-SAT v2 para el Caso 2.
+La versión canónica actual del generador CP-SAT para el Caso 2 es generador_plataformas_cpsat_v4.py.
+"""
+
 from ortools.sat.python import cp_model
 
 

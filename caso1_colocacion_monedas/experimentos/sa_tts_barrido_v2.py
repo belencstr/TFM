@@ -1,9 +1,16 @@
 import math, os, sys, time
 from datetime import datetime
+from pathlib import Path
 
-RAIZ=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if RAIZ not in sys.path:
-    sys.path.insert(0,RAIZ)
+    sys.path.insert(0, RAIZ)
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from common.metricas_tts import calcular_tts99
 
 from mapas.mapa_qubo_a import MAPA_QUBO_A
 from mapas.mapa_qubo_b import MAPA_QUBO_B
@@ -16,24 +23,23 @@ from solvers.k_medoids import k_medoids_pam
 from solvers.busqueda_exhaustiva import k_medoids_exhaustivo
 from solvers.simulated_annealing_qubo import resolver_qubo_simulated_annealing
 
-K=4
-NUM_READS=100
-SWEEPS_LIST=[10,50,100,500,1000]
-SEEDS=[20260902,20260903,20260904,20260905,20260906]
-CONFIDENCE=0.99
-TOL=1e-8
+K = 4
+NUM_READS = 100
+SWEEPS_LIST = [10, 50, 100, 500, 1000]
+SEEDS = [20260902, 20260903, 20260904, 20260905, 20260906]
+CONFIDENCE = 0.99
+TOL = 1e-8
 
-def coste_pmedian(matriz,a):
-    n=len(matriz)
+def coste_pmedian(matriz, a):
+    n = len(matriz)
     return sum(
-        float(matriz[i][j])*int(a.get(nombre_y(i,j),0))
+        float(matriz[i][j]) * int(a.get(nombre_y(i, j), 0))
         for i in range(n) for j in range(n)
     )
 
-def tts(t_read,p):
-    if p<=0: return math.inf
-    if p>=1: return t_read
-    return t_read*math.log(1-CONFIDENCE)/math.log(1-p)
+def tts(t_read, p):
+    r99, tts_val = calcular_tts99(p, t_read, confidence=CONFIDENCE)
+    return tts_val
 
 def ft(x):
     return "inf" if math.isinf(x) else f"{x:.6f}"

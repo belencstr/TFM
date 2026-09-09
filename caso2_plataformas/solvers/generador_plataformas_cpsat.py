@@ -1,4 +1,7 @@
-"""Generador constraint-based del Caso 2 mediante OR-Tools CP-SAT.
+"""[VERSIÓN HISTÓRICA v1 - Conservada para trazabilidad experimental]
+Generador constraint-based del Caso 2 mediante OR-Tools CP-SAT.
+La versión canónica actual del generador CP-SAT para el Caso 2 es generador_plataformas_cpsat_v4.py.
+
 
 El modelo selecciona una única ruta START -> GOAL sobre el grafo de saltos posibles.
 

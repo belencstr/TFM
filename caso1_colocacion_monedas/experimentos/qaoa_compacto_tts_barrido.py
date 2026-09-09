@@ -1,23 +1,19 @@
-"""Caso 1 — Barrido sistemático de QAOA Compacto (4 qubits) y Time-to-Target (TTS99).
-
-Replica exactamente la estructura del barrido anterior qaoa_tts_barrido.py (que en 20 qubits
-arrojó p_fact=0.000%, p_opt=0.000% y TTS=inf en todas las configuraciones).
-
-Aquí demuestra empíricamente que con la formulación compacta:
-1. Las probabilidades de factibilidad y optimalidad son positivas y altas.
-2. P_batch alcanza el 100% rápidamente.
-3. El TTS99 es finito, bien condicionado y del orden de milisegundos.
-"""
-
 import math
 import os
 import sys
 import time
 from datetime import datetime
+from pathlib import Path
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if RAIZ not in sys.path:
     sys.path.insert(0, RAIZ)
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from common.metricas_tts import calcular_tts99
 
 from mapas.mapa_qaoa_minimo import MAPA_QAOA_MINIMO
 from modelo.candidatas import obtener_candidatas
@@ -44,14 +40,6 @@ def prob_batch(p_shot, shots):
     return 1.0 - (1.0 - p_shot) ** shots
 
 
-def tts(t_run, p_batch):
-    if p_batch <= 0:
-        return math.inf
-    if p_batch >= 1.0 - 1e-12:
-        return t_run
-    return t_run * math.log(1.0 - CONFIDENCE) / math.log(1.0 - p_batch)
-
-
 def ft(x):
     return "inf" if math.isinf(x) else f"{x:.4f}"
 
@@ -70,23 +58,25 @@ def ejecutar():
     exacta = k_medoids_exhaustivo(candidatas, matriz, K)
     optimo = exacta["coste_total"]
 
-    print("=" * 128)
-    print("CASO 1 — BARRIDO QAOA COMPACTO (4 QUBITS) + TTS99")
-    print("=" * 128)
-    print(f"Variables/qubits: {nvars} (frente a 20 qubits en el modelo anterior)")
+    print("=" * 135)
+    print("CASO 1 — BARRIDO QAOA COMPACTO (4 QUBITS) + TTS (NIVEL SHOT Y NIVEL BATCH)")
+    print("=" * 135)
+    print(f"Variables/qubits: {nvars} (frente a 20 qubits en el modelo directo)")
     print(f"p / reps: {REPS}")
     print(f"Iteraciones COBYLA: {ITERACIONES}")
     print(f"Shots evaluados: {SHOTS_LIST}")
     print(f"Seed: {SEED}")
     print(f"Óptimo exacto: {optimo}")
-    print("=" * 128)
+    print("Nota metodológica:")
+    print("El tiempo obtenido corresponde al coste empírico de ejecutar el procedimiento QAOA")
+    print("mediante simulación clásica y no constituye una estimación del tiempo de ejecución sobre una QPU.")
+    print("=" * 135)
     print(
-        f"{'iter':>4} | {'shots':>5} | {'t_run':>8} | "
-        f"{'p_fact':>8} | {'p_opt':>8} | "
-        f"{'Pbatch_fact':>11} | {'Pbatch_opt':>11} | "
-        f"{'TTS99_fact':>10} | {'TTS99_opt':>10}"
+        f"{'iter':>4} | {'shots':>5} | {'t_batch':>8} | "
+        f"{'p_opt':>8} | {'r_shot_99':>9} | "
+        f"{'P_batch_opt':>11} | {'r_batch_99':>10} | {'tts_batch_99':>12}"
     )
-    print("-" * 128)
+    print("-" * 135)
 
     for maxiter in ITERACIONES:
         for shots in SHOTS_LIST:
@@ -100,32 +90,39 @@ def ejecutar():
                 optimo_referencia=optimo,
             )
 
-            t_run = res["tiempo"]
+            t_batch = res["tiempo"]
             a = res["analisis_muestras"]
-            p_fact = float(a["probabilidad_factible"])
             p_opt = float(a["probabilidad_optimo"])
-            pb_fact = prob_batch(p_fact, shots)
+
+            # 1. R_shot_99: mediciones necesarias sobre el estado preparado
+            r_shot_99, _ = calcular_tts99(p_opt, 1.0, confidence=CONFIDENCE)
+
+            # 2. P_batch: probabilidad de al menos un óptimo en el lote de S disparos
             pb_opt = prob_batch(p_opt, shots)
 
-            tts_fact = tts(t_run, pb_fact)
-            tts_opt = tts(t_run, pb_opt)
+            # 3. R_batch_99 y TTS_batch_99: repeticiones completas del procedimiento simulado
+            r_batch_99, tts_batch_99 = calcular_tts99(pb_opt, t_batch, confidence=CONFIDENCE)
+
+            str_r_shot = "inf" if math.isinf(r_shot_99) else str(r_shot_99)
+            str_r_batch = "inf" if math.isinf(r_batch_99) else str(r_batch_99)
 
             print(
-                f"{maxiter:4d} | {shots:5d} | {t_run:7.4f}s | "
-                f"{100*p_fact:7.3f}% | {100*p_opt:7.3f}% | "
-                f"{100*pb_fact:10.4f}% | {100*pb_opt:10.4f}% | "
-                f"{ft(tts_fact):>9}s | {ft(tts_opt):>9}s"
+                f"{maxiter:4d} | {shots:5d} | {t_batch:7.4f}s | "
+                f"{100*p_opt:7.3f}% | {str_r_shot:>9} | "
+                f"{100*pb_opt:10.4f}% | {str_r_batch:>10} | "
+                f"{ft(tts_batch_99):>11}s"
             )
             sys.stdout.flush()
 
-    print("=" * 128)
+    print("=" * 135)
     print("CONCLUSIÓN:")
     print(
         "A diferencia del barrido anterior de 20 qubits (donde TTS99 resultó no estimable por ausencia\n"
-        "de muestras factibles observadas), el modelo compacto para k=2 alcanza estimaciones finitas de TTS99\n"
-        "bajo esta definición experimental en todas las combinaciones evaluadas, con valores estimados\n"
-        "inferiores a 0.3 segundos para alcanzar el 99% de confianza de éxito óptimo."
+        "de muestras factibles observadas), el modelo compacto para k=2 alcanza estimaciones finitas de\n"
+        "tts_batch_99 en todas las configuraciones evaluadas (inferiores a 0.3 segundos en simulación clásica),\n"
+        "requiriendo r_shot_99 entre 3 y 13 disparos sobre el estado final preparado para garantizar el óptimo con 99% de confianza."
     )
+
 
 
 def main():

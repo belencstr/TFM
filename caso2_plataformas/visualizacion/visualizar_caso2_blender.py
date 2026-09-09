@@ -81,10 +81,12 @@ def obtener_ruta_json():
     if RUTA_JSON is not None and Path(RUTA_JSON).exists():
         return Path(RUTA_JSON)
 
+    script_dir = Path(__file__).resolve().parent
+    base_caso2 = script_dir.parent
     rutas_candidatas = [
-        Path(r"C:\Users\BCP\Desktop\TFM\caso2_plataformas\resultados"),
-        Path(r"C:\Users\BCP\Desktop\TFM\caso2_plataformas\cuantico\resultados"),
-        Path(r"C:\Users\BCP\Desktop\TFM\caso2_plataformas\visualizacion"),
+        base_caso2 / "resultados",
+        base_caso2 / "cuantico" / "resultados",
+        script_dir,
     ]
 
     archivos = []
@@ -848,8 +850,10 @@ def construir_escena_caso2():
             stem = "caso2_nivel_blender_v4_40x10"
             img_stem = "caso2_blender_v4_render_40x10.png"
 
-        res_dir = Path(r"C:\Users\BCP\Desktop\TFM\caso2_plataformas\resultados")
-        fig_dir = Path(r"C:\Users\BCP\Desktop\TFM\caso2_plataformas\figuras")
+        script_dir = Path(__file__).resolve().parent
+        base_caso2 = script_dir.parent
+        res_dir = base_caso2 / "resultados"
+        fig_dir = base_caso2 / "figuras"
         res_dir.mkdir(parents=True, exist_ok=True)
         fig_dir.mkdir(parents=True, exist_ok=True)
 

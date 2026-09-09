@@ -24,6 +24,12 @@ BASE_DIR = Path(__file__).resolve().parents[1]
 if str(BASE_DIR) not in sys.path:
     sys.path.insert(0, str(BASE_DIR))
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from common.metricas_tts import calcular_tts99
+
 from formulacion.qubo_caso3 import (
     ROWS,
     COLS,
@@ -153,21 +159,13 @@ def validar_ruta_q(sol_dict, open_cells):
 def calcular_tts(tiempo_total, num_reads, p_exito, confianza=0.99):
     """Calcula Time To Solution (TTS) para un nivel de confianza dado (por defecto 99%).
 
-    TTS_99 = t_read * ln(1 - confianza) / ln(1 - p_exito)
+    Delega en common.metricas_tts.calcular_tts99 utilizando la formulación discreta ceil.
     """
     if num_reads <= 0 or tiempo_total <= 0:
         return 0.0
     t_read = tiempo_total / num_reads
-
-    if p_exito <= 0.0:
-        return float("inf")
-    if p_exito >= 1.0:
-        return t_read
-
-    numerador = math.log(1.0 - confianza)
-    denominador = math.log(1.0 - p_exito)
-    r_reads = math.ceil(numerador / denominador)
-    return r_reads * t_read
+    _, tts_val = calcular_tts99(p_exito, t_read, confidence=confianza)
+    return tts_val
 
 
 def resolver_qubo_sa(

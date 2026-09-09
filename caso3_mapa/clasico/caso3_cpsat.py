@@ -1,3 +1,8 @@
+"""[VERSIÓN HISTÓRICA v1 - Conservada para trazabilidad experimental]
+Generador clásico CP-SAT v1 para el Caso 3 (Mapa de mazmorra 2D).
+La versión canónica actual para el Caso 3 es caso3_cpsat_v3.py (y caso3_cpsat_core.py).
+"""
+
 from collections import deque
 from datetime import datetime
 from pathlib import Path

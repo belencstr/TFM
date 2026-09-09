@@ -1,0 +1,37 @@
+{
+  "experimento": "QAOA Compacto (4 Qubits, k=2) - Instancia Mínima p-median",
+  "caso": 1,
+  "fecha_congelacion": "2026-09-08",
+  "semilla": 20260908,
+  "configuracion": {
+    "n_candidatas": 4,
+    "k": 2,
+    "reps_p": 1,
+    "cobyla_maxiter": 25,
+    "shots": 160,
+    "qubits": 4,
+    "variables_x": 4,
+    "variables_y": 0
+  },
+  "espacio_hilbert": {
+    "dimension_total": 16,
+    "estados_factibles": 6,
+    "fraccion_factible_pct": 37.5,
+    "estados_optimos": 4,
+    "fraccion_optima_pct": 25.0
+  },
+  "rendimiento_experimental": {
+    "tiempo_simulacion_segundos": 0.2872,
+    "probabilidad_factible_pct": 68.125,
+    "probabilidad_optimo_pct": 65.625,
+    "r_shot_99": 5,
+    "p_batch": 1.0,
+    "r_batch_99": 1,
+    "tts_batch_99_segundos": 0.2872,
+    "estado_estimable_tts": true,
+    "solucion_optima_encontrada": true,
+    "solucion_bits": [0, 1, 0, 1],
+    "coste_pmedian": 2
+  },
+  "interpretacion": "Al formular el problema sobre n variables de decisión para k=2 precalculando C(j,l), la densidad factible asciende al 37.5%, permitiendo a QAOA muestrear soluciones factibles y óptimas con alta probabilidad y alcanzar tts_batch_99 finito en menos de 0.3 s."
+}

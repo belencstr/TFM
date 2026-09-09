@@ -141,16 +141,19 @@ def exportar_nivel(result=None, seed=SEED):
 
     json_filename = f"caso3_nivel_blender_{ROWS}x{COLS}_seed{seed}_{timestamp}.json"
     json_path = EXPORT_DIR / json_filename
+    json_path_canonical = EXPORT_DIR / f"caso3_nivel_blender_{ROWS}x{COLS}_canonical.json"
 
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
+    for p in (json_path, json_path_canonical):
+        with open(p, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
 
     print()
     print("=" * 60)
     print("EXPORTACIÓN BLENDER CASO 3 COMPLETADA")
     print("=" * 60)
-    print(f"Archivo JSON generado:")
-    print(f"  {json_path}")
+    print(f"Archivos JSON generados:")
+    print(f"  Versionado: {json_path}")
+    print(f"  Canónico:   {json_path_canonical}")
     print(f"Estado CP-SAT: {result['status']} ({result['time']:.3f} s)")
     print(f"Fronteras suelo/pared: {result['objective']}")
     print(f"Celdas suelo: {len(open_cells)} | Muros: {ROWS * COLS - len(open_cells)}")

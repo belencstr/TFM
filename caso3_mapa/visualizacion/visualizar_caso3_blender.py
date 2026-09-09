@@ -74,10 +74,12 @@ def obtener_ruta_json():
     if RUTA_JSON is not None and Path(RUTA_JSON).exists():
         return Path(RUTA_JSON)
 
+    script_dir = Path(__file__).resolve().parent
+    base_caso3 = script_dir.parent
     rutas_candidatas = [
-        Path(bpy.path.abspath("//../experimentos/resultados")),
-        Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\resultados"),
-        Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\resultados"),
+        base_caso3 / "experimentos" / "resultados",
+        base_caso3 / "resultados",
+        script_dir,
     ]
 
     archivos = []
@@ -1119,12 +1121,14 @@ def construir_escena_caso3():
             stem = "caso3_nivel_blender_6x8"
             img_stem = "caso3_blender_render_6x8.png"
 
-        blend_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\resultados") / f"{stem}.blend"
+        script_dir = Path(__file__).resolve().parent
+        base_caso3 = script_dir.parent
+        blend_output = base_caso3 / "experimentos" / "resultados" / f"{stem}.blend"
         blend_output.parent.mkdir(parents=True, exist_ok=True)
         bpy.ops.wm.save_as_mainfile(filepath=str(blend_output))
         print(f"Escena .blend guardada en: {blend_output}")
 
-        img_output = Path(r"C:\Users\BCP\Desktop\TFM\caso3_mapa\experimentos\figuras") / img_stem
+        img_output = base_caso3 / "experimentos" / "figuras" / img_stem
         img_output.parent.mkdir(parents=True, exist_ok=True)
         bpy.context.scene.render.filepath = str(img_output)
         bpy.ops.render.render(write_still=True)

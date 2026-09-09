@@ -1,0 +1,34 @@
+{
+  "experimento": "QAOA Directo (20 Qubits) - Instancia Mínima p-median",
+  "caso": 1,
+  "fecha_congelacion": "2026-09-08",
+  "configuracion": {
+    "n_candidatas": 4,
+    "k": 2,
+    "reps_p": 1,
+    "cobyla_maxiter": 30,
+    "shots": 160,
+    "qubits": 20,
+    "variables_x": 4,
+    "variables_y": 16
+  },
+  "espacio_hilbert": {
+    "dimension_total": 1048576,
+    "estados_factibles": 96,
+    "fraccion_factible_pct": 0.0091552734375,
+    "estados_optimos": 6,
+    "fraccion_optima_pct": 0.00057220458984375
+  },
+  "rendimiento_experimental": {
+    "tiempo_simulacion_segundos": 513.69,
+    "probabilidad_factible_pct": 0.0,
+    "probabilidad_optimo_pct": 0.0,
+    "tts_estimable": false,
+    "motivo_fallo": "Ausencia de muestras factibles en el barrido sistemático (20-160 shots, iter<=30)",
+    "cota_rejilla_analitica": {
+      "p_fact_max_rejilla_pct": 0.0769,
+      "p_opt_max_rejilla_pct": 0.0099
+    }
+  },
+  "interpretacion": "En la codificación directa cuadrática del PLI, la densidad factible en el espacio de Hilbert es del 0.0092%, haciendo que con p=1 y mezclador estándar QAOA no produzca muestras factibles en simulación clásica."
+}

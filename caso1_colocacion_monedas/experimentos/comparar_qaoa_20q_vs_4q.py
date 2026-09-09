@@ -22,9 +22,26 @@ if RAIZ not in sys.path:
     sys.path.insert(0, RAIZ)
 
 
+import json
+from pathlib import Path
+
+
 def generar_figura_comparativa(carpeta_figuras):
     os.makedirs(carpeta_figuras, exist_ok=True)
     ruta_figura = os.path.join(carpeta_figuras, "comparativa_qaoa_20q_vs_4q.png")
+
+    ruta_20q = os.path.join(RAIZ, "resultados", "benchmark_qaoa_20q.json")
+    ruta_4q = os.path.join(RAIZ, "resultados", "benchmark_qaoa_compacto_4q.json")
+
+    if not os.path.exists(ruta_20q):
+        raise FileNotFoundError(f"Registro congelado no encontrado: {ruta_20q}")
+    if not os.path.exists(ruta_4q):
+        raise FileNotFoundError(f"Registro congelado no encontrado: {ruta_4q}")
+
+    with open(ruta_20q, "r", encoding="utf-8") as f:
+        data_20q = json.load(f)
+    with open(ruta_4q, "r", encoding="utf-8") as f:
+        data_4q = json.load(f)
 
     fig, axes = plt.subplots(2, 2, figsize=(12, 9.5))
     plt.subplots_adjust(hspace=0.40, wspace=0.32)
@@ -35,8 +52,14 @@ def generar_figura_comparativa(carpeta_figuras):
 
     # 1. Espacio de Hilbert (Escala Logarítmica)
     ax1 = axes[0, 0]
-    estados_totales = [2**20, 2**4]
-    estados_factibles = [96, 6]
+    estados_totales = [
+        data_20q["espacio_hilbert"]["dimension_total"],
+        data_4q["espacio_hilbert"]["dimension_total"],
+    ]
+    estados_factibles = [
+        data_20q["espacio_hilbert"]["estados_factibles"],
+        data_4q["espacio_hilbert"]["estados_factibles"],
+    ]
 
     ax1.bar(x - ancho/2, estados_totales, ancho, label="Estados Totales ($2^N$)", color="#2c3e50")
     ax1.bar(x + ancho/2, estados_factibles, ancho, label="Estados Factibles", color="#27ae60")
@@ -49,13 +72,21 @@ def generar_figura_comparativa(carpeta_figuras):
     ax1.legend(loc="upper right")
     ax1.grid(True, linestyle="--", alpha=0.4, which="both")
 
-    ax1.text(0 + ancho/2, 160, "0.0092%", ha="center", va="bottom", fontweight="bold", color="#c0392b", fontsize=9)
-    ax1.text(1 + ancho/2, 10, "37.50%", ha="center", va="bottom", fontweight="bold", color="#1e8449", fontsize=9)
+    pct_fact_20q = data_20q["espacio_hilbert"]["fraccion_factible_pct"]
+    pct_fact_4q = data_4q["espacio_hilbert"]["fraccion_factible_pct"]
+    ax1.text(0 + ancho/2, 160, f"{pct_fact_20q:.4f}%", ha="center", va="bottom", fontweight="bold", color="#c0392b", fontsize=9)
+    ax1.text(1 + ancho/2, 10, f"{pct_fact_4q:.2f}%", ha="center", va="bottom", fontweight="bold", color="#1e8449", fontsize=9)
 
     # 2. Probabilidad de Muestreo (p / shot)
     ax2 = axes[0, 1]
-    prob_factible = [0.0, 68.125]
-    prob_optimo = [0.0, 65.625]
+    prob_factible = [
+        data_20q["rendimiento_experimental"]["probabilidad_factible_pct"],
+        data_4q["rendimiento_experimental"]["probabilidad_factible_pct"],
+    ]
+    prob_optimo = [
+        data_20q["rendimiento_experimental"]["probabilidad_optimo_pct"],
+        data_4q["rendimiento_experimental"]["probabilidad_optimo_pct"],
+    ]
 
     ax2.bar(x - ancho/2, prob_factible, ancho, label="Prob. Factible (%)", color="#2980b9")
     ax2.bar(x + ancho/2, prob_optimo, ancho, label="Prob. Óptimo (%)", color="#8e44ad")
@@ -80,34 +111,36 @@ def generar_figura_comparativa(carpeta_figuras):
 
     # 3. Tiempo de Simulación Cuántica
     ax3 = axes[1, 0]
-    tiempos = [513.69, 0.2872]
+    tiempos = [
+        data_20q["rendimiento_experimental"]["tiempo_simulacion_segundos"],
+        data_4q["rendimiento_experimental"]["tiempo_simulacion_segundos"],
+    ]
     colores_tiempo = ["#e74c3c", "#2ecc71"]
     ax3.bar(metodos, tiempos, color=colores_tiempo, width=0.45)
     ax3.set_yscale("log")
     ax3.set_ylim(0.05, 3000.0)
     ax3.set_ylabel("Tiempo de simulación en s (escala log)")
-    ax3.set_title("Tiempo de Simulación (COBYLA 30 iter)", fontsize=11, fontweight="bold")
+    ax3.set_title("Tiempo de Simulación (COBYLA)", fontsize=11, fontweight="bold")
     ax3.grid(True, linestyle="--", alpha=0.4, which="both")
 
-    # Etiquetas con margen suficiente para evitar solapamientos
-    ax3.text(0, 680.0, "513.69 s\n(~8.6 min)", ha="center", va="bottom", fontweight="bold", color="#922b21", fontsize=9)
-    ax3.text(1, 0.40, "0.287 s\n(>1780x más rápido)", ha="center", va="bottom", fontweight="bold", color="#196f3d", fontsize=9)
+    t20 = tiempos[0]
+    t4 = tiempos[1]
+    ax3.text(0, t20 * 1.3, f"{t20:.2f} s\n(~{t20/60:.1f} min)", ha="center", va="bottom", fontweight="bold", color="#922b21", fontsize=9)
+    ax3.text(1, t4 * 1.4, f"{t4:.3f} s\n(>{t20/t4:.0f}x más rápido)", ha="center", va="bottom", fontweight="bold", color="#196f3d", fontsize=9)
 
-    # 4. Time-to-Target 99% (TTS99 Estimado)
+    # 4. Time-to-Target 99% (TTS99 Estimado en Simulación)
     ax4 = axes[1, 1]
-    # Rigor académico: En 20 qubits no dibujamos barra (es no estimable / inf)
-    tts_compacto = 0.2872
+    tts_compacto = data_4q["rendimiento_experimental"]["tts_batch_99_segundos"]
     ax4.bar([1], [tts_compacto], color=["#16a085"], width=0.45)
     ax4.set_xlim(-0.6, 1.6)
     ax4.set_ylim(0.01, 2.0)
     ax4.set_yscale("log")
-    ax4.set_ylabel("TTS99 estimado en segundos (escala log)")
-    ax4.set_title("Time-to-Target 99% ($TTS_{99}$ estimado)", fontsize=11, fontweight="bold")
+    ax4.set_ylabel("TTS_batch_99 estimado en segundos (escala log)")
+    ax4.set_title("Time-to-Target 99% ($TTS_{\\mathrm{batch},99}$ estimado)", fontsize=11, fontweight="bold")
     ax4.set_xticks([0, 1])
     ax4.set_xticklabels(metodos)
     ax4.grid(True, linestyle="--", alpha=0.4, which="both")
 
-    # Texto claro para 20 qubits indicando que es no estimable
     ax4.text(
         0, 0.15,
         "No estimable\n($p_{\\mathrm{opt}}=0$)",
@@ -117,7 +150,7 @@ def generar_figura_comparativa(carpeta_figuras):
     )
     ax4.text(
         1, tts_compacto * 1.5,
-        f"{tts_compacto:.2f} s\n$TTS_{{99}}$ estimado",
+        f"{tts_compacto:.2f} s\n$TTS_{{\\mathrm{{batch}},99}}$",
         ha="center", va="bottom",
         color="#0e6251", fontweight="bold", fontsize=9
     )
