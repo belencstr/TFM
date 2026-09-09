@@ -7,7 +7,8 @@ Incorpora:
    - Continuidad ortogonal entre pasos consecutivos.
    - Compatibilidad estricta con suelo transitable (x_c = 1).
 2. Cálculo de Time To Solution (TTS) para una confianza del 99%:
-   TTS_99 = t_read * ln(1 - 0.99) / ln(1 - p_exito)
+   R_99 = ceil( ln(1 - 0.99) / ln(1 - p_exito) )
+   TTS_99 = R_99 * t_read
 3. Doble reporte de mejor muestra:
    - mejor_muestra_energia: menor energía raw (reveladora teóricamente).
    - mejor_muestra_valida: menor energía entre las factibles según restricciones duras.
@@ -161,7 +162,9 @@ def calcular_tts(tiempo_total, num_reads, p_exito, confianza=0.99):
 
     Delega en common.metricas_tts.calcular_tts99 utilizando la formulación discreta ceil.
     """
-    if num_reads <= 0 or tiempo_total <= 0:
+    if num_reads <= 0:
+        raise ValueError(f"num_reads debe ser un entero positivo. Recibido: {num_reads}")
+    if tiempo_total <= 0:
         return 0.0
     t_read = tiempo_total / num_reads
     _, tts_val = calcular_tts99(p_exito, t_read, confidence=confianza)

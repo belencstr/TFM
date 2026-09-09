@@ -68,8 +68,11 @@ def ejecutar():
     print(f"Seed: {SEED}")
     print(f"Óptimo exacto: {optimo}")
     print("Nota metodológica:")
-    print("El tiempo obtenido corresponde al coste empírico de ejecutar el procedimiento QAOA")
-    print("mediante simulación clásica y no constituye una estimación del tiempo de ejecución sobre una QPU.")
+    print("1. El tiempo obtenido corresponde al coste empírico de ejecutar el procedimiento QAOA")
+    print("   mediante simulación clásica y no constituye una estimación del tiempo de ejecución sobre una QPU.")
+    print("2. TTS_batch_99 representa una estimación condicionada a la distribución obtenida tras la optimización:")
+    print("   P_batch se infiere analíticamente de p_shot (P_batch = 1 - (1 - p_shot)^S), no mediante múltiples")
+    print("   ejecuciones independientes del optimizador con distintas semillas.")
     print("=" * 135)
     print(
         f"{'iter':>4} | {'shots':>5} | {'t_batch':>8} | "
@@ -77,6 +80,9 @@ def ejecutar():
         f"{'P_batch_opt':>11} | {'r_batch_99':>10} | {'tts_batch_99':>12}"
     )
     print("-" * 135)
+
+    todos_r_shot = []
+    todos_tts_batch = []
 
     for maxiter in ITERACIONES:
         for shots in SHOTS_LIST:
@@ -97,11 +103,16 @@ def ejecutar():
             # 1. R_shot_99: mediciones necesarias sobre el estado preparado
             r_shot_99, _ = calcular_tts99(p_opt, 1.0, confidence=CONFIDENCE)
 
-            # 2. P_batch: probabilidad de al menos un óptimo en el lote de S disparos
+            # 2. P_batch: probabilidad de al menos un óptimo inferida para el lote de S disparos
             pb_opt = prob_batch(p_opt, shots)
 
-            # 3. R_batch_99 y TTS_batch_99: repeticiones completas del procedimiento simulado
+            # 3. R_batch_99 y TTS_batch_99 condicionado a la distribución optimizada
             r_batch_99, tts_batch_99 = calcular_tts99(pb_opt, t_batch, confidence=CONFIDENCE)
+
+            if not math.isinf(r_shot_99):
+                todos_r_shot.append(r_shot_99)
+            if not math.isinf(tts_batch_99):
+                todos_tts_batch.append(tts_batch_99)
 
             str_r_shot = "inf" if math.isinf(r_shot_99) else str(r_shot_99)
             str_r_batch = "inf" if math.isinf(r_batch_99) else str(r_batch_99)
@@ -114,14 +125,21 @@ def ejecutar():
             )
             sys.stdout.flush()
 
+    min_r_shot = min(todos_r_shot) if todos_r_shot else 0
+    max_r_shot = max(todos_r_shot) if todos_r_shot else 0
+    min_tts_batch = min(todos_tts_batch) if todos_tts_batch else 0.0
+    max_tts_batch = max(todos_tts_batch) if todos_tts_batch else 0.0
+
     print("=" * 135)
     print("CONCLUSIÓN:")
     print(
-        "A diferencia del barrido anterior de 20 qubits (donde TTS99 resultó no estimable por ausencia\n"
-        "de muestras factibles observadas), el modelo compacto para k=2 alcanza estimaciones finitas de\n"
-        "tts_batch_99 en todas las configuraciones evaluadas (inferiores a 0.3 segundos en simulación clásica),\n"
-        "requiriendo r_shot_99 entre 3 y 13 disparos sobre el estado final preparado para garantizar el óptimo con 99% de confianza."
+        f"A diferencia del barrido anterior de 20 qubits (donde TTS99 resultó no estimable por ausencia\n"
+        f"de muestras factibles observadas), el modelo compacto para k=2 alcanza estimaciones finitas de\n"
+        f"TTS_batch_99 condicionado en todas las configuraciones evaluadas (entre {min_tts_batch:.4f} s y {max_tts_batch:.4f} s\n"
+        f"en simulación clásica), requiriendo r_shot_99 entre {min_r_shot} y {max_r_shot} disparos sobre el estado cuántico\n"
+        f"preparado para alcanzar una probabilidad acumulada de éxito de al menos el 99% bajo la probabilidad por disparo estimada."
     )
+
 
 
 

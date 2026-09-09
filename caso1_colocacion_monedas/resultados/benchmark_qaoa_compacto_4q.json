@@ -33,5 +33,12 @@
     "solucion_bits": [0, 1, 0, 1],
     "coste_pmedian": 2
   },
+  "barrido": {
+    "tts_batch_99_min_segundos": 0.0087,
+    "tts_batch_99_max_segundos": 0.2872,
+    "r_shot_99_min": 3,
+    "r_shot_99_max": 13
+  },
   "interpretacion": "Al formular el problema sobre n variables de decisión para k=2 precalculando C(j,l), la densidad factible asciende al 37.5%, permitiendo a QAOA muestrear soluciones factibles y óptimas con alta probabilidad y alcanzar tts_batch_99 finito en menos de 0.3 s."
 }
+

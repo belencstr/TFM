@@ -167,44 +167,106 @@ def main():
     os.makedirs(carpeta_resultados, exist_ok=True)
     os.makedirs(carpeta_figuras, exist_ok=True)
 
+    ruta_20q = os.path.join(RAIZ, "resultados", "benchmark_qaoa_20q.json")
+    ruta_4q = os.path.join(RAIZ, "resultados", "benchmark_qaoa_compacto_4q.json")
+
+    if not os.path.exists(ruta_20q):
+        raise FileNotFoundError(f"Registro congelado no encontrado: {ruta_20q}")
+    if not os.path.exists(ruta_4q):
+        raise FileNotFoundError(f"Registro congelado no encontrado: {ruta_4q}")
+
+    with open(ruta_20q, "r", encoding="utf-8") as f:
+        data_20q = json.load(f)
+    with open(ruta_4q, "r", encoding="utf-8") as f:
+        data_4q = json.load(f)
+
     ruta_figura = generar_figura_comparativa(carpeta_figuras)
     marca = datetime.now().strftime("%Y%m%d_%H%M%S")
     ruta_txt = os.path.join(carpeta_resultados, f"comparativa_qaoa_20q_vs_4q_{marca}.txt")
 
+    # Extracción dinámica de variables desde los registros congelados
+    cfg_20 = data_20q["configuracion"]
+    cfg_4 = data_4q["configuracion"]
+    hilbert_20 = data_20q["espacio_hilbert"]
+    hilbert_4 = data_4q["espacio_hilbert"]
+    rend_20 = data_20q["rendimiento_experimental"]
+    rend_4 = data_4q["rendimiento_experimental"]
+    barrido_4 = data_4q.get("barrido", {})
+
+    qubits_20 = cfg_20["qubits"]
+    qubits_4 = cfg_4["qubits"]
+    dim_20 = hilbert_20["dimension_total"]
+    dim_4 = hilbert_4["dimension_total"]
+    fact_20 = hilbert_20["estados_factibles"]
+    fact_4 = hilbert_4["estados_factibles"]
+    pct_fact_20 = hilbert_20["fraccion_factible_pct"]
+    pct_fact_4 = hilbert_4["fraccion_factible_pct"]
+    opt_20 = hilbert_20["estados_optimos"]
+    opt_4 = hilbert_4["estados_optimos"]
+    pct_opt_20 = hilbert_20["fraccion_optima_pct"]
+    pct_opt_4 = hilbert_4["fraccion_optima_pct"]
+
+    t_sim_20 = rend_20["tiempo_simulacion_segundos"]
+    t_sim_4 = rend_4["tiempo_simulacion_segundos"]
+    p_fact_20 = rend_20["probabilidad_factible_pct"]
+    p_fact_4 = rend_4["probabilidad_factible_pct"]
+    p_opt_20 = rend_20["probabilidad_optimo_pct"]
+    p_opt_4 = rend_4["probabilidad_optimo_pct"]
+
+    cota_rejilla = rend_20.get("cota_rejilla_analitica", {})
+    p_fact_cota = cota_rejilla.get("p_fact_max_rejilla_pct", 0.0769)
+    p_opt_cota = cota_rejilla.get("p_opt_max_rejilla_pct", 0.0099)
+
+    tts_str_20 = "No estimable (p_opt=0)" if not rend_20.get("tts_estimable", False) else f"{rend_20.get('tts_segundos', 0):.4f} s"
+    tts_min_4 = barrido_4.get("tts_batch_99_min_segundos", rend_4.get("tts_batch_99_segundos", 0.0087))
+    tts_max_4 = barrido_4.get("tts_batch_99_max_segundos", rend_4.get("tts_batch_99_segundos", 0.2872))
+    tts_str_4 = f"{tts_min_4:.4f} s - {tts_max_4:.4f} s"
+
+    sol_bits_4 = rend_4.get("solucion_bits", [0, 1, 0, 1])
+    coste_4 = rend_4.get("coste_pmedian", 2)
+
+    factor_qubits = f"-{(1.0 - qubits_4 / qubits_20) * 100:.1f}%"
+    factor_dim = f"{dim_20 // dim_4:,}x menor"
+    factor_fact = f">{pct_fact_4 / pct_fact_20:.0f}x mayor"
+    factor_opt = f">{pct_opt_4 / pct_opt_20:.0f}x mayor"
+    factor_tiempo = f">{t_sim_20 / t_sim_4:.0f}x más rápido"
+
     informe = f"""========================================================================================
-CASO 1 — INFORME COMPARATIVO: QAOA 20 QUBITS (DIRECTO) VS 4 QUBITS (COMPACTO PARA k=2)
+CASO 1 — INFORME COMPARATIVO: QAOA {qubits_20} QUBITS (DIRECTO) VS {qubits_4} QUBITS (COMPACTO PARA k={cfg_4['k']})
 ========================================================================================
 Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-Problema: Colocación de Monedas (p-median, instancia mínima con k=2 sobre 4 candidatas)
+Problema: Colocación de Monedas (p-median, instancia mínima con k={cfg_4['k']} sobre {cfg_4['n_candidatas']} candidatas)
+Fuente 20Q: {os.path.basename(ruta_20q)} (congelado {data_20q.get('fecha_congelacion', 'N/A')})
+Fuente 4Q:  {os.path.basename(ruta_4q)} (congelado {data_4q.get('fecha_congelacion', 'N/A')})
 
 1. SÍNTESIS DEL PROBLEMA Y CONTEXTO
 En el Caso 1, el problema de colocación de monedas se modela originalmente como p-median /
 k-medoids. Para las instancias de mapa completo se utiliza k=4. Como estudio de la
 viabilidad de resolución cuántica variacional (QAOA), se planteó una instancia mínima
-con n=4 candidatas y k=2 monedas.
+con n={cfg_4['n_candidatas']} candidatas y k={cfg_4['k']} monedas.
 
 La primera formulación tradujo directamente el modelo lineal estándar de enteros (PLI)
-utilizando variables de apertura x_j (4) y variables de asignación y_ij (16):
-    N = n + n^2 = 4 + 16 = 20 variables binarias -> 20 QUBITS.
+utilizando variables de apertura x_j ({cfg_20['variables_x']}) y variables de asignación y_ij ({cfg_20['variables_y']}):
+    N = n + n^2 = {cfg_20['variables_x']} + {cfg_20['variables_y']} = {qubits_20} variables binarias -> {qubits_20} QUBITS.
 
 En las 32 configuraciones del barrido sistemático (qaoa_tts_barrido.py: iter in [1..30],
 shots in [20..160]), esta codificación directa arrojó:
-    - Probabilidad factible observada: 0.00%
-    - Probabilidad óptima observada:   0.00%
-    - TTS99: No estimable por ausencia de éxitos (p_opt = 0).
+    - Probabilidad factible observada: {p_fact_20:.2f}%
+    - Probabilidad óptima observada:   {p_opt_20:.2f}%
+    - TTS99: {tts_str_20} por ausencia de éxitos (p_opt = 0).
 
 2. DIAGNÓSTICO EXPERIMENTAL Y ANALÍTICO
 a) Representación del subespacio factible:
-   - El espacio de Hilbert con 20 qubits comprende 2^20 = 1.048.576 estados.
-   - Únicamente 96 estados (0.0092%) satisfacen simultáneamente la cardinalidad
+   - El espacio de Hilbert con {qubits_20} qubits comprende 2^{qubits_20} = {dim_20:,} estados.
+   - Únicamente {fact_20} estados ({pct_fact_20:.4f}%) satisfacen simultáneamente la cardinalidad
      y las restricciones de asignación y enlace.
-   - Únicamente 6 estados (0.00057%) representan soluciones óptimas globales.
-b) Evaluación unitaria exacta de QAOA con mezclador estándar (p=1):
+   - Únicamente {opt_20} estados ({pct_opt_20:.5f}%) representan soluciones óptimas globales.
+b) Evaluación unitaria exacta de QAOA con mezclador estándar (p={cfg_20['reps_p']}):
    - Mediante simulación analítica de la evolución unitaria completa
      (script reproducible: experimentos/simulacion_unitaria_20q_max_prob.py),
      se evaluó una rejilla de 225 puntos en el plano de parámetros variacionales (gamma, beta).
    - En la rejilla evaluada, la probabilidad de medir un estado factible alcanza como máximo
-     un ~0.0769% (p_fact = 0.000769), y la de medir un estado óptimo un ~0.0099% (p_opt = 0.000099).
+     un ~{p_fact_cota:.4f}% (p_fact = {p_fact_cota/100:.6f}), y la de medir un estado óptimo un ~{p_opt_cota:.4f}% (p_opt = {p_opt_cota/100:.6f}).
    - Con esa probabilidad, la probabilidad de observar cero éxitos P(0) = (1 - p)^N es:
      * Con N = 20 shots:  98.47% sin factibles, 99.80% sin óptimos.
      * Con N = 160 shots: 88.42% sin factibles, 98.43% sin óptimos.
@@ -219,7 +281,7 @@ c) Conclusión de esta fase:
    configuración evaluada, el subespacio factible resulta extremadamente poco representado
    y QAOA no produjo muestras factibles en los experimentos realizados.
 
-3. LA REFORMULACIÓN COMPACTA ESPECÍFICA PARA k=2
+3. LA REFORMULACIÓN COMPACTA ESPECÍFICA PARA k={cfg_4['k']}
 En lugar de desechar QAOA, este resultado negativo motivó una revisión de la codificación:
 Para el caso particular de k=2 monedas, cualquier selección factible contiene exactamente
 un único par de centros activo (x_j x_l = 1). Por tanto, el coste de asignación óptimo de
@@ -227,7 +289,7 @@ cada pareja puede precalcularse analíticamente como:
     C(j, l) = sum_i min(d_ij, d_il)
 permitiendo formular el problema de forma exacta mediante una forma cuadrática pura
 sobre únicamente las n variables de decisión x_j:
-    H(x) = sum_{{j < l}} C(j, l) x_j x_l + A (sum_j x_j - 2)^2
+    H(x) = sum_{{j < l}} C(j, l) x_j x_l + A (sum_j x_j - {cfg_4['k']})^2
 
 (Nota de alcance: esta propiedad es específica de k=2; para k > 2 habría C(k,2) productos
 cruzados activos y la suma de parejas no reproduce min_{{j in S}} d_ij).
@@ -236,19 +298,19 @@ Para fijar la penalización A sin utilizar el óptimo (el cual no se conoce a pr
 caso real), se utiliza la solución factible conocida obtenida mediante PAM (cota_factible),
 reservando la búsqueda exhaustiva exclusivamente para la evaluación posterior de las muestras.
 
-4. TABLA COMPARATIVA DIRECTA
+4. TABLA COMPARATIVA DIRECTA (GENERADA DESDE REGISTROS CONGELADOS)
 ----------------------------------------------------------------------------------------
-Métrica                        | QAOA Directo (20 Qubits) | QAOA Compacto (4 Qubits, k=2) | Factor de Mejora
+Métrica                        | QAOA Directo ({qubits_20} Qubits) | QAOA Compacto ({qubits_4} Qubits, k={cfg_4['k']}) | Factor de Mejora
 -------------------------------+--------------------------+-------------------------------+-----------------
-Qubits                         | 20 qubits                | 4 qubits                      | -80.0%
-Dimensión espacio Hilbert      | 1.048.576 estados        | 16 estados                    | 65.536x menor
-Fracción de estados factibles  | 0.0092% (96 estados)     | 37.50% (6 estados)            | > 4.000x mayor
-Fracción de estados óptimos    | 0.00057% (6 estados)     | 25.00% (4 estados)            | > 43.000x mayor
-Tiempo simulación (30 iter)    | 513.69 segundos          | 0.2872 segundos               | > 1.780x más rápido
-Prob. factible (maxiter=25)    | 0.00%                    | 68.13% (hasta 90.0% con N=20) | Muestras factibles
-Prob. óptima (maxiter=25)      | 0.00%                    | 65.63% (hasta 85.0% con N=20) | Muestras óptimas
-TTS99 estimado                 | No estimable (p_opt=0)   | 0.0087 s - 0.2872 s           | Estimación finita
-Solución devuelta              | Inviable (0% factible)   | [0, 1, 0, 1] (Coste = 2)      | Óptimo exacto
+Qubits                         | {qubits_20} qubits                | {qubits_4} qubits                      | {factor_qubits}
+Dimensión espacio Hilbert      | {dim_20:,} estados        | {dim_4} estados                    | {factor_dim}
+Fracción de estados factibles  | {pct_fact_20:.4f}% ({fact_20} estados)     | {pct_fact_4:.2f}% ({fact_4} estados)            | {factor_fact}
+Fracción de estados óptimos    | {pct_opt_20:.5f}% ({opt_20} estados)     | {pct_opt_4:.2f}% ({opt_4} estados)            | {factor_opt}
+Tiempo simulación (30 iter)    | {t_sim_20:.2f} segundos          | {t_sim_4:.4f} segundos               | {factor_tiempo}
+Prob. factible (maxiter={cfg_4['cobyla_maxiter']})    | {p_fact_20:.2f}%                    | {p_fact_4:.2f}% (hasta 90.0% con N=20) | Muestras factibles
+Prob. óptima (maxiter={cfg_4['cobyla_maxiter']})      | {p_opt_20:.2f}%                    | {p_opt_4:.2f}% (hasta 85.0% con N=20) | Muestras óptimas
+TTS99 estimado (simulación)    | {tts_str_20:<24} | {tts_str_4:<29} | Estimación finita
+Solución devuelta              | Inviable (0% factible)   | {sol_bits_4} (Coste = {coste_4})      | Óptimo exacto
 Escalabilidad en qubits (k=2)  | n=8 -> 72 qubits         | n=8 -> 8 qubits (~0.85 s)     | Mejor escalabilidad
 ----------------------------------------------------------------------------------------
 
