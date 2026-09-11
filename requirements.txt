@@ -13,3 +13,5 @@ python-docx==1.2.0
 networkx==3.6.1
 pandas==3.0.5
 pillow==12.3.0
+ipykernel>=6.29.0
+ipython>=8.0.0

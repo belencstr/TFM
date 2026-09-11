@@ -7,11 +7,18 @@ es sustancialmente mayor.
 """
 
 import time
-from modelo.qubo_pmedian_compacto import (
-    comprobar_factibilidad_compacto,
-    coste_pmedian_compacto,
-    energia_qubo_compacto,
-)
+try:
+    from modelo.qubo_pmedian_compacto import (
+        comprobar_factibilidad_compacto,
+        coste_pmedian_compacto,
+        energia_qubo_compacto,
+    )
+except (ImportError, ModuleNotFoundError):
+    from caso1_colocacion_monedas.modelo.qubo_pmedian_compacto import (
+        comprobar_factibilidad_compacto,
+        coste_pmedian_compacto,
+        energia_qubo_compacto,
+    )
 
 
 def importar_qiskit():

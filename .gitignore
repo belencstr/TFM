@@ -1,19 +1,37 @@
+# Entorno virtual y dependencias locales
 venv/
+.venv/
+env/
+
+# Documentación de texto, memorias académicas y borradores (se resguardan en local)
 doc_tfm/
-# Caché de Python
+memorias_tfm/
+bibiografía/
+*.docx
+*.doc
+*.xlsx
+*.pptx
+*.zip
+
+# Archivos de bloqueo temporal de Microsoft Office
+~$*
+
+# Caché y artefactos de Python
 __pycache__/
 *.py[cod]
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
+.pytest_cache/
 
-# Backups y archivos temporales de Blender (se conservan los .blend principales)
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Directorios de scripts temporales / experimentación intermedia
+scratch/
+
+# Backups y archivos temporales de Blender (se conservan únicamente los .blend principales)
 *.blend1
 *.blend2
 *.blend@
-
-# Archivos de bloqueo temporal de Microsoft Office
-~$*.docx
-~$*.doc
-~$*.xlsx
-~$*.pptx
