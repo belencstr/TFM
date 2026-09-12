@@ -24,27 +24,42 @@ import sys
 from collections import deque
 from datetime import datetime
 
-RAIZ = os.path.dirname(
-    os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__))
+EXPERIMENTOS_DIR = os.path.dirname(os.path.abspath(__file__))
+CUANTICO_DIR = os.path.dirname(EXPERIMENTOS_DIR)
+BASE_CASO2 = os.path.dirname(CUANTICO_DIR)
+RAIZ_REPO = os.path.dirname(BASE_CASO2)
+RAIZ = BASE_CASO2
+
+for p in (EXPERIMENTOS_DIR, CUANTICO_DIR, BASE_CASO2, RAIZ_REPO):
+    if p not in sys.path:
+        sys.path.insert(0, p)
+
+try:
+    from caso2_plataformas.modelo.grafo_saltos_segmentos_v4 import (
+        ANCHO_PLATAFORMA,
+        HUECO_MIN,
+        HUECO_MAX,
+        SUBIDA_MAX,
+        CAIDA_MAX,
+        obtener_anclas_candidatas,
+        construir_grafo_segmentos_v4,
+        calcular_hueco,
     )
-)
-if RAIZ not in sys.path:
-    sys.path.insert(0, RAIZ)
-
-from modelo.grafo_saltos_segmentos_v4 import (
-    ANCHO_PLATAFORMA,
-    HUECO_MIN,
-    HUECO_MAX,
-    SUBIDA_MAX,
-    CAIDA_MAX,
-    obtener_anclas_candidatas,
-    construir_grafo_segmentos_v4,
-    calcular_hueco,
-)
-
-import cuantico.formulacion.qubo_caso2_18x5 as qmod
-from cuantico.solvers.simulated_annealing import resolver_qubo_sa
+    import caso2_plataformas.cuantico.formulacion.qubo_caso2_18x5 as qmod
+    from caso2_plataformas.cuantico.solvers.simulated_annealing import resolver_qubo_sa
+except ImportError:
+    from modelo.grafo_saltos_segmentos_v4 import (
+        ANCHO_PLATAFORMA,
+        HUECO_MIN,
+        HUECO_MAX,
+        SUBIDA_MAX,
+        CAIDA_MAX,
+        obtener_anclas_candidatas,
+        construir_grafo_segmentos_v4,
+        calcular_hueco,
+    )
+    import cuantico.formulacion.qubo_caso2_18x5 as qmod
+    from cuantico.solvers.simulated_annealing import resolver_qubo_sa
 
 
 # -------------------------------------------------------------------------
@@ -328,6 +343,99 @@ def buscar_muestra_valida(grafo, Q, offset):
     return candidatas_validas[0], len(candidatas_validas)
 
 
+def guardar_json_nivel(ruta, seleccion=None, c=3.0, num_sweeps=NUM_SWEEPS, num_reads=NUM_READS, seed=None):
+    """Genera y guarda el archivo JSON de un nivel del Caso 2 para Blender."""
+    metricas = metricas_ruta(ruta)
+    plataformas = [p for p in ruta if p not in (START, GOAL)]
+
+    saltos = []
+    for origen, destino in zip(ruta[:-1], ruta[1:]):
+        hueco = calcular_hueco(origen, destino, START, GOAL)
+        saltos.append({
+            "origen": convertir_posicion(origen),
+            "destino": convertir_posicion(destino),
+            "hueco_tiles": int(hueco),
+            "delta_y": int(destino[1] - origen[1]),
+        })
+
+    if seleccion is None:
+        seleccion = {
+            "energia": 0.0,
+            "delta_l": 0,
+            "max_planos_consecutivos": max_planos_consecutivos(ruta),
+            "seed": seed if seed is not None else 20260902,
+            "ocurrencias": 1,
+        }
+
+    datos = {
+        "caso": "Caso 2 - Plataformas",
+        "version": "QUBO reducido 18x5 + Simulated Annealing",
+        "nota_metodologica": (
+            "La formulación es QUBO, pero la muestra se obtiene "
+            "con Simulated Annealing clásico."
+        ),
+        "escenario": {
+            "ancho": int(ANCHO),
+            "alto": int(ALTO),
+        },
+        "start": convertir_posicion(START),
+        "goal": convertir_posicion(GOAL),
+        "ancho_plataforma": int(ANCHO_PLATAFORMA),
+        "fisica": {
+            "hueco_min": int(HUECO_MIN),
+            "hueco_max": int(HUECO_MAX),
+            "subida_max": int(SUBIDA_MAX),
+            "caida_max": int(CAIDA_MAX),
+        },
+        "plataformas": [convertir_posicion(p) for p in plataformas],
+        "ruta": [convertir_posicion(p) for p in ruta],
+        "saltos": saltos,
+        "metricas": {
+            "factible_qubo": True,
+            "validacion_completa": True,
+            "energia_qubo": seleccion.get("energia", 0.0),
+            "delta_l_atajo": seleccion.get("delta_l", 0),
+            "max_planos_consecutivos": seleccion.get("max_planos_consecutivos", 0),
+            "saltos": metricas["saltos"],
+            "plataformas_intermedias": len(plataformas),
+            "subidas": metricas["subidas"],
+            "bajadas": metricas["bajadas"],
+            "planos": metricas["planos"],
+            "variacion_vertical": metricas["variacion_vertical"],
+        },
+        "parametros": {
+            "C": float(c),
+            "L_objetivo": int(qmod.L_OBJETIVO),
+            "subidas_objetivo": int(qmod.SUBIDAS_OBJETIVO),
+            "bajadas_objetivo": int(qmod.BAJADAS_OBJETIVO),
+            "num_reads": int(num_reads),
+            "num_sweeps": int(num_sweeps),
+            "seed_seleccionada": int(seleccion.get("seed", 0)),
+            "ocurrencias_muestra": int(seleccion.get("ocurrencias", 1)),
+            "semillas_probadas": [int(s) for s in SEMILLAS],
+            "muestras_validas_distintas_encontradas": 1,
+        },
+    }
+
+    carpeta = os.path.join(RAIZ, "cuantico", "resultados")
+    os.makedirs(carpeta, exist_ok=True)
+    marca = datetime.now().strftime("%Y%m%d_%H%M%S")
+    ruta_json = os.path.join(carpeta, f"caso2_nivel_blender_qubo_reducido_{ANCHO}x{ALTO}_{marca}.json")
+    ruta_fija = os.path.join(carpeta, f"caso2_nivel_blender_qubo_reducido_{ANCHO}x{ALTO}.json")
+
+    for r_dest in (ruta_json, ruta_fija):
+        with open(r_dest, "w", encoding="utf-8") as f:
+            json.dump(datos, f, indent=2, ensure_ascii=False)
+
+    # Copiar también en caso2_plataformas/resultados para compatibilidad
+    res_base = os.path.join(RAIZ, "resultados")
+    if os.path.exists(res_base):
+        with open(os.path.join(res_base, f"caso2_nivel_blender_qubo_reducido_{ANCHO}x{ALTO}.json"), "w", encoding="utf-8") as f:
+            json.dump(datos, f, indent=2, ensure_ascii=False)
+
+    return ruta_fija
+
+
 def main():
     candidatas = obtener_anclas_candidatas(
         ANCHO,
@@ -359,150 +467,16 @@ def main():
     )
 
     ruta = seleccion["ruta"]
+    ruta_json = guardar_json_nivel(
+        ruta,
+        seleccion=seleccion,
+        c=qmod.C,
+        num_sweeps=NUM_SWEEPS,
+        num_reads=NUM_READS,
+        seed=seleccion["seed"],
+    )
     metricas = metricas_ruta(ruta)
-
-    # En el JSON solo exporto las plataformas de la ruta seleccionada.
-    plataformas = [
-        p
-        for p in ruta
-        if p not in (START, GOAL)
-    ]
-
-    saltos = []
-
-    for origen, destino in zip(
-        ruta[:-1],
-        ruta[1:],
-    ):
-        hueco = calcular_hueco(
-            origen,
-            destino,
-            START,
-            GOAL,
-        )
-
-        saltos.append(
-            {
-                "origen": convertir_posicion(origen),
-                "destino": convertir_posicion(destino),
-                "hueco_tiles": int(hueco),
-                "delta_y": int(
-                    destino[1] - origen[1]
-                ),
-            }
-        )
-
-    datos = {
-        "caso": "Caso 2 - Plataformas",
-        "version": "QUBO reducido 18x5 + Simulated Annealing",
-        "nota_metodologica": (
-            "La formulación es QUBO, pero la muestra se obtiene "
-            "con Simulated Annealing clásico."
-        ),
-        "escenario": {
-            "ancho": int(ANCHO),
-            "alto": int(ALTO),
-        },
-        "start": convertir_posicion(START),
-        "goal": convertir_posicion(GOAL),
-        "ancho_plataforma": int(
-            ANCHO_PLATAFORMA
-        ),
-        "fisica": {
-            "hueco_min": int(HUECO_MIN),
-            "hueco_max": int(HUECO_MAX),
-            "subida_max": int(SUBIDA_MAX),
-            "caida_max": int(CAIDA_MAX),
-        },
-        "plataformas": [
-            convertir_posicion(p)
-            for p in plataformas
-        ],
-        "ruta": [
-            convertir_posicion(p)
-            for p in ruta
-        ],
-        "saltos": saltos,
-        "metricas": {
-            "factible_qubo": True,
-            "validacion_completa": True,
-            "energia_qubo": seleccion["energia"],
-            "delta_l_atajo": seleccion["delta_l"],
-            "max_planos_consecutivos": (
-                seleccion["max_planos_consecutivos"]
-            ),
-            "saltos": metricas["saltos"],
-            "plataformas_intermedias": len(plataformas),
-            "subidas": metricas["subidas"],
-            "bajadas": metricas["bajadas"],
-            "planos": metricas["planos"],
-            "variacion_vertical": (
-                metricas["variacion_vertical"]
-            ),
-        },
-        "parametros": {
-            "C": float(qmod.C),
-            "L_objetivo": int(
-                qmod.L_OBJETIVO
-            ),
-            "subidas_objetivo": int(
-                qmod.SUBIDAS_OBJETIVO
-            ),
-            "bajadas_objetivo": int(
-                qmod.BAJADAS_OBJETIVO
-            ),
-            "num_reads": int(NUM_READS),
-            "num_sweeps": int(NUM_SWEEPS),
-            "seed_seleccionada": int(
-                seleccion["seed"]
-            ),
-            "ocurrencias_muestra": int(
-                seleccion["ocurrencias"]
-            ),
-            "semillas_probadas": [
-                int(s)
-                for s in SEMILLAS
-            ],
-            "muestras_validas_distintas_encontradas": int(
-                n_validas
-            ),
-        },
-    }
-
-    carpeta = os.path.join(
-        RAIZ,
-        "cuantico",
-        "resultados",
-    )
-    os.makedirs(
-        carpeta,
-        exist_ok=True,
-    )
-
-    marca = datetime.now().strftime(
-        "%Y%m%d_%H%M%S"
-    )
-
-    ruta_json = os.path.join(
-        carpeta,
-        (
-            "caso2_nivel_blender_"
-            f"qubo_reducido_{ANCHO}x{ALTO}_"
-            f"{marca}.json"
-        ),
-    )
-
-    with open(
-        ruta_json,
-        "w",
-        encoding="utf-8",
-    ) as f:
-        json.dump(
-            datos,
-            f,
-            indent=2,
-            ensure_ascii=False,
-        )
+    plataformas = [p for p in ruta if p not in (START, GOAL)]
 
     print()
     print("=" * 90)

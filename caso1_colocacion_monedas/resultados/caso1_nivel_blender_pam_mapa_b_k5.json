@@ -1,6 +1,6 @@
 {
   "caso": "Caso 1 - Colocación de Monedas",
-  "algoritmo": "Partitioning Around Medoids (PAM / k-medoids)",
+  "algoritmo": "Solución Interactiva (PAM)",
   "metodo": "pam",
   "mapa_id": "B",
   "mapa_nombre": "Mapa B (Obstáculos y Cobertura)",

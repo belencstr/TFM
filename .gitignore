@@ -35,3 +35,6 @@ scratch/
 *.blend1
 *.blend2
 *.blend@
+
+# Archivos JSON temporales de ejecuciones con timestamp
+*_2026*.json

@@ -65,7 +65,7 @@ def _metricas_seleccion(candidatas_sel, candidatas_todas, matriz):
     }
 
 
-def exportar_solucion_mapa(id_mapa="B", k=5, metodo="gonzalez", archivo_resultado=None):
+def exportar_solucion_mapa(id_mapa="B", k=5, metodo="gonzalez", archivo_resultado=None, candidatas_sel=None):
     """Exporta la solución de un mapa a formato JSON para visualización en Blender."""
     id_mapa_norm = id_mapa.upper()
     if id_mapa_norm not in MAPAS:
@@ -80,7 +80,21 @@ def exportar_solucion_mapa(id_mapa="B", k=5, metodo="gonzalez", archivo_resultad
     grafo = construir_grafo(mapa)
     matriz = construir_matriz_navegable(candidatas, grafo)
 
-    if metodo == "gonzalez":
+    if candidatas_sel is not None:
+        algoritmo_nombre = f"Solución Interactiva ({metodo.upper()})"
+        tag_metodo = metodo.lower()
+        k = len(candidatas_sel)
+        m_calc = _metricas_seleccion(candidatas_sel, candidatas, matriz)
+        metricas = {
+            "radio_cobertura": m_calc["radio_cobertura"],
+            "separacion_minima": m_calc["separacion_minima"],
+            "separacion_media": m_calc["separacion_media"],
+            "separacion_total": m_calc["separacion_total"],
+            "coste_pmedian": m_calc["coste_pmedian"],
+            "num_candidatas": len(candidatas),
+        }
+
+    elif metodo == "gonzalez":
         algoritmo_nombre = "Gonzalez Multi-start (k-center / Farthest-First Traversal)"
         tag_metodo = "gonzalez"
         sol_res = gonzalez_multiinicio(candidatas, matriz, k)
