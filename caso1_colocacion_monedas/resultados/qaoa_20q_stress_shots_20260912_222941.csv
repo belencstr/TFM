@@ -1,0 +1,11 @@
+modo,etiqueta,gamma,beta,shots,seed,tiempo_s,n_fact,n_opt,p_fact_emp_pct,p_opt_emp_pct,p_fact_exacta_pct,p_opt_exacta_pct,e_n_fact,e_n_opt,p0_fact_pct,p0_opt_pct,mejor_coste,r_99,tts_descripcion
+PARTE_A_PARAMETROS_FIJOS,max_fact_rejilla,1.086,0.919,2048,20260912,21.4012,2,0,0.097656,0.000000,0.076516,0.003657,1.5671,0.0749,20.8533,92.7844,4.0,N/A,TTS99 no estimable con la probabilidad empírica observada dentro del presupuesto experimental.
+PARTE_A_PARAMETROS_FIJOS,max_fact_rejilla,1.086,0.919,8192,20260912,20.7367,9,0,0.109863,0.000000,0.076516,0.003657,6.2682,0.2996,0.1891,74.1140,4.0,N/A,TTS99 no estimable con la probabilidad empírica observada dentro del presupuesto experimental.
+PARTE_A_PARAMETROS_FIJOS,max_fact_rejilla,1.086,0.919,16384,20260912,20.4268,21,2,0.128174,0.012207,0.076516,0.003657,12.5365,0.5991,0.0004,54.9288,2.0,37724,37724 shots
+PARTE_A_PARAMETROS_FIJOS,max_fact_rejilla,1.086,0.919,32768,20260912,18.9942,41,3,0.125122,0.009155,0.076516,0.003657,25.0729,1.1982,0.0000,30.1717,2.0,50299,50299 shots
+PARTE_A_PARAMETROS_FIJOS,max_fact_rejilla,1.086,0.919,65536,20260912,18.9741,61,4,0.093079,0.006104,0.076516,0.003657,50.1458,2.3965,0.0000,9.1033,2.0,75449,75449 shots
+PARTE_A_PARAMETROS_FIJOS,max_opt_rejilla,1.189,1.028,2048,20260912,19.9039,0,0,0.000000,0.000000,0.020268,0.010001,0.4151,0.2048,66.0248,81.4787,N/A,N/A,TTS99 no estimable con la probabilidad empírica observada dentro del presupuesto experimental.
+PARTE_A_PARAMETROS_FIJOS,max_opt_rejilla,1.189,1.028,8192,20260912,20.1030,0,0,0.000000,0.000000,0.020268,0.010001,1.6604,0.8193,19.0032,44.0734,N/A,N/A,TTS99 no estimable con la probabilidad empírica observada dentro del presupuesto experimental.
+PARTE_A_PARAMETROS_FIJOS,max_opt_rejilla,1.189,1.028,16384,20260912,19.5477,1,1,0.006104,0.006104,0.020268,0.010001,3.3208,1.6385,3.6112,19.4246,2.0,75449,75449 shots
+PARTE_A_PARAMETROS_FIJOS,max_opt_rejilla,1.189,1.028,32768,20260912,18.8839,1,1,0.003052,0.003052,0.020268,0.010001,6.6416,3.2771,0.1304,3.7732,2.0,150900,150900 shots
+PARTE_A_PARAMETROS_FIJOS,max_opt_rejilla,1.189,1.028,65536,20260912,18.9194,4,1,0.006104,0.001526,0.020268,0.010001,13.2831,6.5542,0.0002,0.1424,2.0,301803,301803 shots

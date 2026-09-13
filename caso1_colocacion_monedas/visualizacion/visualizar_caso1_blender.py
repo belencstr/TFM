@@ -316,6 +316,14 @@ def coord_a_blender(row, col, rows, cols, z=0.0):
     return Vector((x, y, z))
 
 
+ALTURA_MURO = 1.70           # Altura base de los muros de piedra (estilo diorama)
+BISEL_MURO = 0.10            # Bisel de los bloques
+
+MOSTRAR_HALOS_COBERTURA = True
+MOSTRAR_ANTORCHAS = True
+ACTIVAR_VISTA_MATERIAL = True
+
+
 # =============================================================================
 # MODELADO PROCEDURAL DEL DIORAMA
 # =============================================================================
@@ -359,9 +367,14 @@ def crear_losa_suelo(pos, col_entorno, mat_suelo):
     mover_a_coleccion(losa, col_entorno)
 
 
-def crear_bloque_muro(pos, col_entorno, mat_muro, es_borde=False):
+def crear_bloque_muro(pos, col_entorno, mat_muro, es_borde=False, es_frontal=False):
     ancho = TILE_SIZE - GAP_SUELO * 0.4
-    altura = ALTURA_MURO + (0.35 if es_borde else 0.0)
+    if es_frontal:
+        altura = 0.85  # Muro bajo frontal estilo diorama arquitectónico para no ocluir el suelo
+    elif es_borde:
+        altura = ALTURA_MURO + 0.25
+    else:
+        altura = ALTURA_MURO
 
     bpy.ops.mesh.primitive_cube_add(
         size=1.0,
@@ -572,20 +585,21 @@ def configurar_camara_e_iluminacion(rows, cols, col_raiz):
     rim_obj.rotation_euler = (math.radians(65.0), math.radians(0.0), math.radians(180.0))
     col_setup.objects.link(rim_obj)
 
-    # 2. Cámara Isométrica
+    # 2. Cámara Isométrica Cenital/Top-Down Elevada ("desde más arriba")
     max_dim = max(rows, cols)
-    dist = max_dim * TILE_SIZE * 1.55
+    dist = max_dim * TILE_SIZE * 1.60
 
     target = bpy.data.objects.new("Camara_Target", None)
-    target.location = (0.0, 0.0, 0.5)
+    target.location = (0.0, 0.0, 0.2)
     col_setup.objects.link(target)
 
     cam_data = bpy.data.cameras.new(name="Camara_Isometrica")
     cam_data.type = "PERSP"
-    cam_data.lens = 52.0
+    cam_data.lens = 55.0
 
     cam_obj = bpy.data.objects.new("Camara_Nivel", cam_data)
-    cam_obj.location = (dist * 0.70, -dist * 0.80, dist * 0.75)
+    # Ángulo cenital elevado (~65° sobre la horizontal) para ver el interior del nivel completo
+    cam_obj.location = (dist * 0.40, -dist * 0.55, dist * 1.50)
     col_setup.objects.link(cam_obj)
 
     track = cam_obj.constraints.new(type="TRACK_TO")
@@ -671,9 +685,10 @@ def construir_escena_caso1():
         c = cell["col"]
         pos = coord_a_blender(r, c, rows, cols)
         es_borde = (r == 0 or r == rows - 1 or c == 0 or c == cols - 1)
+        es_frontal = (r == rows - 1)
 
         if cell["is_wall"]:
-            crear_bloque_muro(pos, col_entorno, mats["muro"], es_borde=es_borde)
+            crear_bloque_muro(pos, col_entorno, mats["muro"], es_borde=es_borde, es_frontal=es_frontal)
 
             # Colocar algunas antorchas en muros interiores estratégicos
             if MOSTRAR_ANTORCHAS and not es_borde and antorchas_colocadas < 6:

@@ -70,3 +70,16 @@ Tras el estudio clásico de k-center y p-median, se dispone de la formulación c
    - `python experimentos/qaoa_compacto_tts_barrido.py`: Barrido sistemático de iteraciones COBYLA y disparos (*shots*) con cálculo de $TTS_{99}$.
    - `python experimentos/comparar_qaoa_20q_vs_4q.py`: Genera informe comparativo y gráfico en `figuras/comparativa_qaoa_20q_vs_4q.png`.
 
+## Visualización 3D (Blender) y Figuras Académicas
+
+El directorio `visualizacion/` contiene las herramientas para generar los dioramas 3D y las figuras de rigor científico para la memoria del TFM:
+
+1. **Renders 3D en Blender**:
+   - `blender -b -P visualizacion/visualizar_caso1_blender_quantico.py`: Renderiza el diorama del mapa cuántico mínimo con las monedas óptimas seleccionadas por QUBO/QAOA (`figuras/caso1_blender_qubo_render_mapa_min_k2.png`).
+   - `figuras/caso1_blender_render_mapa_a_k5.png`, `..._b_k5.png`, `..._c_k5.png`: Tríada completa de dioramas clásicos ($k=5$).
+
+2. **Figuras QUBO y QAOA**:
+   - `python visualizacion/generar_figuras_qubo.py`: Genera `qubo_matrices_comparativa_20q_vs_4q.png` (matrices $Q$ y grafo Ising) y `qubo_espectro_energias_y_factibilidad.png` (espectro de los 16 estados y dilución de Hilbert).
+   - `python visualizacion/generar_figuras_qaoa.py`: Genera `qaoa_paisaje_energia_y_optimizacion.png` (paisaje $\langle H_C \rangle$ y $P_{\text{opt}}$ con trayectoria COBYLA), `qaoa_distribucion_probabilidades_estados.png` (histograma cuántico), `qaoa_circuito_cuantico_4q.png` (circuito vectorial) y `qaoa_stress_test_shots_escalabilidad.png` (escalabilidad de disparos reales).
+   - `python visualizacion/generar_todas_figuras_cuanticas.py`: Orquestador reproducible unificado que genera y valida la colección completa en `figuras/`.
+
